@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Hermes Agent 评测报告 - 赛博朋克版</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 赛博朋克核心配色 */
+            --neon-cyan: #00f5ff;
+            --neon-blue: #0066ff;
+            --neon-purple: #ff00ff;
+            --neon-pink: #ff2a6d;
+            --neon-orange: #ff9d00;
+            --neon-yellow: #ffee00;
+            --neon-green: #00ff9f;
+            
+            /* 深色背景 */
+            --bg-dark: #0a0a0f;
+            --bg-darker: #050508;
+            --bg-card: #12121a;
+            --bg-card-hover: #1a1a25;
+            
+            /* 渐变 */
+            --gradient-cyan: linear-gradient(135deg, #00f5ff 0%, #0066ff 100%);
+            --gradient-purple: linear-gradient(135deg, #ff00ff 0%, #ff2a6d 100%);
+            --gradient-orange: linear-gradient(135deg, #ff9d00 0%, #ffee00 100%);
+            --gradient-bg: linear-gradient(180deg, #0a0a0f 0%, #12121a 50%, #0a0a0f 100%);
+            --gradient-grid: linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            background-image: var(--gradient-bg);
+            color: #e0e0e0;
+            line-height: 1.7;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 网格背景效果 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--gradient-grid);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        /* 扫描线效果 */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1) 0px,
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 像素化图标 */
+        .pixel-icon {
+            display: inline-block;
+            width: 48px;
+            height: 48px;
+            image-rendering: pixelated;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-card);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 0;
+            padding: 50px 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 0 20px rgba(0, 245, 255, 0.3),
+                inset 0 0 40px rgba(0, 245, 255, 0.1);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(0, 245, 255, 0.1) 50%,
+                transparent 70%
+            );
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient-cyan);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 3px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: var(--neon-purple);
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+            position: relative;
+            z-index: 1;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .header .meta {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .meta-item {
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid var(--neon-cyan);
+            padding: 8px 20px;
+            border-radius: 0;
+            font-size: 0.9rem;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        }
+
+        /* Section Styles */
+        .section {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            padding: 35px;
+            margin-bottom: 30px;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 15px var(--neon-cyan));
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-cyan);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+            letter-spacing: 2px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.05) 0%, rgba(0, 102, 255, 0.1) 100%);
+            border: 2px solid var(--neon-cyan);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.4);
+            border-color: var(--neon-blue);
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: var(--gradient-cyan);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+        }
+
+        .stat-label {
+            color: var(--neon-purple);
+            font-size: 1rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Feature Cards */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.05) 0%, rgba(255, 42, 109, 0.1) 100%);
+            border: 1px solid var(--neon-purple);
+            padding: 25px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-purple);
+            box-shadow: 0 0 10px var(--neon-purple);
+        }
+
+        .feature-card:hover {
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.1) 0%, rgba(255, 42, 109, 0.15) 100%);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+            transform: translateX(5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 15px var(--neon-purple));
+        }
+
+        .feature-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--neon-pink);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .feature-desc {
+            color: #a0a0a0;
+            font-size: 0.95rem;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 25px 0;
+            border: 1px solid rgba(0, 245, 255, 0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(10, 10, 15, 0.5);
+        }
+
+        th, td {
+            padding: 18px 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 245, 255, 0.1);
+        }
+
+        th {
+            background: linear-gradient(90deg, rgba(0, 245, 255, 0.2) 0%, rgba(0, 102, 255, 0.1) 100%);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--neon-cyan);
+        }
+
+        tr:hover {
+            background: rgba(0, 245, 255, 0.05);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 0;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+        }
+
+        .badge-production {
+            background: linear-gradient(135deg, rgba(0, 255, 159, 0.3) 0%, rgba(0, 255, 159, 0.5) 100%);
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+            box-shadow: 0 0 10px rgba(0, 255, 159, 0.3);
+        }
+
+        .badge-beta {
+            background: linear-gradient(135deg, rgba(255, 157, 0, 0.3) 0%, rgba(255, 238, 0, 0.5) 100%);
+            color: var(--neon-orange);
+            border: 1px solid var(--neon-orange);
+            box-shadow: 0 0 10px rgba(255, 157, 0, 0.3);
+        }
+
+        .badge-experimental {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.3) 0%, rgba(0, 245, 255, 0.5) 100%);
+            color: var(--neon-blue);
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 10px rgba(0, 102, 255, 0.3);
+        }
+
+        .badge-new {
+            background: var(--gradient-purple);
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+        }
+
+        /* Links */
+        .link-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.05) 0%, rgba(0, 102, 255, 0.1) 100%);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #e0e0e0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .link-card:hover::before {
+            left: 100%;
+        }
+
+        .link-card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.3);
+            transform: translateX(10px);
+        }
+
+        .link-icon {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-cyan);
+            border-radius: 0;
+            filter: drop-shadow(0 0 15px rgba(0, 245, 255, 0.5));
+            flex-shrink: 0;
+        }
+
+        .link-info {
+            flex: 1;
+        }
+
+        .link-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--neon-cyan);
+            letter-spacing: 1px;
+        }
+
+        .link-url {
+            color: var(--neon-purple);
+            font-size: 0.85rem;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: #050508;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-left: 4px solid var(--neon-cyan);
+            padding: 25px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 20px 0;
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.1);
+        }
+
+        .code-block code {
+            color: #00f5ff;
+        }
+
+        .code-comment {
+            color: #6a6a80;
+        }
+
+        .code-keyword {
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px rgba(255, 42, 109, 0.5);
+        }
+
+        .code-string {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px rgba(0, 255, 159, 0.5);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--neon-cyan) 0%, var(--neon-purple) 100%);
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -29px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 0;
+            background: var(--neon-cyan);
+            border: 3px solid var(--bg-card);
+            box-shadow: 0 0 15px var(--neon-cyan);
+            transform: rotate(45deg);
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-date {
+            color: var(--neon-orange);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .timeline-content {
+            color: #a0a0a0;
+        }
+
+        /* Alert Boxes */
+        .alert {
+            padding: 25px;
+            border-radius: 0;
+            margin: 25px 0;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            border: 2px solid;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alert::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: currentColor;
+            box-shadow: 0 0 20px currentColor;
+        }
+
+        .alert-info {
+            background: rgba(0, 245, 255, 0.1);
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+        }
+
+        .alert-success {
+            background: rgba(0, 255, 159, 0.1);
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        .alert-warning {
+            background: rgba(255, 157, 0, 0.1);
+            border-color: var(--neon-orange);
+            color: var(--neon-orange);
+        }
+
+        .alert-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 15px currentColor);
+        }
+
+        /* Learning Path */
+        .learning-path {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .path-card {
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.05) 0%, rgba(255, 0, 255, 0.05) 100%);
+            border: 2px solid rgba(0, 245, 255, 0.3);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .path-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        .path-card.level-2::before {
+            background: var(--gradient-orange);
+            box-shadow: 0 0 20px var(--neon-orange);
+        }
+
+        .path-card.level-3::before {
+            background: var(--gradient-purple);
+            box-shadow: 0 0 20px var(--neon-purple);
+        }
+
+        .path-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.3);
+        }
+
+        .path-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .path-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            background: var(--gradient-cyan);
+            filter: drop-shadow(0 0 15px rgba(0, 245, 255, 0.5));
+        }
+
+        .path-card.level-2 .path-icon {
+            background: var(--gradient-orange);
+            filter: drop-shadow(0 0 15px rgba(255, 157, 0, 0.5));
+        }
+
+        .path-card.level-3 .path-icon {
+            background: var(--gradient-purple);
+            filter: drop-shadow(0 0 15px rgba(255, 0, 255, 0.5));
+        }
+
+        .path-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            letter-spacing: 1px;
+        }
+
+        .path-card.level-2 .path-title {
+            color: var(--neon-orange);
+        }
+
+        .path-card.level-3 .path-title {
+            color: var(--neon-purple);
+        }
+
+        .path-time {
+            color: var(--neon-purple);
+            font-size: 0.9rem;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 15px;
+        }
+
+        .path-steps {
+            list-style: none;
+        }
+
+        .path-steps li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #a0a0a0;
+            border-bottom: 1px dashed rgba(0, 245, 255, 0.2);
+        }
+
+        .path-steps li::before {
+            content: '►';
+            position: absolute;
+            left: 0;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.08) 0%, rgba(255, 0, 255, 0.08) 100%);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 0;
+            padding: 30px;
+            margin: 25px 0;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.2);
+        }
+
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple), var(--neon-cyan));
+            z-index: -1;
+            opacity: 0.3;
+            animation: border-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes border-pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .highlight-box h4 {
+            color: var(--neon-cyan);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--neon-purple);
+            border-top: 2px solid rgba(255, 0, 255, 0.3);
+            margin-top: 40px;
+            background: linear-gradient(180deg, transparent 0%, rgba(255, 0, 255, 0.05) 100%);
+        }
+
+        .footer a {
+            color: var(--neon-cyan);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--neon-pink);
+            text-shadow: 0 0 20px var(--neon-pink);
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .meta-item {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+        }
+
+        /* Stars */
+        .stars {
+            color: var(--neon-yellow);
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(255, 238, 0, 0.5);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-darker);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-cyan);
+            border-radius: 0;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gradient-purple);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header glitch">
+            <h1>🤖 HERMES AGENT</h1>
+            <p class="subtitle">/// 评测与教程综合报告 ///</p>
+            <div class="meta">
+                <span class="meta-item">⚡ 2026.04.13</span>
+                <span class="meta-item">🔗 GitHub API + 官方文档</span>
+                <span class="meta-item">📡 50+ 数据源</span>
+            </div>
+        </header>
+
+        <!-- Executive Summary -->
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">📋</span>
+                <h2 class="section-title">执行摘要</h2>
+            </div>
+            
+            <div class="alert alert-info">
+                <span class="alert-icon">💡</span>
+                <div>
+                    <strong style="color: var(--neon-cyan);">Hermes Agent</strong> 是由 <a href="https://nousresearch.com" style="color: var(--neon-pink);">Nous Research</a> 开发的开源 AI Agent 框架，于 2025 年 7 月发布。它是<strong>首个内置自改进学习循环</strong>的 Agent 系统，能够从经验中创建技能、在使用中改进技能、搜索历史对话，并在多次会话中建立对用户的深度理解模型。
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">71,105+</div>
+                    <div class="stat-label">⚡ GITHUB STARS</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">9,473+</div>
+                    <div class="stat-label">🔀 FORKS</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">v0.8.0</div>
+                    <div class="stat-label">📦 VERSION</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">8+</div>
+                    <div class="stat-label">💬 PLATFORMS</div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>🎯 核心亮点</h4>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <div class="feature-title">自改进循环</div>
+                        <div class="feature-desc">内置学习循环，自动从经验中创建和优化技能</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📚</div>
+                        <div class="feature-title">三层记忆系统</div>
+                        <div class="feature-desc">短期/长期/程序性记忆，支持跨会话持久化</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛠️</div>
+                        <div class="feature-title">Skill 生态系统</div>
+                        <div class="feature-desc">自动创建、进化和分享技能</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <div class="feature-title">多平台网关</div>
+                        <div class="feature-desc">Telegram、Discord、Slack、WhatsApp、微信等</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <div class="feature-title">Cron 调度</div>
+                        <div class="feature-desc">支持定时任务和自动化工作流</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔌</div>
+                        <div class="feature-title">MCP 集成</div>
+                        <div class="feature-desc">Model Context Protocol 原生支持</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Stats -->
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">📊</span>
+                <h2 class="section-title">项目数据概览</h2>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>数值</th>
+                            <th>数据来源</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>⭐ Stars</td>
+                            <td><strong style="color: var(--neon-cyan);">71,105+</strong></td>
+                            <td><a href="https://github.com/NousResearch/hermes-agent" style="color: var(--neon-pink);">GitHub - NousResearch/hermes-agent</a></td>
+                        </tr>
+                        <tr>
+                            <td>🔀 Forks</td>
+                            <td><strong style="color: var(--neon-cyan);">9,473+</strong></td>
+                            <td><a href="https://github.com/NousResearch/hermes-agent" style="color: var(--neon-pink);">GitHub - NousResearch/hermes-agent</a></td>
+                        </tr>
+                        <tr>
+                            <td>📅 创建时间</td>
+                            <td>2025 年 7 月 22 日</td>
+                            <td>GitHub API</td>
+                        </tr>
+                        <tr>
+                            <td>🔄 最后更新</td>
+                            <td>2026 年 4 月 13 日</td>
+                            <td>GitHub API</td>
+                        </tr>
+                        <tr>
+                            <td>📝 描述</td>
+                            <td colspan="2">"The agent that grows with you"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="margin: 30px 0 20px; color: var(--neon-cyan); font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">📦 版本发布历史</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2026-04-08</div>
+                    <div class="timeline-content"><strong style="color: var(--neon-green);">v0.8.0 (v2026.4.8)</strong> - 最新版本</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2026-04-03</div>
+                    <div class="timeline-content"><strong style="color: var(--neon-green);">v0.7.0 (v2026.4.3)</strong> - 修复认证问题</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2026-03-30</div>
+                    <div class="timeline-content"><strong style="color: var(--neon-green);">v0.6.0 (v2026.3.30)</strong> - 多平台网关增强</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2026-03-28</div>
+                    <div class="timeline-content"><strong style="color: var(--neon-green);">v0.5.0 (v2026.3.28)</strong> - Skill 系统改进</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2026-03-24</div>
+                    <div class="timeline-content"><strong style="color: var(--neon-green);">v0.4.0 (v2026.3.23)</strong> - MCP 集成</div>
+                </div>
+            </div>
+            <p style="margin-top: 20px; color: var(--neon-purple); font-size: 0.9rem;">
+                数据来源：<a href="https://github.com/NousResearch/hermes-agent/releases" style="color: var(--neon-pink);">GitHub Releases</a>
+            </p>
+        </section>
+
+        <!-- Tutorials -->
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">📚</span>
+                <h2 class="section-title">核心教程资源</h2>
+            </div>
+
+            <a href="https://github.com/alchaincyf/hermes-agent-orange-book" class="link-card" style="border-left: 4px solid var(--neon-orange);">
+                <div class="link-icon">📘</div>
+                <div class="link-info">
+                    <div class="link-title">
+                        📘 橙皮书系列 - 《Hermes Agent 从入门到精通》
+                        <span class="badge badge-new">最权威中文教程</span>
+                    </div>
+                    <div class="link-url">GitHub: alchaincyf/hermes-agent-orange-book · ⭐ 2,175+</div>
+                </div>
+            </a>
+
+            <div class="table-container" style="margin-top: 15px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>信息项</th>
+                            <th>详情</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>📖 书名</td>
+                            <td>Hermes Agent 从入门到精通（橙皮书）</td>
+                        </tr>
+                        <tr>
+                            <td>✍️ 作者</td>
+                            <td>花叔 (@AlchainHust)</td>
+                        </tr>
+                        <tr>
+                            <td>⭐ GitHub Stars</td>
+                            <td><strong style="color: var(--neon-cyan);">2,175+</strong></td>
+                        </tr>
+                        <tr>
+                            <td>📅 最新版本</td>
+                            <td>v260407 (2026 年 4 月 7 日)</td>
+                        </tr>
+                        <tr>
+                            <td>📄 章节数</td>
+                            <td>17 章，分 5 个部分</td>
+                        </tr>
+                        <tr>
+                            <td>📥 下载</td>
+                            <td>
+                                <a href="https://github.com/alchaincyf/hermes-agent-orange-book/raw/main/Hermes-Agent-从入门到精通-v260407.pdf" style="color: var(--neon-pink);">中文版 PDF</a> | 
+                                <a href="https://github.com/alchaincyf/hermes-agent-orange-book/raw/main/Hermes-Agent-The-Complete-Guide-v260407.pdf" style="color: var(--neon-pink);">English PDF</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 20px;">
+                <span class="alert-icon">📖</span>
+                <div>
+                    <strong style="color: var(--neon-green);">内容结构：</strong>
+                    <ul style="margin-top: 10px; margin-left: 20px; color: #a0a0a0;">
+                        <li><strong>Part 1:</strong> 概念 (§01-02) - 从 Harness 到 Hermes，消除焦虑</li>
+                        <li><strong>Part 2:</strong> 核心机制 (§03-06) - 学习循环、记忆、Skill、工具生态</li>
+                        <li><strong>Part 3:</strong> 动手搭建 (§07-11) - 安装、首次对话、多平台、自定义</li>
+                        <li><strong>Part 4:</strong> 实战场景 (§12-15) - 知识助手、开发、创作、多 Agent</li>
+                        <li><strong>Part 5:</strong> 深度思考 (§16-17) - 三者对比、自改进边界</li>
+                    </ul>
+                </div>
+            </div>
+
+            <a href="https://github.com/0xNyk/awesome-hermes-agent" class="link-card" style="margin-top: 25px;">
+                <div class="link-icon">📖</div>
+                <div class="link-info">
+                    <div class="link-title">
+                        📖 Awesome Hermes Agent - 资源大全
+                        <span class="badge badge-beta">社区维护</span>
+                    </div>
+                    <div class="link-url">GitHub: 0xNyk/awesome-hermes-agent · ⭐ 1,184+</div>
+                </div>
+            </a>
+
+            <a href="https://hermes-agent.nousresearch.com/docs/" class="link-card" style="margin-top: 15px;">
+                <div class="link-icon">🌐</div>
+                <div class="link-info">
+                    <div class="link-title">🌐 官方文档</div>
+                    <div class="link-url">hermes-agent.nousresearch.com/docs</div>
+                </div>
+            </a>
+        </section>
+
+        <!-- Ecosystem Tools -->
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">🛠️</span>
+                <h2 class="section-title">生态系统工具</h2>
+            </div>
+
+            <h3 style="margin: 25px 0 20px; color: var(--neon-cyan); font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">🔥 热门社区项目</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>项目名称</th>
+                            <th>Stars</th>
+                            <th>描述</th>
+                            <th>链接</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>hermes-agent-orange-book</td>
+                            <td><span class="stars">⭐⭐⭐</span> 2,175</td>
+                            <td>橙皮书教程系列</td>
+                            <td><a href="https://github.com/alchaincyf/hermes-agent-orange-book" style="color: var(--neon-pink);">GitHub →</a></td>
+                        </tr>
+                        <tr>
+                            <td>awesome-hermes-agent</td>
+                            <td><span class="stars">⭐⭐⭐</span> 1,184</td>
+                            <td>资源大全</td>
+                            <td><a href="https://github.com/0xNyk/awesome-hermes-agent" style="color: var(--neon-pink);">GitHub →</a></td>
+                        </tr>
+                        <tr>
+                            <td>hermes-ecosystem</td>
+                            <td><span class="stars">⭐⭐</span> 189</td>
+                            <td>Hermes 生态系统地图</td>
+                            <td><a href="https://github.com/ksimback/hermes-ecosystem" style="color: var(--neon-pink);">GitHub →</a></td>
+                        </tr>
+                        <tr>
+                            <td>hermes-skill-factory</td>
+                            <td><span class="stars">⭐</span> 39</td>
+                            <td>技能自动生成</td>
+                            <td><a href="https://github.com/Romanescu11/hermes-skill-factory" style="color: var(--neon-pink);">GitHub →</a></td>
+                        </tr>
+                        <tr>
+                            <td>reina</td>
+                            <td><span class="stars">⭐</span> 35</td>
+                            <td>自主 AI Agent</td>
+                            <td><a href="https://github.com/Crustocean/reina" style="color: var(--neon-pink);">GitHub →</a></td>
+                        </tr>
+                        <tr>
+                            <td>gladiator</td>
+                            <td><span class="stars">⭐</span> 32</td>
+                            <td>AI 公司对战框架</td>
+                            <td><a href="https://github.com/runtimenoteslabs/gladiator" style="color: var(--neon-pink);">GitHub →</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="margin: 30px 0 20px; color: var(--neon-cyan); font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">🖥️ GUI 与工作区工具</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎛️</div>
+                    <div class="feature-title">mission-control</div>
+                    <div class="feature-desc">
+                        <span class="badge badge-production">Production</span>
+                        <p style="margin-top: 10px;">多 Agent 编排仪表板 · ⭐ 3,700+</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💼</div>
+                    <div class="feature-title">hermes-workspace</div>
+                    <div class="feature-desc">
+                        <span class="badge badge-production">Production</span>
+                        <p style="margin-top: 10px;">Hermes 原生工作区 · ⭐ 500+</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">portable-hermes-agent</div>
+                    <div class="feature-desc">
+                        <span class="badge badge-beta">Beta</span>
+                        <p style="margin-top: 10px;">Windows 桌面应用</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin: 30px 0 20px; color: var(--neon-cyan); font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">🔌 核心插件</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>插件</th>
+                            <th>成熟度</th>
+                            <th>功能</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>hermes-plugins</td>
+                            <td><span class="badge badge-beta">Beta</span></td>
+                            <td>目标管理、跨 Agent 桥接、成本控制</td>
+                        </tr>
+                        <tr>
+                            <td>hermes-web-search-plus</td>
+                            <td><span class="badge badge-beta">Beta</span></td>
+                            <td>多提供商智能搜索路由</td>
+                        </tr>
+                        <tr>
+                            <td>evey-bridge-plugin</td>
+                            <td><span class="badge badge-beta">Beta</span></td>
+                            <td>Claude Code ↔ Hermes 桥接</td>
+                        </tr>
+                        <tr>
+                            <td>hermes-payguard</td>
+                            <td><span class="badge badge-experimental">Experimental</span></td>
+                            <td>USDC 支付插件</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Community Feedback -->
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">🔍</span>
+                <h2 class="section-title">社区讨论与评测</h2>
+            </div>
+
+            <h3 style="margin: 25px 0 20px; color: var(--neon-cyan); font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">GitHub Issues 热门话题</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>议题</th>
+                            <th>反应数</th>
+                            <th>类型</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Authentication failures</td>
+                            <td>👍 71</td>
+                            <td><span class="badge badge-experimental">Bug</span></td>
+                        </tr>
+                        <tr>
+                            <td>Make adding other OpenAI-Compatible providers possible</td>
+                            <td>👍 53</td>
+                            <td><span class="badge badge-beta">功能请求</span></td>
+                        </tr>
+                        <tr>
+                            <td>Feature Request: Qwen3-Coder Tool Call Parser</td>
+                            <td>👍 31</td>
+                            <td><span class="badge badge-beta">功能请求</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 20px;">
+                <span class="alert-icon">⚠️</span>
+                <div>
+                    <strong style="color: var(--neon-orange);">社区反馈亮点：</strong>
+                    <ul style="margin-top: 10px; margin-left: 20px; color: #a0a0a0;">
+                        <li><strong>认证问题</strong> - 用户报告最多的问题是认证失败，官方在 v0.7.0+ 已修复</li>
+                        <li><strong>提供商扩展</strong> - 社区强烈希望支持更多 OpenAI 兼容提供商</li>
+                        <li><strong>工具调用支持</strong> - 对 Qwen 等模型的工具调用解析器需求较高</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Path -->
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">🎯</span>
+                <h2 class="section-title">推荐学习路径</h2>
+            </div>
+
+            <div class="learning-path">
+                <div class="path-card level-1">
+                    <div class="path-header">
+                        <div class="path-icon">🌱</div>
+                        <div>
+                            <div class="path-title">新手入门</div>
+                            <div class="path-time">⏱️ 1-2 周</div>
+                        </div>
+                    </div>
+                    <ul class="path-steps">
+                        <li>阅读官方文档 Quickstart</li>
+                        <li>下载橙皮书 PDF 教程</li>
+                        <li>完成第一个对话和 Skill 安装</li>
+                    </ul>
+                </div>
+
+                <div class="path-card level-2">
+                    <div class="path-header">
+                        <div class="path-icon">🚀</div>
+                        <div>
+                            <div class="path-title">进阶使用</div>
+                            <div class="path-time">⏱️ 2-4 周</div>
+                        </div>
+                    </div>
+                    <ul class="path-steps">
+                        <li>浏览 Awesome Hermes 资源列表</li>
+                        <li>安装 hermes-workspace GUI</li>
+                        <li>尝试 Cron 调度和多平台部署</li>
+                    </ul>
+                </div>
+
+                <div class="path-card level-3">
+                    <div class="path-header">
+                        <div class="path-icon">🏆</div>
+                        <div>
+                            <div class="path-title">深度定制</div>
+                            <div class="path-time">⏱️ 1-2 月</div>
+                        </div>
+                    </div>
+                    <ul class="path-steps">
+                        <li>学习 Skill 创建和发布</li>
+                        <li>探索 MCP 集成</li>
+                        <li>参与 Discord 社区讨论</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Start -->
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">⚡</span>
+                <h2 class="section-title">快速入门指南</h2>
+            </div>
+
+            <div class="code-block">
+                <code>
+<span class="code-comment"># 1. 克隆官方仓库</span>
+git clone https://github.com/NousResearch/hermes-agent.git
+cd hermes-agent
+
+<span class="code-comment"># 2. 安装依赖 (需要 uv)</span>
+uv sync
+
+<span class="code-comment"># 3. 设置 API 密钥</span>
+<span class="code-keyword">export</span> <span class="code-string">ANTHROPIC_API_KEY</span>=<span class="code-string">"your-key-here"</span>
+
+<span class="code-comment"># 4. 开始对话</span>
+hermes chat
+                </code>
+            </div>
+        </section>
+
+        <!-- Resource Links -->
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">🔗</span>
+                <h2 class="section-title">完整资源链接</h2>
+            </div>
+
+            <h3 style="margin: 25px 0 20px; color: var(--neon-cyan); font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">📌 官方资源</h3>
+            <a href="https://github.com/NousResearch/hermes-agent" class="link-card">
+                <div class="link-icon">🏠</div>
+                <div class="link-info">
+                    <div class="link-title">GitHub 主仓库</div>
+                    <div class="link-url">https://github.com/NousResearch/hermes-agent</div>
+                </div>
+            </a>
+            <a href="https://hermes-agent.nousresearch.com/docs/" class="link-card">
+                <div class="link-icon">📚</div>
+                <div class="link-info">
+                    <div class="link-title">官方文档</div>
+                    <div class="link-url">https://hermes-agent.nousresearch.com/docs/</div>
+                </div>
+            </a>
+            <a href="https://discord.gg/NousResearch" class="link-card">
+                <div class="link-icon">💬</div>
+                <div class="link-info">
+                    <div class="link-title">Discord 社区</div>
+                    <div class="link-url">https://discord.gg/NousResearch</div>
+                </div>
+            </a>
+
+            <h3 style="margin: 25px 0 20px; color: var(--neon-cyan); font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">📖 教程资源</h3>
+            <a href="https://github.com/alchaincyf/hermes-agent-orange-book" class="link-card">
+                <div class="link-icon">📘</div>
+                <div class="link-info">
+                    <div class="link-title">橙皮书教程 (中文)</div>
+                    <div class="link-url">https://github.com/alchaincyf/hermes-agent-orange-book</div>
+                </div>
+            </a>
+            <a href="https://github.com/0xNyk/awesome-hermes-agent" class="link-card">
+                <div class="link-icon">📋</div>
+                <div class="link-info">
+                    <div class="link-title">Awesome Hermes</div>
+                    <div class="link-url">https://github.com/0xNyk/awesome-hermes-agent</div>
+                </div>
+            </a>
+        </section>
+
+        <!-- Summary -->
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">📝</span>
+                <h2 class="section-title">报告总结</h2>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
+                <div class="highlight-box" style="border-color: var(--neon-green); background: linear-gradient(135deg, rgba(0, 255, 159, 0.08) 0%, rgba(0, 255, 159, 0.12) 100%);">
+                    <h4 style="color: var(--neon-green);">✅ Hermes Agent 的优势</h4>
+                    <ul style="margin-left: 20px; color: #a0a0a0; margin-top: 15px;">
+                        <li>自改进能力 - 业界首个内置学习循环的 Agent</li>
+                        <li>成熟生态 - 71k+ stars，活跃的社区贡献</li>
+                        <li>完善文档 - 官方文档 + 橙皮书双教程</li>
+                        <li>多平台支持 - 8+ 消息平台，6+ 终端后端</li>
+                        <li>Skill 系统 - 可编程、可分享的技能生态</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box" style="border-color: var(--neon-orange); background: linear-gradient(135deg, rgba(255, 157, 0, 0.08) 0%, rgba(255, 157, 0, 0.12) 100%);">
+                    <h4 style="color: var(--neon-orange);">⚠️ 当前局限</h4>
+                    <ul style="margin-left: 20px; color: #a0a0a0; margin-top: 15px;">
+                        <li>认证问题 - 部分用户报告认证失败（v0.7.0+ 已修复）</li>
+                        <li>提供商支持 - 需要更多 OpenAI 兼容提供商支持</li>
+                        <li>学习曲线 - 新手需要 1-2 周熟悉核心概念</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 25px;">
+                <span class="alert-icon">🎯</span>
+                <div>
+                    <strong style="color: var(--neon-green);">推荐人群：</strong>
+                    <ul style="margin-top: 10px; margin-left: 20px; color: #a0a0a0;">
+                        <li>已有 Claude Code/OpenClaw 使用经验的开发者</li>
+                        <li>想搭建个人 AI Agent 的 AI 爱好者</li>
+                        <li>对 Harness Engineering 感兴趣的技术人员</li>
+                        <li>需要自动化工作流的团队</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>📊 <strong>报告生成工具：</strong> Hermes Agent</p>
+            <p>📅 <strong>数据收集时间：</strong> 2026 年 4 月 13 日</p>
+            <p>🔗 <strong>数据来源：</strong> GitHub API、官方文档、社区资源</p>
+            <p style="margin-top: 15px; font-size: 0.85rem; color: var(--neon-purple);">
+                ⚠️ AI 工具迭代迅速，部分数据可能随版本更新而变化，请以官方最新信息为准。
+            </p>
+            <p style="margin-top: 20px; font-family: 'Orbitron', sans-serif; letter-spacing: 3px; font-size: 0.9rem;">
+                /// POWERED BY HERMES AGENT ///
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
