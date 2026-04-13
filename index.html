@@ -85,6 +85,27 @@
         .btn-pdf:hover {
             background: #e0e0e8;
         }
+        .btn-cyber {
+            background: linear-gradient(135deg, #00f5ff 0%, #ff00ff 100%);
+            color: white;
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.4);
+        }
+        .btn-cyber:hover {
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.6);
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-new {
+            background: linear-gradient(135deg, #00f5ff 0%, #ff00ff 100%);
+            color: white;
+            box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+        }
         .footer {
             text-align: center;
             color: white;
@@ -100,6 +121,23 @@
             <p>何墨思 AI Agent 生成的所有文档和报告</p>
         </div>
 
+        <div class="report-card" style="border: 3px solid #00f5ff; box-shadow: 0 0 40px rgba(0, 245, 255, 0.3);">
+            <h2 class="report-title">
+                🌃 Hermes Agent 评测报告 - 赛博朋克版
+                <span class="badge badge-new">NEW</span>
+            </h2>
+            <div class="report-meta">
+                <span class="meta-item">📅 2026 年 4 月 13 日</span>
+                <span class="meta-item">🎨 赛博朋克风格</span>
+                <span class="meta-item">⚡ 霓虹撞色</span>
+                <span class="meta-item">📊 71,105+ Stars 分析</span>
+            </div>
+            <div class="report-links">
+                <a href="hermes-agent-report-cyberpunk.html" class="btn btn-cyber">🌃 查看赛博朋克版（推荐）</a>
+                <a href="hermes-agent-report.html" class="btn btn-html">🌐 经典深色版</a>
+            </div>
+        </div>
+
         <div class="report-card">
             <h2 class="report-title">🤖 Hermes Agent 评测与教程综合报告</h2>
             <div class="report-meta">
@@ -108,7 +146,7 @@
                 <span class="meta-item">📝 完整教程资源</span>
             </div>
             <div class="report-links">
-                <a href="hermes-agent-report.html" class="btn btn-html">🌐 查看 HTML 版（推荐）</a>
+                <a href="hermes-agent-report.html" class="btn btn-html">🌐 查看 HTML 版</a>
                 <a href="hermes-agent-report.pdf" class="btn btn-pdf">📄 下载 PDF 版</a>
             </div>
         </div>
