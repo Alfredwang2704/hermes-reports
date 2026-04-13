@@ -12,23 +12,14 @@
             min-height: 100vh;
             padding: 40px 20px;
         }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+        .container { max-width: 900px; margin: 0 auto; }
         .header {
             text-align: center;
             color: white;
             margin-bottom: 40px;
         }
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .header p { font-size: 1.1rem; opacity: 0.9; }
         .report-card {
             background: white;
             border-radius: 16px;
@@ -37,14 +28,8 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             transition: transform 0.3s ease;
         }
-        .report-card:hover {
-            transform: translateY(-5px);
-        }
-        .report-title {
-            font-size: 1.5rem;
-            color: #1a1a2e;
-            margin-bottom: 15px;
-        }
+        .report-card:hover { transform: translateY(-5px); }
+        .report-title { font-size: 1.5rem; color: #1a1a2e; margin-bottom: 15px; }
         .report-meta {
             display: flex;
             gap: 20px;
@@ -75,23 +60,24 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
-        .btn-html:hover {
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-        }
-        .btn-pdf {
-            background: #f0f0f5;
-            color: #1a1a2e;
-        }
-        .btn-pdf:hover {
-            background: #e0e0e8;
-        }
+        .btn-html:hover { box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4); }
+        .btn-pdf { background: #f0f0f5; color: #1a1a2e; }
+        .btn-pdf:hover { background: #e0e0e8; }
         .btn-cyber {
             background: linear-gradient(135deg, #00f5ff 0%, #ff00ff 100%);
             color: white;
             box-shadow: 0 0 20px rgba(0, 245, 255, 0.4);
         }
-        .btn-cyber:hover {
-            box-shadow: 0 0 30px rgba(0, 245, 255, 0.6);
+        .btn-cyber:hover { box-shadow: 0 0 30px rgba(0, 245, 255, 0.6); }
+        .btn-hardcore {
+            background: linear-gradient(135deg, #1a1a25 0%, #2a2a35 100%);
+            color: #00f5ff;
+            border: 2px solid #00f5ff;
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.4);
+        }
+        .btn-hardcore:hover {
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.6);
+            transform: scale(1.05);
         }
         .badge {
             display: inline-block;
@@ -105,6 +91,11 @@
             background: linear-gradient(135deg, #00f5ff 0%, #ff00ff 100%);
             color: white;
             box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+        }
+        .badge-hot {
+            background: linear-gradient(135deg, #ff9d00 0%, #ff2a6d 100%);
+            color: white;
+            box-shadow: 0 0 10px rgba(255, 157, 0, 0.5);
         }
         .footer {
             text-align: center;
@@ -121,20 +112,34 @@
             <p>何墨思 AI Agent 生成的所有文档和报告</p>
         </div>
 
-        <div class="report-card" style="border: 3px solid #00f5ff; box-shadow: 0 0 40px rgba(0, 245, 255, 0.3);">
+        <div class="report-card" style="border: 3px solid #00f5ff; box-shadow: 0 0 50px rgba(0, 245, 255, 0.4);">
             <h2 class="report-title">
-                🌃 Hermes Agent 评测报告 - 赛博朋克版
-                <span class="badge badge-new">NEW</span>
+                ⚙️ HERMES AGENT - 硬核机械版
+                <span class="badge badge-hot">HOT</span>
             </h2>
             <div class="report-meta">
                 <span class="meta-item">📅 2026 年 4 月 13 日</span>
-                <span class="meta-item">🎨 赛博朋克风格</span>
-                <span class="meta-item">⚡ 霓虹撞色</span>
-                <span class="meta-item">📊 71,105+ Stars 分析</span>
+                <span class="meta-item">⚙️ 机械齿轮</span>
+                <span class="meta-item">🔌 芯片处理器</span>
+                <span class="meta-item">🔩 螺丝装饰</span>
+                <span class="meta-item">📊 电路板背景</span>
             </div>
             <div class="report-links">
-                <a href="hermes-agent-report-cyberpunk.html" class="btn btn-cyber">🌃 查看赛博朋克版（推荐）</a>
+                <a href="hermes-agent-report-hardcore.html" class="btn btn-hardcore">⚙️ 硬核机械版（推荐）</a>
+                <a href="hermes-agent-report-cyberpunk.html" class="btn btn-cyber">🌃 赛博朋克版</a>
                 <a href="hermes-agent-report.html" class="btn btn-html">🌐 经典深色版</a>
+            </div>
+        </div>
+
+        <div class="report-card">
+            <h2 class="report-title">🌃 Hermes Agent 评测报告 - 赛博朋克版</h2>
+            <div class="report-meta">
+                <span class="meta-item">📅 2026 年 4 月 13 日</span>
+                <span class="meta-item">🎨 霓虹撞色</span>
+                <span class="meta-item">⚡ 发光效果</span>
+            </div>
+            <div class="report-links">
+                <a href="hermes-agent-report-cyberpunk.html" class="btn btn-cyber">🌃 查看赛博朋克版</a>
             </div>
         </div>
 
@@ -142,8 +147,7 @@
             <h2 class="report-title">🤖 Hermes Agent 评测与教程综合报告</h2>
             <div class="report-meta">
                 <span class="meta-item">📅 2026 年 4 月 13 日</span>
-                <span class="meta-item">📊 71,105+ Stars 分析</span>
-                <span class="meta-item">📝 完整教程资源</span>
+                <span class="meta-item">📊 71,105+ Stars</span>
             </div>
             <div class="report-links">
                 <a href="hermes-agent-report.html" class="btn btn-html">🌐 查看 HTML 版</a>
