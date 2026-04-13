@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 HERMES AGENT - 赛博朋克硬核版</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-cyan: #00f5ff;
+            --neon-blue: #0066ff;
+            --neon-purple: #ff00ff;
+            --neon-pink: #ff2a6d;
+            --neon-orange: #ff9d00;
+            --neon-yellow: #ffee00;
+            --neon-green: #00ff9f;
+            --bg-dark: #0a0a0f;
+            --bg-darker: #050508;
+            --bg-card: #12121a;
+            --metal-dark: #1a1a25;
+            --metal-light: #2a2a35;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-dark);
+            color: #e0e0e0;
+            line-height: 1.7;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* === 电路板背景 === */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: 
+                linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+                repeating-linear-gradient(45deg, 
+                    rgba(0, 102, 255, 0.02) 0px,
+                    rgba(0, 102, 255, 0.02) 2px,
+                    transparent 2px,
+                    transparent 20px
+                );
+            background-size: 50px 50px, 50px 50px, 100px 100px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 扫描线 */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15) 0px,
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* === 机械齿轮装饰 === */
+        .gear {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 3px dashed var(--neon-cyan);
+            border-radius: 50%;
+            animation: gear-spin 20s linear infinite;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .gear::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px; height: 30px;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 50%;
+        }
+
+        .gear::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px; height: 10px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        .gear-small {
+            width: 30px; height: 30px;
+            border-width: 2px;
+            animation-duration: 15s;
+            opacity: 0.3;
+        }
+
+        .gear-small::before {
+            width: 15px; height: 15px;
+            border-width: 1px;
+        }
+
+        .gear-small::after {
+            width: 5px; height: 5px;
+        }
+
+        @keyframes gear-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* === 螺丝钉装饰 === */
+        .screw {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, var(--metal-light) 0%, var(--metal-dark) 100%);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(0, 245, 255, 0.3);
+        }
+
+        .screw::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            width: 8px; height: 2px;
+            background: var(--neon-cyan);
+        }
+
+        .screw::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            width: 8px; height: 2px;
+            background: var(--neon-cyan);
+        }
+
+        /* === 芯片/处理器装饰 === */
+        .chip {
+            position: relative;
+            background: linear-gradient(135deg, var(--metal-dark) 0%, var(--metal-light) 100%);
+            border: 2px solid var(--neon-cyan);
+            padding: 20px;
+            box-shadow: 
+                0 0 20px rgba(0, 245, 255, 0.2),
+                inset 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .chip::before {
+            content: '';
+            position: absolute;
+            top: -10px; left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 10px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--neon-cyan) 0px,
+                var(--neon-cyan) 3px,
+                transparent 3px,
+                transparent 8px
+            );
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .chip::after {
+            content: '';
+            position: absolute;
+            bottom: -10px; left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 10px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--neon-cyan) 0px,
+                var(--neon-cyan) 3px,
+                transparent 3px,
+                transparent 8px
+            );
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .chip-pin {
+            position: absolute;
+            width: 4px;
+            height: 15px;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 8px var(--neon-cyan);
+        }
+
+        /* === 六边形网格 === */
+        .hex-grid {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-image: 
+                linear-gradient(30deg, rgba(0, 245, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(150deg, rgba(0, 245, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px, 50px 50px, 50px 50px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* === 数据流线条 === */
+        .data-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%,
+                var(--neon-cyan) 20%,
+                var(--neon-blue) 50%,
+                var(--neon-cyan) 80%,
+                transparent 100%
+            );
+            box-shadow: 0 0 10px var(--neon-cyan);
+            animation: data-flow 3s linear infinite;
+        }
+
+        @keyframes data-flow {
+            from { transform: translateX(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+
+        /* === 连接点 === */
+        .node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        .node::before, .node::after {
+            content: '';
+            position: absolute;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 8px var(--neon-cyan);
+        }
+
+        .node::before {
+            width: 30px; height: 1px;
+            top: 50%; left: 100%;
+            transform: translateY(-50%);
+        }
+
+        .node::after {
+            width: 1px; height: 30px;
+            top: 50%; left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* === Header === */
+        .header {
+            background: var(--bg-card);
+            border: 3px solid var(--neon-cyan);
+            padding: 50px 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.3);
+        }
+
+        /* Header 边角装饰 */
+        .header-corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--neon-cyan);
+            box-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        .header-corner.tl { top: -3px; left: -3px; border-right: none; border-bottom: none; }
+        .header-corner.tr { top: -3px; right: -3px; border-left: none; border-bottom: none; }
+        .header-corner.bl { bottom: -3px; left: -3px; border-right: none; border-top: none; }
+        .header-corner.br { bottom: -3px; right: -3px; border-left: none; border-top: none; }
+
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00f5ff 0%, #0066ff 50%, #ff00ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+            margin-bottom: 15px;
+            letter-spacing: 5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--neon-purple);
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+            letter-spacing: 3px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .meta {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .meta-item {
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid var(--neon-cyan);
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            color: var(--neon-cyan);
+            font-family: 'Share Tech Mono', monospace;
+            box-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+            position: relative;
+        }
+
+        .meta-item::before {
+            content: '[';
+            margin-right: 5px;
+            color: var(--neon-purple);
+        }
+
+        .meta-item::after {
+            content: ']';
+            margin-left: 5px;
+            color: var(--neon-purple);
+        }
+
+        /* === Section === */
+        .section {
+            background: var(--bg-card);
+            border: 2px solid rgba(0, 245, 255, 0.3);
+            padding: 35px;
+            margin-bottom: 30px;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, 
+                var(--neon-cyan) 0%,
+                var(--neon-blue) 25%,
+                var(--neon-purple) 50%,
+                var(--neon-pink) 75%,
+                var(--neon-cyan) 100%
+            );
+            box-shadow: 0 2px 20px var(--neon-cyan);
+        }
+
+        /* Section 装饰条 */
+        .section-deco {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(0, 245, 255, 0.05) 10px,
+                    rgba(0, 245, 255, 0.05) 20px
+                );
+            border-top: 1px solid rgba(0, 245, 255, 0.2);
+            border-left: 1px solid rgba(0, 245, 255, 0.2);
+            pointer-events: none;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(0, 245, 255, 0.2);
+            position: relative;
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 20px var(--neon-cyan));
+            position: relative;
+        }
+
+        .section-icon::after {
+            content: '';
+            position: absolute;
+            bottom: -10px; left: 50%;
+            transform: translateX(-50%);
+            width: 40px; height: 3px;
+            background: var(--gradient-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00f5ff 0%, #ff00ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 3px;
+        }
+
+        /* === Stats Grid === */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, 
+                rgba(0, 245, 255, 0.05) 0%,
+                rgba(0, 102, 255, 0.1) 50%,
+                rgba(255, 0, 255, 0.05) 100%
+            );
+            border: 2px solid var(--neon-cyan);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* 切角效果 */
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 20px; height: 20px;
+            border-top: 3px solid var(--neon-cyan);
+            border-left: 3px solid var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 20px; height: 20px;
+            border-bottom: 3px solid var(--neon-cyan);
+            border-right: 3px solid var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 50px rgba(0, 245, 255, 0.4);
+            border-color: var(--neon-blue);
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00f5ff 0%, #ff00ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+        }
+
+        .stat-label {
+            color: var(--neon-purple);
+            font-size: 0.9rem;
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* === Feature Cards === */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, 
+                rgba(255, 0, 255, 0.05) 0%,
+                rgba(255, 42, 109, 0.1) 100%
+            );
+            border: 1px solid var(--neon-purple);
+            padding: 25px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));
+            box-shadow: 0 0 15px var(--neon-purple);
+        }
+
+        .feature-card:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 0, 255, 0.1) 0%,
+                rgba(255, 42, 109, 0.15) 100%
+            );
+            box-shadow: 0 0 40px rgba(255, 0, 255, 0.3);
+            transform: translateX(5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 20px var(--neon-purple));
+        }
+
+        .feature-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--neon-pink);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .feature-desc {
+            color: #a0a0a0;
+            font-size: 0.95rem;
+        }
+
+        /* === Tables === */
+        .table-container {
+            overflow-x: auto;
+            margin: 25px 0;
+            border: 2px solid rgba(0, 245, 255, 0.2);
+            position: relative;
+        }
+
+        /* 表格边角螺丝 */
+        .table-container::before {
+            content: '';
+            position: absolute;
+            top: 10px; left: 10px;
+            width: 10px; height: 10px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .table-container::after {
+            content: '';
+            position: absolute;
+            bottom: 10px; right: 10px;
+            width: 10px; height: 10px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(10, 10, 15, 0.5);
+        }
+
+        th, td {
+            padding: 18px 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 245, 255, 0.1);
+        }
+
+        th {
+            background: linear-gradient(90deg, 
+                rgba(0, 245, 255, 0.2) 0%,
+                rgba(0, 102, 255, 0.1) 100%
+            );
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--neon-cyan);
+        }
+
+        tr:hover {
+            background: rgba(0, 245, 255, 0.05);
+        }
+
+        /* === Badges === */
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .badge::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: 1px solid currentColor;
+            clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+        }
+
+        .badge-new {
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.3), rgba(255, 0, 255, 0.3));
+            color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.5);
+        }
+
+        .badge-production {
+            background: rgba(0, 255, 159, 0.2);
+            color: var(--neon-green);
+            box-shadow: 0 0 10px rgba(0, 255, 159, 0.3);
+        }
+
+        .badge-beta {
+            background: rgba(255, 157, 0, 0.2);
+            color: var(--neon-orange);
+            box-shadow: 0 0 10px rgba(255, 157, 0, 0.3);
+        }
+
+        /* === Alert Boxes === */
+        .alert {
+            padding: 25px;
+            margin: 25px 0;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            border: 2px solid;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alert::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 5px; height: 100%;
+            background: currentColor;
+            box-shadow: 0 0 20px currentColor;
+        }
+
+        /* 警告条纹 */
+        .alert-warning {
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 157, 0, 0.1),
+                rgba(255, 157, 0, 0.1) 10px,
+                rgba(255, 157, 0, 0.15) 10px,
+                rgba(255, 157, 0, 0.15) 20px
+            );
+            border-color: var(--neon-orange);
+            color: var(--neon-orange);
+        }
+
+        .alert-info {
+            background: rgba(0, 245, 255, 0.1);
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+        }
+
+        .alert-success {
+            background: rgba(0, 255, 159, 0.1);
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        .alert-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 15px currentColor);
+        }
+
+        /* === Code Blocks === */
+        .code-block {
+            background: #050508;
+            border: 2px solid rgba(0, 245, 255, 0.3);
+            border-left: 4px solid var(--neon-cyan);
+            padding: 25px;
+            overflow-x: auto;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem;
+            margin: 20px 0;
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.1);
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'TERMINAL';
+            position: absolute;
+            top: -10px; right: 20px;
+            background: var(--bg-card);
+            color: var(--neon-cyan);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            padding: 0 10px;
+            letter-spacing: 2px;
+        }
+
+        .code-comment { color: #6a6a80; }
+        .code-keyword { color: var(--neon-pink); text-shadow: 0 0 10px rgba(255, 42, 109, 0.5); }
+        .code-string { color: var(--neon-green); text-shadow: 0 0 10px rgba(0, 255, 159, 0.5); }
+
+        /* === Timeline === */
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px; top: 0; bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, 
+                var(--neon-cyan) 0%,
+                var(--neon-blue) 25%,
+                var(--neon-purple) 50%,
+                var(--neon-pink) 75%,
+                var(--neon-cyan) 100%
+            );
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -34px; top: 5px;
+            width: 20px; height: 20px;
+            background: var(--bg-card);
+            border: 3px solid var(--neon-cyan);
+            box-shadow: 0 0 15px var(--neon-cyan);
+            transform: rotate(45deg);
+        }
+
+        .timeline-date {
+            color: var(--neon-orange);
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .timeline-content { color: #a0a0a0; }
+
+        /* === Link Cards === */
+        .link-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 25px;
+            background: linear-gradient(135deg, 
+                rgba(0, 245, 255, 0.05) 0%,
+                rgba(0, 102, 255, 0.1) 100%
+            );
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #e0e0e0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, 
+                transparent,
+                rgba(0, 245, 255, 0.3),
+                transparent
+            );
+            transition: left 0.5s ease;
+        }
+
+        .link-card:hover::before { left: 100%; }
+
+        .link-card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.3);
+            transform: translateX(10px);
+        }
+
+        .link-icon {
+            width: 60px; height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-blue));
+            filter: drop-shadow(0 0 20px rgba(0, 245, 255, 0.5));
+            flex-shrink: 0;
+            font-size: 2rem;
+        }
+
+        .link-info { flex: 1; }
+
+        .link-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--neon-cyan);
+            letter-spacing: 1px;
+        }
+
+        .link-url {
+            color: var(--neon-purple);
+            font-size: 0.85rem;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        /* === Footer === */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--neon-purple);
+            border-top: 3px solid rgba(255, 0, 255, 0.3);
+            margin-top: 40px;
+            background: linear-gradient(180deg, 
+                transparent 0%,
+                rgba(255, 0, 255, 0.05) 100%
+            );
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -3px; left: 50%;
+            transform: translateX(-50%);
+            width: 200px; height: 6px;
+            background: linear-gradient(90deg, 
+                transparent,
+                var(--neon-purple),
+                var(--neon-pink),
+                var(--neon-purple),
+                transparent
+            );
+            box-shadow: 0 0 20px var(--neon-purple);
+        }
+
+        .footer a {
+            color: var(--neon-cyan);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--neon-pink);
+            text-shadow: 0 0 20px var(--neon-pink);
+        }
+
+        /* === HUD 装饰元素 === */
+        .hud-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent,
+                var(--neon-cyan),
+                transparent
+            );
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .hud-dot {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* === 呼吸灯效果 === */
+        .pulse-light {
+            position: absolute;
+            width: 8px; height: 8px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--neon-green);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* === 响应式 === */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; letter-spacing: 2px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .section { padding: 20px; }
+        }
+
+        /* === 滚动条 === */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-darker); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--neon-cyan), var(--neon-purple));
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+    </style>
+</head>
+<body>
+    <!-- 装饰元素 -->
+    <div class="gear" style="top: 100px; right: 50px;"></div>
+    <div class="gear gear-small" style="top: 180px; right: 120px;"></div>
+    <div class="gear" style="bottom: 200px; left: 30px; border-color: var(--neon-purple);"></div>
+    <div class="gear gear-small" style="bottom: 280px; left: 100px; border-color: var(--neon-purple);"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-corner tl"></div>
+            <div class="header-corner tr"></div>
+            <div class="header-corner bl"></div>
+            <div class="header-corner br"></div>
+            
+            <!-- 螺丝装饰 -->
+            <div class="screw" style="top: 15px; left: 15px;"></div>
+            <div class="screw" style="top: 15px; right: 15px;"></div>
+            <div class="screw" style="bottom: 15px; left: 15px;"></div>
+            <div class="screw" style="bottom: 15px; right: 15px;"></div>
+
+            <!-- 数据流 -->
+            <div class="data-line" style="top: 30%; left: 0; width: 200px;"></div>
+            <div class="data-line" style="bottom: 20%; right: 0; width: 150px; animation-delay: 1s;"></div>
+
+            <h1>🤖 HERMES AGENT</h1>
+            <p class="subtitle">/// SYSTEM ANALYSIS REPORT ///</p>
+            <div class="meta">
+                <span class="meta-item">2026.04.13</span>
+                <span class="meta-item">GITHUB API</span>
+                <span class="meta-item">50+ SOURCES</span>
+            </div>
+
+            <!-- HUD 元素 -->
+            <div class="hud-line" style="top: 80px; left: 100px; width: 300px;"></div>
+            <div class="hud-dot" style="top: 78px; left: 420px;"></div>
+            <div class="pulse-light" style="top: 76px; left: 430px;"></div>
+        </header>
+
+        <!-- Executive Summary -->
+        <section class="section">
+            <div class="section-deco"></div>
+            <div class="section-header">
+                <span class="section-icon">📋</span>
+                <h2 class="section-title">EXECUTIVE SUMMARY</h2>
+            </div>
+            
+            <div class="alert alert-info">
+                <span class="alert-icon">💡</span>
+                <div>
+                    <strong style="color: var(--neon-cyan);">Hermes Agent</strong> 是由 <a href="https://nousresearch.com" style="color: var(--neon-pink);">Nous Research</a> 开发的开源 AI Agent 框架，于 2025 年 7 月发布。它是<strong>首个内置自改进学习循环</strong>的 Agent 系统。
+                </div>
+            </div>
+
+            <!-- 芯片装饰的统计卡片 -->
+            <div class="stats-grid">
+                <div class="stat-card chip">
+                    <!-- 芯片引脚 -->
+                    <div class="chip-pin" style="top: -15px; left: 20%;"></div>
+                    <div class="chip-pin" style="top: -15px; left: 40%;"></div>
+                    <div class="chip-pin" style="top: -15px; left: 60%;"></div>
+                    <div class="chip-pin" style="top: -15px; left: 80%;"></div>
+                    <div class="chip-pin" style="bottom: -15px; left: 20%;"></div>
+                    <div class="chip-pin" style="bottom: -15px; left: 40%;"></div>
+                    <div class="chip-pin" style="bottom: -15px; left: 60%;"></div>
+                    <div class="chip-pin" style="bottom: -15px; left: 80%;"></div>
+                    
+                    <div class="stat-value">71,105+</div>
+                    <div class="stat-label">⚡ GITHUB STARS</div>
+                    
+                    <!-- 六边形装饰 -->
+                    <div class="hex-grid" style="top: 10px; right: 10px;"></div>
+                </div>
+                <div class="stat-card chip">
+                    <div class="chip-pin" style="top: -15px; left: 20%;"></div>
+                    <div class="chip-pin" style="top: -15px; left: 40%;"></div>
+                    <div class="chip-pin" style="top: -15px; left: 60%;"></div>
+                    <div class="chip-pin" style="top: -15px; left: 80%;"></div>
+                    <div class="chip-pin" style="bottom: -15px; left: 20%;"></div>
+                    <div class="chip-pin" style="bottom: -15px; left: 40%;"></div>
+                    <div class="chip-pin" style="bottom: -15px; left: 60%;"></div>
+                    <div class="chip-pin" style="bottom: -15px; left: 80%;"></div>
+                    
+                    <div class="stat-value">9,473+</div>
+                    <div class="stat-label">🔀 FORKS</div>
+                    
+                    <div class="hex-grid" style="top: 10px; right: 10px;"></div>
+                </div>
+                <div class="stat-card chip">
+                    <div class="chip-pin" style="top: -15px; left: 20%;"></div>
+                    <div class="chip-pin" style="top: -15px; left: 40%;"></div>
+                    <div class="chip-pin" style="top: -15px; left: 60%;"></div>
+                    <div class="chip-pin" style="top: -15px; left: 80%;"></div>
+                    <div class="chip-pin" style="bottom: -15px; left: 20%;"></div>
+                    <div class="chip-pin" style="bottom: -15px; left: 40%;"></div>
+                    <div class="chip-pin" style="bottom: -15px; left: 60%;"></div>
+                    <div class="chip-pin" style="bottom: -15px; left: 80%;"></div>
+                    
+                    <div class="stat-value">v0.8.0</div>
+                    <div class="stat-label">📦 VERSION</div>
+                    
+                    <div class="hex-grid" style="top: 10px; right: 10px;"></div>
+                </div>
+                <div class="stat-card chip">
+                    <div class="chip-pin" style="top: -15px; left: 20%;"></div>
+                    <div class="chip-pin" style="top: -15px; left: 40%;"></div>
+                    <div class="chip-pin" style="top: -15px; left: 60%;"></div>
+                    <div class="chip-pin" style="top: -15px; left: 80%;"></div>
+                    <div class="chip-pin" style="bottom: -15px; left: 20%;"></div>
+                    <div class="chip-pin" style="bottom: -15px; left: 40%;"></div>
+                    <div class="chip-pin" style="bottom: -15px; left: 60%;"></div>
+                    <div class="chip-pin" style="bottom: -15px; left: 80%;"></div>
+                    
+                    <div class="stat-value">8+</div>
+                    <div class="stat-label">💬 PLATFORMS</div>
+                    
+                    <div class="hex-grid" style="top: 10px; right: 10px;"></div>
+                </div>
+            </div>
+
+            <div class="chip" style="margin-top: 30px; padding: 25px;">
+                <h3 style="color: var(--neon-cyan); font-family: 'Orbitron', sans-serif; margin-bottom: 20px; letter-spacing: 2px;">🎯 CORE FEATURES</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <div class="feature-title">SELF-IMPROVING LOOP</div>
+                        <div class="feature-desc">内置学习循环，自动从经验中创建和优化技能</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📚</div>
+                        <div class="feature-title">3-LAYER MEMORY</div>
+                        <div class="feature-desc">短期/长期/程序性记忆，支持跨会话持久化</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛠️</div>
+                        <div class="feature-title">SKILL ECOSYSTEM</div>
+                        <div class="feature-desc">自动创建、进化和分享技能</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <div class="feature-title">MULTI-PLATFORM</div>
+                        <div class="feature-desc">Telegram、Discord、Slack、WhatsApp、微信等</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <div class="feature-title">CRON SCHEDULER</div>
+                        <div class="feature-desc">支持定时任务和自动化工作流</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔌</div>
+                        <div class="feature-title">MCP INTEGRATION</div>
+                        <div class="feature-desc">Model Context Protocol 原生支持</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Stats -->
+        <section class="section">
+            <div class="section-deco"></div>
+            <div class="section-header">
+                <span class="section-icon">📊</span>
+                <h2 class="section-title">PROJECT METRICS</h2>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>METRIC</th>
+                            <th>VALUE</th>
+                            <th>SOURCE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>⭐ Stars</td>
+                            <td><strong style="color: var(--neon-cyan);">71,105+</strong></td>
+                            <td><a href="https://github.com/NousResearch/hermes-agent" style="color: var(--neon-pink);">GitHub - NousResearch/hermes-agent</a></td>
+                        </tr>
+                        <tr>
+                            <td>🔀 Forks</td>
+                            <td><strong style="color: var(--neon-cyan);">9,473+</strong></td>
+                            <td><a href="https://github.com/NousResearch/hermes-agent" style="color: var(--neon-pink);">GitHub - NousResearch/hermes-agent</a></td>
+                        </tr>
+                        <tr>
+                            <td>📅 Created</td>
+                            <td>2025-07-22</td>
+                            <td>GitHub API</td>
+                        </tr>
+                        <tr>
+                            <td>🔄 Updated</td>
+                            <td>2026-04-13</td>
+                            <td>GitHub API</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="margin: 30px 0 20px; color: var(--neon-cyan); font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">📦 RELEASE TIMELINE</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2026-04-08</div>
+                    <div class="timeline-content"><strong style="color: var(--neon-green);">v0.8.0</strong> - Latest Release</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2026-04-03</div>
+                    <div class="timeline-content"><strong style="color: var(--neon-green);">v0.7.0</strong> - Auth Fixes</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2026-03-30</div>
+                    <div class="timeline-content"><strong style="color: var(--neon-green);">v0.6.0</strong> - Gateway Enhanced</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2026-03-28</div>
+                    <div class="timeline-content"><strong style="color: var(--neon-green);">v0.5.0</strong> - Skill System</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>📊 <strong>GENERATED BY:</strong> Hermes Agent</p>
+            <p>📅 <strong>DATA COLLECTED:</strong> 2026-04-13</p>
+            <p>🔗 <strong>SOURCES:</strong> GitHub API, Official Docs, Community</p>
+            <p style="margin-top: 20px; font-family: 'Share Tech Mono', monospace; letter-spacing: 3px; font-size: 0.9rem;">
+                /// SYSTEM STATUS: ONLINE ///
+            </p>
+            
+            <!-- 底部装饰 -->
+            <div class="gear gear-small" style="position: relative; top: 20px; margin: 0 auto; display: inline-block;"></div>
+            <div class="pulse-light" style="position: relative; top: 20px; margin: 0 20px; display: inline-block;"></div>
+            <div class="gear gear-small" style="position: relative; top: 20px; margin: 0 auto; display: inline-block; border-color: var(--neon-pink);"></div>
+        </footer>
+    </div>
+
+    <!-- 更多装饰元素 -->
+    <div class="node" style="top: 300px; right: 100px;"></div>
+    <div class="node" style="bottom: 400px; left: 80px;"></div>
+    <div class="hex-grid" style="top: 500px; right: 200px; opacity: 0.2;"></div>
+</body>
+</html>
