@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小米 MiMo 大模型评测报告</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #7D2AE7;
+      --primary-light: #9B5FF7;
+      --secondary: #00c4cc;
+      --accent: #FF6B6B;
+      --warning: #FFA94D;
+      --success: #51CF66;
+      --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      --card-bg: #ffffff;
+      --text-primary: #2d3436;
+      --text-secondary: #636e72;
+      --border-radius: 20px;
+      --shadow: 0 10px 40px rgba(125, 42, 231, 0.15);
+      --shadow-hover: 0 20px 60px rgba(125, 42, 231, 0.25);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      padding: 40px 20px;
+      color: var(--text-primary);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+      animation: fadeInDown 0.8s ease;
+    }
+
+    .header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      color: white;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      margin-bottom: 15px;
+    }
+
+    .header p {
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.9);
+      font-weight: 600;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 35px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-title .icon {
+      font-size: 2.2rem;
+    }
+
+    .model-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .model-card {
+      background: linear-gradient(135deg, #f8f9ff 0%, #e8f4f8 100%);
+      border-radius: 16px;
+      padding: 25px;
+      border: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .model-card:hover {
+      border-color: var(--primary);
+      transform: scale(1.02);
+    }
+
+    .model-card.flash {
+      background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+    }
+
+    .model-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .model-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .stat-item {
+      background: white;
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
+
+    .stat-value {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .stat-value.highlight {
+      color: var(--secondary);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.95rem;
+    }
+
+    th {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      padding: 16px 12px;
+      font-weight: 700;
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    th:first-child {
+      border-radius: 12px 0 0 0;
+      text-align: left;
+    }
+
+    th:last-child {
+      border-radius: 0 12px 0 0;
+    }
+
+    td {
+      padding: 14px 12px;
+      text-align: center;
+      border-bottom: 1px solid #e9ecef;
+      transition: all 0.2s ease;
+    }
+
+    td:first-child {
+      text-align: left;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    tr:hover td {
+      background: #f8f9ff;
+    }
+
+    .best-score {
+      background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%) !important;
+      font-weight: 800;
+      color: #2d3436;
+      border-radius: 8px;
+    }
+
+    .second-score {
+      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%) !important;
+      font-weight: 700;
+    }
+
+    .category-row {
+      background: linear-gradient(135deg, #f0f4ff 0%, #e8f4f8 100%);
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .category-row td {
+      padding: 18px 12px;
+      font-size: 1.05rem;
+    }
+
+    .chart-container {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      margin: 20px 0;
+    }
+
+    .bar-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .bar-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .bar-label {
+      width: 180px;
+      font-weight: 700;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+    }
+
+    .bar-wrapper {
+      flex: 1;
+      background: #e9ecef;
+      border-radius: 10px;
+      height: 35px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bar {
+      height: 100%;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 12px;
+      font-weight: 800;
+      color: white;
+      font-size: 0.95rem;
+      transition: width 1s ease;
+    }
+
+    .bar.mimo {
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+    }
+
+    .bar.kimi {
+      background: linear-gradient(90deg, #00c4cc 0%, #00d4db 100%);
+    }
+
+    .bar.deepseek {
+      background: linear-gradient(90deg, #FF6B6B 0%, #ff8787 100%);
+    }
+
+    .bar.claude {
+      background: linear-gradient(90deg, #ffa94d 0%, #ffc078 100%);
+    }
+
+    .bar.gpt {
+      background: linear-gradient(90deg, #51cf66 0%, #69db7c 100%);
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, #fff9e6 0%, #fff3d4 100%);
+      border-left: 5px solid var(--warning);
+      padding: 20px 25px;
+      border-radius: 12px;
+      margin: 20px 0;
+    }
+
+    .highlight-box h4 {
+      color: #d97706;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .highlight-box ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .highlight-box li {
+      padding: 8px 0;
+      padding-left: 30px;
+      position: relative;
+      color: var(--text-primary);
+    }
+
+    .highlight-box li::before {
+      content: "✨";
+      position: absolute;
+      left: 0;
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .tech-card {
+      background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+      border-radius: 14px;
+      padding: 22px;
+      border: 2px solid #e0e7ff;
+    }
+
+    .tech-card h4 {
+      color: var(--primary);
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tech-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 30px;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .footer a {
+      color: white;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .card {
+        padding: 20px;
+      }
+      
+      table {
+        font-size: 0.8rem;
+      }
+      
+      th, td {
+        padding: 10px 6px;
+      }
+      
+      .model-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🚀 小米 MiMo 大模型评测报告</h1>
+      <p>从 7B 小模型到 309B MoE 的推理能力进化之路</p>
+    </div>
+
+    <!-- 模型概览 -->
+    <div class="card">
+      <h2 class="card-title"><span class="icon">📊</span> 模型系列概览</h2>
+      <div class="model-grid">
+        <div class="model-card">
+          <div class="model-name">MiMo-7B 系列</div>
+          <div class="model-stats">
+            <div class="stat-item">
+              <div class="stat-label">参数量</div>
+              <div class="stat-value">7B</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">发布时间</div>
+              <div class="stat-value">2025.04</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">训练数据</div>
+              <div class="stat-value highlight">25T tokens</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">定位</div>
+              <div class="stat-value">推理专用</div>
+            </div>
+          </div>
+        </div>
+        <div class="model-card flash">
+          <div class="model-name">MiMo-V2-Flash</div>
+          <div class="model-stats">
+            <div class="stat-item">
+              <div class="stat-label">总参数</div>
+              <div class="stat-value">309B</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">激活参数</div>
+              <div class="stat-value highlight">15B</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">上下文</div>
+              <div class="stat-value">256K</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">发布时间</div>
+              <div class="stat-value">2026.03</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 核心评测对比 -->
+    <div class="card">
+      <h2 class="card-title"><span class="icon">🏆</span> 核心评测成绩对比</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>评测维度</th>
+            <th>基准测试</th>
+            <th>MiMo-V2 Flash</th>
+            <th>Kimi-K2 Thinking</th>
+            <th>DeepSeek-V3.2</th>
+            <th>Claude Sonnet 4.5</th>
+            <th>GPT-5 High</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="category-row">
+            <td colspan="7">🧮 推理能力</td>
+          </tr>
+          <tr>
+            <td>综合理解</td>
+            <td>MMLU-Pro</td>
+            <td class="second-score">84.9</td>
+            <td>84.6</td>
+            <td class="best-score">85.0</td>
+            <td>88.2</td>
+            <td>87.5</td>
+          </tr>
+          <tr>
+            <td>科学推理</td>
+            <td>GPQA-Diamond</td>
+            <td class="best-score">83.7</td>
+            <td>84.5</td>
+            <td>82.4</td>
+            <td>91.9</td>
+            <td>85.7</td>
+          </tr>
+          <tr>
+            <td>数学竞赛</td>
+            <td>AIME 2025</td>
+            <td>94.1</td>
+            <td>94.5</td>
+            <td>93.1</td>
+            <td class="best-score">95.0</td>
+            <td>94.6</td>
+          </tr>
+          <tr>
+            <td>代码能力</td>
+            <td>LiveCodeBench-v6</td>
+            <td>80.6</td>
+            <td>83.1</td>
+            <td>83.3</td>
+            <td class="best-score">90.7</td>
+            <td>84.5</td>
+          </tr>
+          <tr class="category-row">
+            <td colspan="7">💻 代码 Agent</td>
+          </tr>
+          <tr>
+            <td>软件工程</td>
+            <td>SWE-Bench Verified</td>
+            <td class="best-score">73.4</td>
+            <td>71.3</td>
+            <td>73.1</td>
+            <td>76.2</td>
+            <td>74.9</td>
+          </tr>
+          <tr class="category-row">
+            <td colspan="7">📖 长上下文</td>
+          </tr>
+          <tr>
+            <td>长文本理解</td>
+            <td>LongBench V2</td>
+            <td class="best-score">60.6</td>
+            <td>45.1</td>
+            <td>58.4</td>
+            <td>65.6</td>
+            <td>61.8</td>
+          </tr>
+          <tr class="category-row">
+            <td colspan="7">🤖 通用 Agent</td>
+          </tr>
+          <tr>
+            <td>任务执行</td>
+            <td>τ²-Bench</td>
+            <td class="best-score">80.3</td>
+            <td>74.3</td>
+            <td>80.3</td>
+            <td>85.4</td>
+            <td>80.2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- MiMo-7B 小模型成绩 -->
+    <div class="card">
+      <h2 class="card-title"><span class="icon">⭐</span> MiMo-7B-RL 小模型奇迹</h2>
+      <div class="highlight-box">
+        <h4>🎯 7B 小模型超越 32B 竞品！</h4>
+        <ul>
+          <li><strong>AIME 2024: 80.1 分</strong> — 超越 DeepSeek R1 (79.8 分)</li>
+          <li><strong>MATH500: 97.2 分</strong> — 接近满分表现</li>
+          <li><strong>GPQA-Diamond: 60.6 分</strong> — STEM 领域优秀</li>
+        </ul>
+      </div>
+      <div class="chart-container">
+        <div class="bar-chart">
+          <div class="bar-item">
+            <div class="bar-label">MATH500</div>
+            <div class="bar-wrapper">
+              <div class="bar mimo" style="width: 97.2%;">97.2</div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label">AIME 2024</div>
+            <div class="bar-wrapper">
+              <div class="bar mimo" style="width: 80.1%;">80.1</div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label">AIME 2025</div>
+            <div class="bar-wrapper">
+              <div class="bar mimo" style="width: 70.2%;">70.2</div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label">LiveCodeBench v5</div>
+            <div class="bar-wrapper">
+              <div class="bar mimo" style="width: 60.9%;">60.9</div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label">GPQA-Diamond</div>
+            <div class="bar-wrapper">
+              <div class="bar mimo" style="width: 60.6%;">60.6</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 技术亮点 -->
+    <div class="card">
+      <h2 class="card-title"><span class="icon">⚡</span> 核心技术亮点</h2>
+      <div class="tech-grid">
+        <div class="tech-card">
+          <h4>🔀 混合注意力架构</h4>
+          <p>滑动窗口注意力 (128 token) + 全局注意力按 5:1 比例交错，KV 缓存减少<strong>6 倍</strong>，同时保持长上下文性能。</p>
+        </div>
+        <div class="tech-card">
+          <h4>🚄 多 Token 预测 (MTP)</h4>
+          <p>轻量级 MTP 模块 (0.33B 参数/块)，原生集成训练和推理，<strong>推理速度提升 3 倍</strong>，加速 RL 训练 rollout。</p>
+        </div>
+        <div class="tech-card">
+          <h4>🎓 多教师在线蒸馏 (MOPD)</h4>
+          <p>token 级别密集指导，在线策略优化，<strong>避免奖励黑客</strong>问题，从多个专家模型学习。</p>
+        </div>
+        <div class="tech-card">
+          <h4>🏗️ 大规模 Agent RL</h4>
+          <p><strong>10 万+ GitHub 真实任务</strong>，万级并发 Kubernetes 集群，70% 环境搭建成功率。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- GitHub 热度 -->
+    <div class="card">
+      <h2 class="card-title"><span class="icon">📈</span> GitHub 开源热度</h2>
+      <div class="chart-container">
+        <div class="bar-chart">
+          <div class="bar-item">
+            <div class="bar-label">MiMo</div>
+            <div class="bar-wrapper">
+              <div class="bar mimo" style="width: 100%;">2,023 ⭐</div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label">MiMo-V2-Flash</div>
+            <div class="bar-wrapper">
+              <div class="bar kimi" style="width: 62.7%;">1,269 ⭐</div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label">MiMo-Audio</div>
+            <div class="bar-wrapper">
+              <div class="bar deepseek" style="width: 50.3%;">1,018 ⭐</div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label">MiMo-VL</div>
+            <div class="bar-wrapper">
+              <div class="bar claude" style="width: 31.3%;">634 ⭐</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>📊 数据来源：GitHub XiaomiMiMo 官方仓库 | 技术报告：arxiv.org/abs/2505.07608</p>
+      <p>🔗 <a href="https://github.com/XiaomiMiMo" target="_blank">github.com/XiaomiMiMo</a> | <a href="https://huggingface.co/XiaomiMiMo" target="_blank">huggingface.co/XiaomiMiMo</a></p>
+      <p style="margin-top: 20px; font-size: 0.9rem;">报告生成时间：2026 年 4 月 14 日</p>
+    </div>
+  </div>
+</body>
+</html>
