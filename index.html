@@ -1,1 +1,88 @@
-File unchanged since last read. The content from the earlier read_file result in this conversation is still current — refer to that instead of re-reading.
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hermes Reports - 报告中心</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(125, 42, 231, 0.15);
+        }
+        .header h1 { color: #7D2AE7; font-size: 2.5em; margin-bottom: 10px; }
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        .report-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(125, 42, 231, 0.15);
+            transition: transform 0.3s ease;
+        }
+        .report-card:hover { transform: translateY(-5px); }
+        .report-card h3 { color: #7D2AE7; margin-bottom: 10px; }
+        .report-card p { color: #666; margin-bottom: 15px; line-height: 1.6; }
+        .report-card a {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .badge {
+            display: inline-block;
+            background: #00c4cc;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Hermes Reports</h1>
+            <p>AI 大模型评测报告中心</p>
+        </div>
+        <div class="report-grid">
+            <div class="report-card">
+                <span class="badge">最新</span>
+                <h3>📱 小米 MiMo-V2-Flash 深度评测</h3>
+                <p>基于 arXiv:2601.02780 技术报告，完整 Benchmark 对比分析，vs Kimi-K2/DeepSeek-V3.2/Gemini/Claude/GPT-5</p>
+                <a href="./xiaomi-mimo-report.html">查看报告 →</a>
+            </div>
+            <div class="report-card">
+                <span class="badge">严谨版</span>
+                <h3>📊 2026 年 4 月 LLM 旗舰评测</h3>
+                <p>多源交叉验证，权威来源优先，含数据源/可信度/时效性说明</p>
+                <a href="./llm-report-rigorous-2026-04.html">查看报告 →</a>
+            </div>
+            <div class="report-card">
+                <span class="badge">Slidesgo 风格</span>
+                <h3>🤖 Hermes Agent 介绍</h3>
+                <p>明亮渐变背景，大圆角卡片，现代化设计</p>
+                <a href="./hermes-agent-report-slidesgo.html">查看报告 →</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
