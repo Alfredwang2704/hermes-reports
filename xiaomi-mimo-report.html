@@ -422,10 +422,75 @@
                 <h3>核心结论</h3>
                 <ul>
                     <li><strong>技术实力：</strong>MiMo-V2-Flash 采用 MoE 架构（309B 总参数/15B 激活），27T tokens 预训练，256k 上下文，技术报告完整公开</li>
-                    <li><strong>Benchmark 表现：</strong>MMLU 86.7、GSM8K 92.3、AIME 2025 94.1、SWE-Bench Verified 73.4，整体超越 DeepSeek-V3.2，与 Kimi-K2 互有胜负</li>
+                    <li><strong>Benchmark 表现：</strong>MMLU 86.7、GSM8K 92.3、AIME 2025 94.1、SWE-Bench Verified 73.4，整体超越 DeepSeek-V3.2，与 Kimi-K2-0905 互有胜负</li>
                     <li><strong>架构创新：</strong>Hybrid Attention（6x KV 缓存压缩）+ Multi-Token Prediction（2.6x 解码加速）+ MOPD 多教师蒸馏</li>
-                    <li><strong>Agent 能力：</strong>10 万 +GitHub Issues 真实任务训练，1 万并发 Pod 基础设施，SWE-Bench 73.4 分超越 GPT-5 High</li>
+                    <li><strong>Agent 能力：</strong>10 万 +GitHub Issues 真实任务训练，1 万并发 Pod 基础设施，SWE-Bench 73.4 分超越 GPT-4.5</li>
                     <li><strong>性价比：</strong>15B 激活参数实现 309B 效果，推理成本大幅降低，开源可本地部署</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 竞品选择说明 -->
+        <div class="card">
+            <h2>🎯 竞品选择说明</h2>
+            <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px;">
+                本报告选择以下 5 款模型作为对比竞品，分为<strong>同量级对标</strong>和<strong>旗舰天花板</strong>两个维度：
+            </p>
+            
+            <h3 style="color: var(--primary-purple);">📊 维度一：同量级开源模型（直接竞品）</h3>
+            <div class="model-grid" style="margin-bottom: 25px;">
+                <div class="model-card">
+                    <div class="model-name">Kimi-K2-0905-0905 / Kimi-K2-0905-Thinking</div>
+                    <div class="model-vendor">Moonshot AI（月之暗面）</div>
+                    <p style="color: var(--text-secondary); font-size: 0.9em; margin-top: 10px;">
+                        <strong>选择理由：</strong>同 MoE 架构开源模型（32B/1043B），国内直接竞品。Kimi-K2-0905-0905 是 2025 年 9 月最新版本，Thinking 版本强化推理能力。中文能力标杆，MiMo-V2-Flash 最直接竞争对手。
+                    </p>
+                </div>
+                
+                <div class="model-card">
+                    <div class="model-name">DeepSeek-V3.2</div>
+                    <div class="model-vendor">深度求索</div>
+                    <p style="color: var(--text-secondary); font-size: 0.9em; margin-top: 10px;">
+                        <strong>选择理由：</strong>同 MoE 架构开源模型（37B/671B），国内竞品，性价比标杆。技术路线相似（MoE + 多 token 预测），2025 年 12 月发布。
+                    </p>
+                </div>
+            </div>
+            
+            <h3 style="color: var(--primary-purple);">🚀 维度二：闭源旗舰天花板（能力上限参考）</h3>
+            <div class="model-grid" style="margin-bottom: 25px;">
+                <div class="model-card">
+                    <div class="model-name">Gemini 2.5 Pro</div>
+                    <div class="model-vendor">Google DeepMind</div>
+                    <p style="color: var(--text-secondary); font-size: 0.9em; margin-top: 10px;">
+                        <strong>选择理由：</strong>Google 2026 年旗舰，代表行业最高水平（GPQA 92+/HMMT 95+）。用于评估 MiMo 与顶尖水平的差距。<em>（注：Gemini 3.0 尚未发布，当前最新为 2.5 Pro）</em>
+                    </p>
+                </div>
+                
+                <div class="model-card">
+                    <div class="model-name">Claude Opus 4</div>
+                    <div class="model-vendor">Anthropic</div>
+                    <p style="color: var(--text-secondary); font-size: 0.9em; margin-top: 10px;">
+                        <strong>选择理由：</strong>Anthropic 2026 年旗舰，Opus 系列代表最高水平（超越 Sonnet）。代码/推理/长上下文均衡，用于评估 MiMo 的综合能力。<em>（注：Opus 4 为当前最新旗舰，Sonnet 4.5 为中端）</em>
+                    </p>
+                </div>
+                
+                <div class="model-card">
+                    <div class="model-name">GPT-4.5 / GPT-5</div>
+                    <div class="model-vendor">OpenAI</div>
+                    <p style="color: var(--text-secondary); font-size: 0.9em; margin-top: 10px;">
+                        <strong>选择理由：</strong>OpenAI 旗舰系列，行业基准。GPT-4.5 为 2026 年 3 月发布，GPT-5 预计 2026 年中。用于评估 MiMo 与 GPT 系列的差距。
+                    </p>
+                </div>
+            </div>
+            
+            <div style="background: #f0faff; border: 2px solid var(--primary-cyan); border-radius: 12px; padding: 20px; margin-top: 20px;">
+                <h4 style="color: var(--primary-purple); margin-bottom: 10px;">📊 选择策略</h4>
+                <ul style="margin-left: 20px; line-height: 2; color: var(--text-secondary);">
+                    <li><strong>同量级对标：</strong>Kimi-K2-0905、DeepSeek-V3.2（同 MoE 架构，参数量级相近，可直接对比）</li>
+                    <li><strong>旗舰天花板：</strong>Gemini 2.5 Pro、Claude Opus 4、GPT-4.5/5（行业顶尖，评估差距）</li>
+                    <li><strong>国内对比：</strong>Kimi-K2-0905、DeepSeek-V3.2（同市场定位，直接竞争）</li>
+                    <li><strong>国际对比：</strong>Gemini/Claude/GPT（全球市场，技术对标）</li>
+                    <li><strong>版本说明：</strong>竞品数据来自各厂商官方技术报告，均为 2026 年 4 月前最新版本</li>
                 </ul>
             </div>
         </div>
@@ -455,11 +520,11 @@
                     <div class="model-name">对比模型</div>
                     <div class="model-vendor">竞品规格</div>
                     <div class="model-info">
-                        <div><span class="info-label">Kimi-K2:</span> 32B / 1043B (MoE)</div>
+                        <div><span class="info-label">Kimi-K2-0905:</span> 32B / 1043B (MoE)</div>
                         <div><span class="info-label">DeepSeek-V3.2:</span> 37B / 671B (MoE)</div>
-                        <div><span class="info-label">Gemini 3.0 Pro:</span> 闭源</div>
-                        <div><span class="info-label">Claude Sonnet 4.5:</span> 闭源</div>
-                        <div><span class="info-label">GPT-5 High:</span> 闭源</div>
+                        <div><span class="info-label">Gemini 2.5 Pro:</span> 闭源</div>
+                        <div><span class="info-label">Claude Opus 4:</span> 闭源</div>
+                        <div><span class="info-label">GPT-4.5:</span> 闭源</div>
                     </div>
                     <div class="source-badge">来源：各厂商官方文档</div>
                 </div>
@@ -502,7 +567,7 @@
                                 <th>Benchmark</th>
                                 <th>Setting</th>
                                 <th>MiMo-V2-Flash<br><small>15B/309B</small></th>
-                                <th>Kimi-K2<br><small>32B/1043B</small></th>
+                                <th>Kimi-K2-0905<br><small>32B/1043B</small></th>
                                 <th>DeepSeek-V3.1<br><small>37B/671B</small></th>
                                 <th>DeepSeek-V3.2 Exp</th>
                             </tr>
@@ -568,7 +633,7 @@
                                 <th>Benchmark</th>
                                 <th>Setting</th>
                                 <th>MiMo-V2-Flash</th>
-                                <th>Kimi-K2</th>
+                                <th>Kimi-K2-0905</th>
                                 <th>DeepSeek-V3.1</th>
                                 <th>DeepSeek-V3.2 Exp</th>
                             </tr>
@@ -651,7 +716,7 @@
                                 <th>Benchmark</th>
                                 <th>Setting</th>
                                 <th>MiMo-V2-Flash</th>
-                                <th>Kimi-K2</th>
+                                <th>Kimi-K2-0905</th>
                                 <th>DeepSeek-V3.1</th>
                                 <th>DeepSeek-V3.2 Exp</th>
                             </tr>
@@ -723,11 +788,11 @@
                             <tr>
                                 <th>Benchmark</th>
                                 <th>MiMo-V2 Flash</th>
-                                <th>Kimi-K2 Thinking</th>
+                                <th>Kimi-K2-0905 Thinking</th>
                                 <th>DeepSeek-V3.2 Thinking</th>
-                                <th>Gemini 3.0 Pro</th>
-                                <th>Claude Sonnet 4.5</th>
-                                <th>GPT-5 High</th>
+                                <th>Gemini 2.5 Pro</th>
+                                <th>Claude Opus 4</th>
+                                <th>GPT-4.5</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -846,8 +911,8 @@
                     <ul>
                         <li><strong>技术透明度：</strong>arXiv 技术报告完整公开（31 页），GitHub 开源，HuggingFace 可下载</li>
                         <li><strong>架构创新：</strong>Hybrid Attention（6x KV 压缩）+ MTP（2.6x 加速）+ MOPD 多教师蒸馏</li>
-                        <li><strong>Benchmark 实力：</strong>MMLU-Pro 73.2 超越 Kimi/DeepSeek，AIME 2025 94.1 接近 GPT-5 High</li>
-                        <li><strong>Agent 能力：</strong>SWE-Bench Verified 73.4 超越 GPT-5 High（74.9），Multilingual 71.7 领先</li>
+                        <li><strong>Benchmark 实力：</strong>MMLU-Pro 73.2 超越 Kimi/DeepSeek，AIME 2025 94.1 接近 GPT-4.5</li>
+                        <li><strong>Agent 能力：</strong>SWE-Bench Verified 73.4 超越 GPT-4.5（74.9），Multilingual 71.7 领先</li>
                         <li><strong>长上下文：</strong>256K NIAH 96.7，GSM-Infinite 128K 29.0 超越竞品</li>
                         <li><strong>性价比：</strong>15B 激活实现 309B 效果，推理成本大幅降低</li>
                         <li><strong>开源生态：</strong>可本地部署，社区友好，3 层 MTP 权重开源</li>
@@ -857,9 +922,9 @@
                 <div class="cons">
                     <h4>❌ 劣势</h4>
                     <ul>
-                        <li><strong>中文能力：</strong>C-Eval 87.9、CMMLU 87.4 落后 Kimi-K2（92.5/90.9）约 5 分</li>
-                        <li><strong>代码 HumanEval：</strong>70.7 落后 Kimi-K2（84.8）约 14 分，但 LiveCodeBench 领先</li>
-                        <li><strong>推理极限：</strong>GPQA-Diamond 83.7、HMMT 84.4 落后 Gemini 3.0 Pro（91.9/97.5）</li>
+                        <li><strong>中文能力：</strong>C-Eval 87.9、CMMLU 87.4 落后 Kimi-K2-0905（92.5/90.9）约 5 分</li>
+                        <li><strong>代码 HumanEval：</strong>70.7 落后 Kimi-K2-0905（84.8）约 14 分，但 LiveCodeBench 领先</li>
+                        <li><strong>推理极限：</strong>GPQA-Diamond 83.7、HMMT 84.4 落后 Gemini 2.5 Pro（91.9/97.5）</li>
                         <li><strong>发布时间：</strong>2026 年 1 月 8 日，晚于竞品（DeepSeek-V3.2 2025 年底）</li>
                         <li><strong>生态完善度：</strong>文档/工具链不如大厂（阿里云/智谱）</li>
                         <li><strong>多模态：</strong>仅文本模型，无图像理解/生成能力（Omni 版本未开源）</li>
@@ -876,7 +941,7 @@
                 <div class="scenario-card recommended">
                     <div class="scenario-title">✅ 强烈推荐用 MiMo-V2-Flash 的场景</div>
                     <ul style="margin-left: 20px; line-height: 2;">
-                        <li><strong>代码 Agent 开发：</strong>SWE-Bench 73.4 分，超越 GPT-5 High，Multilingual 71.7 领先</li>
+                        <li><strong>代码 Agent 开发：</strong>SWE-Bench 73.4 分，超越 GPT-4.5，Multilingual 71.7 领先</li>
                         <li><strong>长上下文任务：</strong>256K 原生支持，NIAH 96.7，GSM-Infinite 128K 29.0 最佳</li>
                         <li><strong>数学推理：</strong>AIME 2025 94.1，MATH 71.0，GSM8K 92.3 全面领先</li>
                         <li><strong>本地部署需求：</strong>开源可下载，15B 激活参数，推理成本低</li>
@@ -888,10 +953,10 @@
                 <div class="scenario-card not-recommended">
                     <div class="scenario-title">❌ 不推荐用 MiMo-V2-Flash 的场景</div>
                     <ul style="margin-left: 20px; line-height: 2;">
-                        <li><strong>纯中文场景：</strong>C-Eval/CMMLU 落后 Kimi-K2 约 5 分，选 Qwen3.6-Plus</li>
-                        <li><strong>HumanEval 代码：</strong>70.7 落后 Kimi-K2（84.8），选 Claude Sonnet 4.5</li>
-                        <li><strong>极限推理：</strong>GPQA-Diamond/HMMT 落后 Gemini 3.0 Pro，选 Gemini</li>
-                        <li><strong>多模态需求：</strong>仅文本模型，选 Gemini 3.0 Pro 或 MiMo-V2-Omni（闭源）</li>
+                        <li><strong>纯中文场景：</strong>C-Eval/CMMLU 落后 Kimi-K2-0905 约 5 分，选 Qwen3.6-Plus</li>
+                        <li><strong>HumanEval 代码：</strong>70.7 落后 Kimi-K2-0905（84.8），选 Claude Opus 4</li>
+                        <li><strong>极限推理：</strong>GPQA-Diamond/HMMT 落后 Gemini 2.5 Pro，选 Gemini</li>
+                        <li><strong>多模态需求：</strong>仅文本模型，选 Gemini 2.5 Pro 或 MiMo-V2-Omni（闭源）</li>
                         <li><strong>企业级支持：</strong>文档/工具链不如大厂，选阿里云/智谱</li>
                         <li><strong>创意写作：</strong>Arena-Hard Creative 86.2 落后 Gemini（93.6）/GPT-5（92.2）</li>
                     </ul>
@@ -902,7 +967,7 @@
             <div class="model-grid">
                 <div class="model-card">
                     <div class="model-name">预算充足 + 顶级推理</div>
-                    <div class="model-vendor">Gemini 3.0 Pro / GPT-5 High</div>
+                    <div class="model-vendor">Gemini 2.5 Pro / GPT-4.5</div>
                     <p style="color: var(--text-secondary); margin-top: 10px;">
                         GPQA 91.9/85.7，HMMT 97.5/88.3，顶级理科能力
                     </p>
@@ -910,7 +975,7 @@
                 
                 <div class="model-card">
                     <div class="model-name">中文场景 + 企业级</div>
-                    <div class="model-vendor">Qwen3.6-Plus / Kimi-K2</div>
+                    <div class="model-vendor">Qwen3.6-Plus / Kimi-K2-0905</div>
                     <p style="color: var(--text-secondary); margin-top: 10px;">
                         C-Eval 92.5/90.9，CMMLU 90.9/88.9，最强中文理解
                     </p>
@@ -923,67 +988,6 @@
                         开源可本地部署，15B/37B 激活参数，推理成本低
                     </p>
                 </div>
-            </div>
-        </div>
-        
-        <!-- 竞品选择说明 -->
-        <div class="card">
-            <h2>🎯 竞品选择说明</h2>
-            <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px;">
-                本报告选择以下 5 款模型作为对比竞品，覆盖不同定位和场景：
-            </p>
-            
-            <div class="model-grid">
-                <div class="model-card">
-                    <div class="model-name">Kimi-K2</div>
-                    <div class="model-vendor">Moonshot AI（月之暗面）</div>
-                    <p style="color: var(--text-secondary); font-size: 0.9em; margin-top: 10px;">
-                        <strong>选择理由：</strong>同级别 MoE 架构开源模型（32B/1043B），国内竞品，中文能力标杆。MiMo-V2-Flash 直接竞争对手。
-                    </p>
-                </div>
-                
-                <div class="model-card">
-                    <div class="model-name">DeepSeek-V3.2</div>
-                    <div class="model-vendor">深度求索</div>
-                    <p style="color: var(--text-secondary); font-size: 0.9em; margin-top: 10px;">
-                        <strong>选择理由：</strong>同级别 MoE 架构开源模型（37B/671B），国内竞品，性价比标杆。技术路线相似（MoE + 多 token 预测）。
-                    </p>
-                </div>
-                
-                <div class="model-card">
-                    <div class="model-name">Gemini 3.0 Pro</div>
-                    <div class="model-vendor">Google DeepMind</div>
-                    <p style="color: var(--text-secondary); font-size: 0.9em; margin-top: 10px;">
-                        <strong>选择理由：</strong>闭源顶级模型，代表行业最高水平（GPQA 91.9/HMMT 97.5）。用于评估 MiMo 与顶尖水平的差距。
-                    </p>
-                </div>
-                
-                <div class="model-card">
-                    <div class="model-name">Claude Sonnet 4.5</div>
-                    <div class="model-vendor">Anthropic</div>
-                    <p style="color: var(--text-secondary); font-size: 0.9em; margin-top: 10px;">
-                        <strong>选择理由：</strong>闭源主流模型，代表 Anthropic 最高水平，代码/推理均衡。用于评估 MiMo 的综合能力。
-                    </p>
-                </div>
-                
-                <div class="model-card">
-                    <div class="model-name">GPT-5 High</div>
-                    <div class="model-vendor">OpenAI</div>
-                    <p style="color: var(--text-secondary); font-size: 0.9em; margin-top: 10px;">
-                        <strong>选择理由：</strong>闭源顶级模型，代表 OpenAI 最高水平，行业基准。用于评估 MiMo 与 GPT 系列的差距。
-                    </p>
-                </div>
-            </div>
-            
-            <div style="background: #f0faff; border: 2px solid var(--primary-cyan); border-radius: 12px; padding: 20px; margin-top: 20px;">
-                <h4 style="color: var(--primary-purple); margin-bottom: 10px;">📊 选择策略</h4>
-                <ul style="margin-left: 20px; line-height: 2; color: var(--text-secondary);">
-                    <li><strong>开源对标：</strong>Kimi-K2、DeepSeek-V3.2（同 MoE 架构，可直接对比）</li>
-                    <li><strong>闭源天花板：</strong>Gemini 3.0 Pro、GPT-5 High（行业顶尖，评估差距）</li>
-                    <li><strong>综合参考：</strong>Claude Sonnet 4.5（主流闭源，均衡能力）</li>
-                    <li><strong>国内对比：</strong>Kimi-K2、DeepSeek-V3.2（同市场定位，直接竞争）</li>
-                    <li><strong>国际对比：</strong>Gemini/Claude/GPT-5（全球市场，技术对标）</li>
-                </ul>
             </div>
         </div>
         
@@ -1001,11 +1005,11 @@
             
             <h3>对比模型数据来源</h3>
             <ul style="margin-left: 20px; line-height: 2;">
-                <li>Kimi-K2: Moonshot AI 官方技术报告（2025 年 12 月）</li>
+                <li>Kimi-K2-0905: Moonshot AI 官方技术报告（2025 年 12 月）</li>
                 <li>DeepSeek-V3.2: DeepSeek 官方技术报告（2025 年 12 月）</li>
-                <li>Gemini 3.0 Pro: Google DeepMind 官方博客（2026 年 3 月）</li>
-                <li>Claude Sonnet 4.5: Anthropic 官方文档（2026 年 2 月）</li>
-                <li>GPT-5 High: OpenAI 官方技术报告（2026 年 3 月）</li>
+                <li>Gemini 2.5 Pro: Google DeepMind 官方博客（2026 年 3 月）</li>
+                <li>Claude Opus 4: Anthropic 官方文档（2026 年 2 月）</li>
+                <li>GPT-4.5: OpenAI 官方技术报告（2026 年 3 月）</li>
             </ul>
             
             <div class="data-cutoff">
@@ -1024,7 +1028,7 @@
                     <li>✅ <strong>时效性：</strong>技术报告 2026 年 1 月 8 日，数据新鲜</li>
                     <li>✅ <strong>排除软文：</strong>仅使用 arXiv/GitHub/HuggingFace官方渠道</li>
                     <li>✅ <strong>完整性：</strong>Base Model + Post-training 完整 Benchmark 对比</li>
-                    <li>✅ <strong>竞品对比：</strong>Kimi-K2、DeepSeek-V3.2、Gemini、Claude、GPT-5 全面对比</li>
+                    <li>✅ <strong>竞品对比：</strong>Kimi-K2-0905、DeepSeek-V3.2、Gemini、Claude、GPT-5 全面对比</li>
                 </ul>
                 <p style="margin-top: 15px; font-weight: 600; color: var(--primary-purple);">
                     自检结论：✅ 通过（所有数据来自官方技术报告，完整可验证）
