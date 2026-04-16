@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 科技情报简报 - 2026-04-16 09:52</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #7D2AE7;
+            --primary-cyan: #00c4cc;
+            --accent-orange: #FF6B35;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        .header {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+        .header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 32px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+        .meta-item {
+            background: #f5f3ff;
+            padding: 8px 16px;
+            border-radius: 12px;
+            border-left: 3px solid var(--primary-purple);
+        }
+        .section-title {
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .news-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            transition: transform 0.3s;
+        }
+        .news-card:hover { transform: translateY(-5px); }
+        .news-rank {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-cyan));
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: 800;
+            margin-right: 15px;
+        }
+        .news-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+            display: inline;
+        }
+        .news-meta {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+        .news-source {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 8px;
+        }
+        .news-score {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        .news-snippet {
+            color: #555;
+            line-height: 1.7;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9ff;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-cyan);
+        }
+        .news-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--primary-purple);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .news-link:hover { text-decoration: underline; }
+        .stats-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            margin-top: 30px;
+        }
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .stats-table th, .stats-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        .stats-table th {
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-cyan));
+            color: white;
+            border-radius: 8px;
+        }
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .badge-success { background: #10b981; color: white; }
+        .badge-error { background: #ef4444; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📰 AI 科技情报简报</h1>
+            <div class="meta">
+                <div class="meta-item">🕐 2026-04-16 09:52</div>
+                <div class="meta-item">📊 共 21 条</div>
+                <div class="meta-item"><span class="badge badge-success">✅</span> 机器之心</div>
+                <div class="meta-item"><span class="badge badge-success">✅</span> 量子位</div>
+                <div class="meta-item"><span class="badge badge-success">✅</span> 36 氪 AI</div>
+                <div class="meta-item"><span class="badge badge-success">✅</span> Tavily API</div>
+            </div>
+        </div>
+        
+        <h2 class="section-title">🔥 热点 Top 15</h2>
+
+        <div class="news-card">
+            <div>
+                <span class="news-rank">1</span>
+                <span class="news-title">生成式AI大模型动态周报 - jax</span>
+            </div>
+            <div class="news-meta">
+                <span class="news-source">Tavily API</span>
+                <span class="news-score">⭐ 100/100</span>
+            </div>
+            <div class="news-snippet">issue96 2024.11.25-12.1
+
+本周，ChatGPT上线已满两周年，CNNIC发布的《生成式人工智能应用发展报告》显示，截至2024年6月，我国生成式人工智能产品的用户规模达2.3亿人。
+
+Cursor 0.43版本更新引入了新的Composer Agent功能，这是该编辑器的一项重大改进。该功能能够实现自主选择上下文、操作终端和自动完成任务的能力，并对用户界面和性能表现进行了优化。该功能具备完整的项目理解和编辑能力，并对项目进行深度解析。众多用户对这一新功能表示兴奋，并称其为新版本最大亮点之一。
+
+Claude推出新功能，允许用户通过预设样式和自定义样式来自定义对话的语气和</div>
+            <a href="https://cdjax.com/?p=680" target="_blank" class="news-link">🔗 阅读原文 →</a>
+        </div>
+
+        <div class="news-card">
+            <div>
+                <span class="news-rank">2</span>
+                <span class="news-title">2026年大模型全解析，从AI到智能体 - AtomGit开源社区</span>
+            </div>
+            <div class="news-meta">
+                <span class="news-source">Tavily API</span>
+                <span class="news-score">⭐ 100/100</span>
+            </div>
+            <div class="news-snippet">代表产品：OpenAI的o1/o3系列、DeepSeek的R1。
+
+核心思路：让模型在给出最终答案之前，先生成一段"思考过程"（Chain of Thought）。
+
+就像学生在考试时，先打草稿、列步骤，再写最终答案，而不是直接下笔。这种"慢想"的方式在数学、编程、复杂推理等任务上，效果远超"快答"的普通模型。
+
+DeepSeek R1更是以出人意料的低成本实现了与OpenAI o1旗鼓相当的推理能力，打破了"顶级AI模型必须天价训练费"的神话，在2025年初引发了全球AI圈的震动。
+
+#### 多模态：从"只懂文字"到"能看能听"
+
+早期的大模型只能处理文字。但现在的最新模型已经远不止于此：</div>
+            <a href="https://gitcode.csdn.net/69ccd78354b52172bc6635b2.html" target="_blank" class="news-link">🔗 阅读原文 →</a>
+        </div>
+
+        <div class="news-card">
+            <div>
+                <span class="news-rank">3</span>
+                <span class="news-title">LLM News Today (April 2026) – AI Model Releases - LLM Stats</span>
+            </div>
+            <div class="news-meta">
+                <span class="news-source">Tavily API</span>
+                <span class="news-score">⭐ 100/100</span>
+            </div>
+            <div class="news-snippet">### What is the latest large language model news today?
+
+LLM Stats provides comprehensive large language model news today covering all major providers. Our large language model updates include GPT, Claude, Gemini, Llama, and other model families. We aggregate large language models news today from Te</div>
+            <a href="https://llm-stats.com/ai-news" target="_blank" class="news-link">🔗 阅读原文 →</a>
+        </div>
+
+        <div class="news-card">
+            <div>
+                <span class="news-rank">4</span>
+                <span class="news-title">Gemini gains ground on ChatGPT with 25% US DAU share as ...</span>
+            </div>
+            <div class="news-meta">
+                <span class="news-source">Tavily API</span>
+                <span class="news-score">⭐ 100/100</span>
+            </div>
+            <div class="news-snippet">Contact Us →
+
+# Gemini gains ground on ChatGPT with 25% US DAU share as Claude's churn drops
+
+Article by Lisa Haiss  |  Mar 4, 2026
+
+Download
+
+Gemini gains ground on ChatGPT with 25% US DAU share as Claude's churn drops
+
+Share
+
+Topics
+
+Artificial Intelligence (AI)
+
+Mobile Apps
+
+Worldwide
+
+The news: </div>
+            <a href="https://www.emarketer.com/content/gemini-gains-ground-chatgpt-25-dau-share-claude-churn-drops" target="_blank" class="news-link">🔗 阅读原文 →</a>
+        </div>
+
+        <div class="news-card">
+            <div>
+                <span class="news-rank">5</span>
+                <span class="news-title">Anthropic News - Latest Updates on Claude AI & AI Safety | LLM Rumors</span>
+            </div>
+            <div class="news-meta">
+                <span class="news-source">Tavily API</span>
+                <span class="news-score">⭐ 100/100</span>
+            </div>
+            <div class="news-snippet">### Anthropic's Secret Book-Scanning Pipeline for Claude
+
+How Anthropic built a pipeline scanning millions of books for Claude AI training, the legal battles that followed, and what it reveals about AI data infrastructure.
+
+·13 min read
+
+Newsletter
+
+### Stay ahead of the AI curve
+
+Weekly insights on</div>
+            <a href="https://www.llmrumors.com/news/anthropic" target="_blank" class="news-link">🔗 阅读原文 →</a>
+        </div>
+
+        <div class="news-card">
+            <div>
+                <span class="news-rank">6</span>
+                <span class="news-title">AI 重大突破、模型发布时间线 - AI 工具箱</span>
+            </div>
+            <div class="news-meta">
+                <span class="news-source">Tavily API</span>
+                <span class="news-score">⭐ 100/100</span>
+            </div>
+            <div class="news-snippet">↗
+
+ChatGPT Atlas
+
+OpenAI 于 2025 年 10 月 21 日推出了一款以 ChatGPT 为核心的全新网络浏览器——ChatGPT Atlas。这款浏览器旨在通过深度集成 AI，重塑用户的网页浏览体验，使其成为一个能够理解用户意图并主动完成任务的“超级助理”。
+
+↗
+
+DeepSeek-OCR 模型主要用于探索一种名为“上下文光学压缩” (contexts optical compression) 的创新理念。该方法旨在解决大型语言模型 (LLM) 在处理长文本时面临的计算效率难题，通过将文本信息渲染成图像，利用视觉 Token 实现比原始文本 Token 更高效的压</div>
+            <a href="https://fishersama.com/ai-timeline" target="_blank" class="news-link">🔗 阅读原文 →</a>
+        </div>
+
+        <div class="news-card">
+            <div>
+                <span class="news-rank">7</span>
+                <span class="news-title">科技新闻早知道: 本周热点</span>
+            </div>
+            <div class="news-meta">
+                <span class="news-source">Tavily API</span>
+                <span class="news-score">⭐ 100/100</span>
+            </div>
+            <div class="news-snippet">#4
+
+📍 TechCrunch AI
+
+事件解读 (What Happened) 字节跳动（ByteDance）正式宣布将其最新的 AI 视频生成模型 Dreamina Seedance 2.0 集成至旗下视频编辑应用 CapCut（剪映国际版）。这一版本的发布标志着字节跳动在生成式人工智能领域迈出了重要一步，旨在为全球创作者提供更强大的自动化视频创作工具。 Dreamina Seedance 2.0 的核心能力在于通过文本描述或静态图...
+
+阅读更多 →
+
+## 📚 往期归档
+
+查看所有往期新闻和趋势分析。
+
+浏览归档 → [...] #2
+
+📍 AI News
+
+事件解读 (What </div>
+            <a href="https://trends.aow.me/" target="_blank" class="news-link">🔗 阅读原文 →</a>
+        </div>
+
+        <div class="news-card">
+            <div>
+                <span class="news-rank">8</span>
+                <span class="news-title">The Race Between OpenAI, Google, and Anthropic: Who's Winning?</span>
+            </div>
+            <div class="news-meta">
+                <span class="news-source">Tavily API</span>
+                <span class="news-score">⭐ 100/100</span>
+            </div>
+            <div class="news-snippet">### Google DeepMind
+
+   is playing the long game.
+   Their models are incredibly strong—Gemini 1.5 is a top performer—but Google’s rollout is slower, more cautious, and fragmented.
+   DeepMind still leads in research breakthroughs, but struggles to translate them into consumer excitement.
+
+### Anthr</div>
+            <a href="https://medium.com/@gitikanaik12345r/the-race-between-openai-google-and-anthropic-whos-winning-4f1fe74207e0" target="_blank" class="news-link">🔗 阅读原文 →</a>
+        </div>
+
+        <div class="news-card">
+            <div>
+                <span class="news-rank">9</span>
+                <span class="news-title">国内外知名大模型及应用——模型/应用维度（2026/04/10）</span>
+            </div>
+            <div class="news-meta">
+                <span class="news-source">Tavily API</span>
+                <span class="news-score">⭐ 100/100</span>
+            </div>
+            <div class="news-snippet">GLM：国内开源组更新通用模型 GLM-4.7、GLM-4.6V，推理模型 GLM-4.7(Thinking Mode)；
+   MiniMax：国内开源组更新通用模型 MiniMax M2.1，推理模型MiniMax M2.1(Interleaved Thinking)；
+   Seedance：国内闭源组更新通用模型 doubao-Seed-1.8，推理模型 doubao-Seed-1.8 thinking，生视频模型 Seedance 1.5 pro；
+   MiMO：国内开源组新增通用模型MiMo-V2-Flash及模型技术报告；
+   Gemini：国外闭源组更新通用模型 Gemin</div>
+            <a href="https://zhuanlan.zhihu.com/p/670574382" target="_blank" class="news-link">🔗 阅读原文 →</a>
+        </div>
+
+        <div class="news-card">
+            <div>
+                <span class="news-rank">10</span>
+                <span class="news-title">Anthropic vs Google DeepMind</span>
+            </div>
+            <div class="news-meta">
+                <span class="news-source">Tavily API</span>
+                <span class="news-score">⭐ 100/100</span>
+            </div>
+            <div class="news-snippet"># Anthropic vs Google DeepMind
+
+Comparison
+
+Anthropic and Google DeepMind represent two fundamentally different theories of how to win the AI era. Anthropic, valued at $380 billion after its $30 billion Series G in February 2026, is a safety-first company betting that model quality, developer toolin</div>
+            <a href="https://www.metavert.io/compare/anthropic-vs-google-deepmind" target="_blank" class="news-link">🔗 阅读原文 →</a>
+        </div>
+
+        <div class="news-card">
+            <div>
+                <span class="news-rank">11</span>
+                <span class="news-title">百度Create大会官宣三大核心看点，国内最大AI开发者嘉年华5月北京揭幕</span>
+            </div>
+            <div class="news-meta">
+                <span class="news-source">量子位</span>
+                <span class="news-score">⭐ 90/100</span>
+            </div>
+            <div class="news-snippet">量子位文章：百度Create大会官宣三大核心看点，国内最大AI开发者嘉年华5月北京揭幕</div>
+            <a href="https://www.qbitai.com/2026/04/401507.html" target="_blank" class="news-link">🔗 阅读原文 →</a>
+        </div>
+
+        <div class="news-card">
+            <div>
+                <span class="news-rank">12</span>
+                <span class="news-title">北电数智发布星火·AI云2.0，以AI系统工程重塑产城发展范式 | 酒仙桥论坛</span>
+            </div>
+            <div class="news-meta">
+                <span class="news-source">量子位</span>
+                <span class="news-score">⭐ 90/100</span>
+            </div>
+            <div class="news-snippet">量子位文章：北电数智发布星火·AI云2.0，以AI系统工程重塑产城发展范式 | 酒仙桥论坛</div>
+            <a href="https://www.qbitai.com/2026/04/401484.html" target="_blank" class="news-link">🔗 阅读原文 →</a>
+        </div>
+
+        <div class="news-card">
+            <div>
+                <span class="news-rank">13</span>
+                <span class="news-title">CAAI携手中国人民大学高瓴人工智能学院、英博数科启动高校学院算力支持计划</span>
+            </div>
+            <div class="news-meta">
+                <span class="news-source">量子位</span>
+                <span class="news-score">⭐ 90/100</span>
+            </div>
+            <div class="news-snippet">量子位文章：CAAI携手中国人民大学高瓴人工智能学院、英博数科启动高校学院算力支持计划</div>
+            <a href="https://www.qbitai.com/2026/04/401479.html" target="_blank" class="news-link">🔗 阅读原文 →</a>
+        </div>
+
+        <div class="news-card">
+            <div>
+                <span class="news-rank">14</span>
+                <span class="news-title">浏览器原地变龙虾！Chrome上线Skills，技能一键复用帮你干活</span>
+            </div>
+            <div class="news-meta">
+                <span class="news-source">量子位</span>
+                <span class="news-score">⭐ 90/100</span>
+            </div>
+            <div class="news-snippet">量子位文章：浏览器原地变龙虾！Chrome上线Skills，技能一键复用帮你干活</div>
+            <a href="https://www.qbitai.com/2026/04/401389.html" target="_blank" class="news-link">🔗 阅读原文 →</a>
+        </div>
+
+        <div class="news-card">
+            <div>
+                <span class="news-rank">15</span>
+                <span class="news-title">死敌爆料是狠！OpenAI内部信阴阳Claude营收注水80亿，然后泄露了…</span>
+            </div>
+            <div class="news-meta">
+                <span class="news-source">量子位</span>
+                <span class="news-score">⭐ 90/100</span>
+            </div>
+            <div class="news-snippet">量子位文章：死敌爆料是狠！OpenAI内部信阴阳Claude营收注水80亿，然后泄露了…</div>
+            <a href="https://www.qbitai.com/2026/04/401333.html" target="_blank" class="news-link">🔗 阅读原文 →</a>
+        </div>
+
+        <div class="stats-card">
+            <h2 style="font-family: 'Poppins'; color: var(--primary-purple);">📊 数据来源分布</h2>
+            <table class="stats-table">
+                <tr><th>数据源</th><th>条目数</th><th>占比</th><th>状态</th></tr>
+<tr><td>Tavily API</td><td>10</td><td>47.6%</td><td>✅</td></tr>
+<tr><td>量子位</td><td>10</td><td>47.6%</td><td>✅</td></tr>
+<tr><td>机器之心</td><td>1</td><td>4.8%</td><td>✅</td></tr>
+
+            </table>
+        </div>
+        
+        <div class="footer">
+            <p>🤖 由 Hermes Agent 多源并发信息抓取技能自动生成</p>
+            <p>技能版本：v2.0 | 数据时效：24 小时内</p>
+        </div>
+    </div>
+</body>
+</html>
