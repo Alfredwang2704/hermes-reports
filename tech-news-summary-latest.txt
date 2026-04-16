@@ -1,10 +1,10 @@
-📰 **AI 科技情报简报** | 2026-04-16 15:41
+📰 **AI 科技情报简报** | 2026-04-16 16:40
 
-✅ 通过：8 条 | ❌ 过滤：5 条 | 🌐 翻译：3 条
+✅ 通过：7 条 | ❌ 过滤：5 条 | 🌐 翻译：3 条
 
 ━━━ 📝 **今日要点** ━━━
 
-🔹 **核心趋势**：多款 AI 新品发布、市场竞争动态更新、主流模型版本迭代，行业持续高速发展。今日共捕获 8 条高价值资讯，平均时效 15 天，3 条英文内容已翻译，来源真实性验证 100% 通过。
+🔹 **核心趋势**：市场竞争动态更新、主流模型版本迭代，行业持续高速发展。今日共捕获 7 条高价值资讯，平均时效 15 天，3 条英文内容已翻译，来源真实性验证 100% 通过。
 
 ---
 
@@ -16,23 +16,20 @@
 2. **[🔄 版本更新]** 腾讯官宣升级AI小程序成长计划，所有小程序都能申请...
    📅 15天前 | 📍 量子位 | 🔗 [原文](https://www.qbitai.com/2026/04/401710.html)
 
-3. **[📰 综合资讯]** Claude实名认证引众怒！强制验证是为了更精准封号...
-   📅 15天前 | 📍 量子位 | 🔗 [原文](https://www.qbitai.com/2026/04/401655.html)
-
-4. **[🆕 新品发布]** 2026年2月AI模型大爆发：7大模型同月发布的史上最激烈竞争 - EffiFlow...
-   📅 None天前 | 📍 Tavily API | 🔗 [原文](https://jangwook.net/zh/blog/zh/ai-model-rush-february-2026/)
-
-5. **[💹 市场动态]** 2026年大模型全解析，从AI到智能体 - AtomGit开源社区...
+3. **[💹 市场动态]** 收藏！小白程序员必看：2026年大模型全解析，从AI到智能体，搞懂它才能赢！_人工智能_嘴...
    📅 None天前 | 📍 Tavily API | 🔗 [原文](https://gitcode.csdn.net/69ccd78354b52172bc6635b2.html)
+
+4. **[🔄 版本更新]** 今日大语言模型新闻（2026年4月）——人工智能模型发布...
+   📅 None天前 | 📍 Tavily API | 🔗 [原文](https://llm-stats.com/ai-news)
+
+5. **[💹 市场动态]** 双子座在美国日活跃用户中占据25%的份额，追赶ChatGPT…...
+   📅 None天前 | 📍 Tavily API | 🔗 [原文](https://www.emarketer.com/content/gemini-gains-ground-chatgpt-25-dau-share-claude-churn-drops)
 
 6. **[💹 市场动态]** 谷歌AI 凭什么赢了OpenAI？|DeepMind - 网易...
    📅 None天前 | 📍 Tavily API | 🔗 [原文](https://www.163.com/dy/article/KQ6D1IMO05315FER.html)
 
-7. **[📊 横向对比]** Anthropic 对比 OpenAI 对比 谷歌: Three Different Be...
-   📅 None天前 | 📍 Tavily API | 🔗 [原文](https://www.mindstudio.ai/blog/anthropic-vs-openai-vs-google-agent-strategy)
-
-8. **[💹 市场动态]** 一文读懂2026年大模型核心：大语言模型、RAG、智能体 - AtomGit开源社区...
-   📅 None天前 | 📍 Tavily API | 🔗 [原文](https://gitcode.csdn.net/69b5041854b52172bc614f45.html)
+7. **[📊 横向对比]** [招银国际]：1Q26大模型进展复盘：关注Agent化及B端突围 - 发现报告...
+   📅 None天前 | 📍 Tavily API | 🔗 [原文](https://www.fxbaogao.com/detail/5354151)
 
 ---
 
