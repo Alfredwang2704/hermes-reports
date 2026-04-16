@@ -1,10 +1,10 @@
-📰 **AI 科技情报简报** | 2026-04-16 12:53
+📰 **AI 科技情报简报** | 2026-04-16 13:28
 
-✅ 通过：7 条 | ❌ 过滤：6 条 | 🌐 翻译：3 条
+✅ 通过：9 条 | ❌ 过滤：4 条 | 🌐 翻译：4 条
 
 ━━━ 📝 **今日要点** ━━━
 
-🔹 **核心趋势**：多款 AI 新品发布、市场竞争动态更新、主流模型版本迭代，行业持续高速发展。今日共捕获 7 条高价值资讯，平均时效 15 天，3 条英文内容已翻译，来源真实性验证 100% 通过。
+🔹 **核心趋势**：多款 AI 新品发布、市场竞争动态更新、主流模型版本迭代，行业持续高速发展。今日共捕获 9 条高价值资讯，平均时效 15 天，4 条英文内容已翻译，来源真实性验证 100% 通过。
 
 ---
 
@@ -19,17 +19,23 @@
 3. **[📰 综合资讯]** 具身智能为什么还没真正落地？问题卡在这｜沙龙报名...
    📅 15天前 | 📍 量子位 | 🔗 [原文](https://www.qbitai.com/2026/04/401541.html)
 
-4. **[🔄 版本更新]** 大语言模型 新闻 今日 (4 月 2026 年) – 人工智能 模型 Releases -...
+4. **[🆕 新品发布]** 2026年2月AI模型大爆发：7大模型同月发布的史上最激烈竞争 - EffiFlow...
+   📅 None天前 | 📍 Tavily API | 🔗 [原文](https://jangwook.net/zh/blog/zh/ai-model-rush-february-2026/)
+
+5. **[🔄 版本更新]** 大语言模型 新闻 今日 (4 月 2026 年) – 人工智能 模型 Releases -...
    📅 None天前 | 📍 Tavily API | 🔗 [原文](https://llm-stats.com/ai-news)
 
-5. **[💹 市场动态]** Gemini 抢占 相比 ChatGPT 拥有 25% US 日活用户 份额 as ......
+6. **[💹 市场动态]** Gemini 抢占 ChatGPT 拥有 25% 美国 日活用户 份额 作为 ......
    📅 None天前 | 📍 Tavily API | 🔗 [原文](https://www.emarketer.com/content/gemini-gains-ground-chatgpt-25-dau-share-claude-churn-drops)
 
-6. **[📰 综合资讯]** 谷歌AI 凭什么赢了OpenAI？|DeepMind - 网易...
-   📅 None天前 | 📍 Tavily API | 🔗 [原文](https://www.163.com/dy/article/KQ6D1IMO05315FER.html)
+7. **[🆕 新品发布]** 2026 AI 大模型全景对比：国内外12 款主流模型实测...
+   📅 None天前 | 📍 Tavily API | 🔗 [原文](https://chenguangliang.com/posts/blog080_ai-models-comparison-2026/)
 
-7. **[🆕 新品发布]** 国内外知名大模型及应用——模型/应用维度（2026/04/10）...
-   📅 None天前 | 📍 Tavily API | 🔗 [原文](https://zhuanlan.zhihu.com/p/670574382)
+8. **[📊 横向对比]** Claude 对比 ChatGPT 对比 Copilot 对比 Gemini: 2026 ...
+   📅 None天前 | 📍 Tavily API | 🔗 [原文](https://intuitionlabs.ai/articles/claude-vs-chatgpt-vs-copilot-vs-gemini-enterprise-comparison)
+
+9. **[📰 综合资讯]** 谷歌AI 凭什么赢了OpenAI？|DeepMind - 网易...
+   📅 None天前 | 📍 Tavily API | 🔗 [原文](https://www.163.com/dy/article/KQ6D1IMO05315FER.html)
 
 ---
 
