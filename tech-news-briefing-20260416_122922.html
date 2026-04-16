@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>AI 科技情报简报 - 2026-04-16 12:29</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary-purple: #7D2AE7; --primary-cyan: #00c4cc; --accent-orange: #FF6B35; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Nunito', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); padding: 40px 20px; min-height: 100vh; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .header { background: white; border-radius: 24px; padding: 40px; margin-bottom: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); }
+        .header h1 { font-family: 'Poppins', sans-serif; font-size: 28px; background: linear-gradient(135deg, var(--primary-purple), var(--primary-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; }
+        .filter-badge { display: inline-block; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; margin: 5px; }
+        .filter-pass { background: #10b981; color: white; }
+        .filter-reject { background: #ef4444; color: white; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; margin: 20px 0; }
+        .stat-card { background: white; border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .stat-num { font-size: 28px; font-weight: 800; color: var(--primary-purple); }
+        .stat-label { font-size: 12px; color: #666; margin-top: 5px; }
+        .section-title { color: white; font-family: 'Poppins'; font-size: 22px; margin-bottom: 20px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .news-card { background: white; border-radius: 20px; padding: 30px; margin-bottom: 25px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); transition: transform 0.3s; }
+        .news-card:hover { transform: translateY(-5px); }
+        .news-title { font-family: 'Poppins', sans-serif; font-size: 18px; color: #1a1a2e; margin-bottom: 12px; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-right: 8px; }
+        .badge-new { background: #10b981; color: white; }
+        .badge-compare { background: #3b82f6; color: white; }
+        .badge-market { background: #f59e0b; color: white; }
+        .badge-update { background: #8b5cf6; color: white; }
+        .badge-funding { background: #ec4899; color: white; }
+        .news-meta { display: flex; gap: 10px; margin-top: 15px; font-size: 13px; align-items: center; flex-wrap: wrap; }
+        .news-source { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 4px 12px; border-radius: 8px; }
+        .news-snippet { color: #555; line-height: 1.7; margin-top: 15px; padding: 15px; background: #f8f9ff; border-radius: 12px; border-left: 4px solid var(--primary-cyan); }
+        .verification { background: #d1fae5; border: 1px solid #10b981; border-radius: 12px; padding: 15px; margin-top: 15px; font-size: 13px; }
+        .verification-warning { background: #fef3c7; border-color: #f59e0b; }
+        .rejected-item { background: #fef3c7; border: 1px solid #f59e0b; border-radius: 12px; padding: 15px; margin-top: 10px; font-size: 13px; color: #666; }
+        .validation-summary { background: white; border-radius: 20px; padding: 30px; margin: 30px 0; box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
+        .footer { text-align: center; color: white; margin-top: 40px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📰 AI 科技情报简报</h1>
+            <p style="color: #666; margin-top: 10px;">🕐 2026-04-16 12:29</p>
+            <div style="margin-top: 15px;">
+                <span class="filter-badge filter-pass">✅ 2026 年内容</span>
+                <span class="filter-badge filter-pass">✅ ≤45 天时效</span>
+                <span class="filter-badge filter-pass">✅ 来源真实性验证</span>
+                <span class="filter-badge filter-pass">✅ 版本深度提取</span>
+                <span class="filter-badge filter-pass">✅ 6 源并发</span>
+            </div>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-num">6</div>
+                <div class="stat-label">数据源</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">6</div>
+                <div class="stat-label">✅ 成功</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">4</div>
+                <div class="stat-label">通过验证</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">8</div>
+                <div class="stat-label">❌ 已过滤</div>
+            </div>
+        </div>
+        
+        <div class="validation-summary">
+            <h2 style="font-family: 'Poppins'; color: var(--primary-purple); margin-bottom: 20px;">🔍 验证摘要</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                <div style="padding: 15px; background: #d1fae5; border-radius: 12px; border-left: 4px solid #10b981;">
+                    <div style="font-size: 24px; font-weight: 800; color: #10b981;">4</div>
+                    <div style="font-size: 13px; color: #666;">来源真实性通过</div>
+                </div>
+                <div style="padding: 15px; background: #dbeafe; border-radius: 12px; border-left: 4px solid #3b82f6;">
+                    <div style="font-size: 24px; font-weight: 800; color: #3b82f6;">0</div>
+                    <div style="font-size: 13px; color: #666;">时效性通过</div>
+                </div>
+                <div style="padding: 15px; background: #fef3c7; border-radius: 12px; border-left: 4px solid #f59e0b;">
+                    <div style="font-size: 24px; font-weight: 800; color: #f59e0b;">4</div>
+                    <div style="font-size: 13px; color: #666;">版本警告</div>
+                </div>
+                <div style="padding: 15px; background: #f3e8ff; border-radius: 12px; border-left: 4px solid #a855f7;">
+                    <div style="font-size: 24px; font-weight: 800; color: #a855f7;">15.0天</div>
+                    <div style="font-size: 13px; color: #666;">平均内容时效</div>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="section-title">🔥 热点 Top 4</h2>
+
+        <div class="news-card">
+            <div class="news-title">
+                <span class="badge ">📰 综合资讯</span>
+                短短3个月，高德已拿下具身智能领域15项世界第一
+            </div>
+            <div class="news-meta">
+                <span class="news-source">量子位</span>
+                <span style="color: #666;">⭐ 100/100</span>
+                
+                <span style="color: #666;">🔗 <a href="https://www.qbitai.com/2026/04/401649.html" target="_blank" style="color: var(--primary-purple);">阅读原文</a></span>
+            </div>
+            <div class="news-snippet">量子位: 短短3个月，高德已拿下具身智能领域15项世界第一...</div>
+            <div class="verification verification-warning">
+                <strong>✅ 验证通过：</strong> 来源真实性 ✓ (90分) | 2026 年内容 ✓ | ≤45 天时效 ✓
+                <br><strong>⚠️ 注意：</strong>✅ 2026 年内容 (15天前)
+            </div>
+        </div>
+
+        <div class="news-card">
+            <div class="news-title">
+                <span class="badge ">📰 综合资讯</span>
+                具身智能为什么还没真正落地？问题卡在这｜沙龙报名
+            </div>
+            <div class="news-meta">
+                <span class="news-source">量子位</span>
+                <span style="color: #666;">⭐ 100/100</span>
+                
+                <span style="color: #666;">🔗 <a href="https://www.qbitai.com/2026/04/401541.html" target="_blank" style="color: var(--primary-purple);">阅读原文</a></span>
+            </div>
+            <div class="news-snippet">量子位: 具身智能为什么还没真正落地？问题卡在这｜沙龙报名...</div>
+            <div class="verification verification-warning">
+                <strong>✅ 验证通过：</strong> 来源真实性 ✓ (90分) | 2026 年内容 ✓ | ≤45 天时效 ✓
+                <br><strong>⚠️ 注意：</strong>✅ 2026 年内容 (15天前)
+            </div>
+        </div>
+
+        <div class="news-card">
+            <div class="news-title">
+                <span class="badge badge-update">🔄 版本更新</span>
+                LLM News Today (April 2026) – AI Model Releases - LLM Stats
+            </div>
+            <div class="news-meta">
+                <span class="news-source">Tavily API</span>
+                <span style="color: #666;">⭐ 100/100</span>
+                <span style="color: #666; font-size: 12px;">🏷️ GPT-4o | Claude-3.5 | Gemini-2.0</span>
+                <span style="color: #666;">🔗 <a href="https://llm-stats.com/ai-news" target="_blank" style="color: var(--primary-purple);">阅读原文</a></span>
+            </div>
+            <div class="news-snippet">### What is the latest large language model news today?
+
+LLM Stats provides comprehensive large language model news today covering all major providers. Our large language model updates include GPT, Claude, Gemini, Llama, and other model families. We aggregate large language models news today from Te...</div>
+            <div class="verification verification-warning">
+                <strong>✅ 验证通过：</strong> 来源真实性 ✓ (50分) | 2026 年内容 ✓ | ≤45 天时效 ✓
+                <br><strong>⚠️ 注意：</strong>✅ 2026 年内容 (日期未解析)
+            </div>
+        </div>
+
+        <div class="news-card">
+            <div class="news-title">
+                <span class="badge badge-market">💹 市场动态</span>
+                Gemini gains ground on ChatGPT with 25% US DAU share as ...
+            </div>
+            <div class="news-meta">
+                <span class="news-source">Tavily API</span>
+                <span style="color: #666;">⭐ 100/100</span>
+                <span style="color: #666; font-size: 12px;">🏷️ GPT-.</span>
+                <span style="color: #666;">🔗 <a href="https://www.emarketer.com/content/gemini-gains-ground-chatgpt-25-dau-share-claude-churn-drops" target="_blank" style="color: var(--primary-purple);">阅读原文</a></span>
+            </div>
+            <div class="news-snippet">Contact Us →
+
+# Gemini gains ground on ChatGPT with 25% US DAU share as Claude's churn drops
+
+Article by Lisa Haiss  |  Mar 4, 2026
+
+Download
+
+Gemini gains ground on ChatGPT with 25% US DAU share as Claude's churn drops
+
+Share
+
+Topics
+
+Artificial Intelligence (AI)
+
+Mobile Apps
+
+Worldwide
+
+The news: ...</div>
+            <div class="verification verification-warning">
+                <strong>✅ 验证通过：</strong> 来源真实性 ✓ (50分) | 2026 年内容 ✓ | ≤45 天时效 ✓
+                <br><strong>⚠️ 注意：</strong>✅ 2026 年内容 (日期未解析)
+            </div>
+        </div>
+
+        <h2 class="section-title" style="margin-top: 40px;">🚫 已过滤内容</h2>
+        <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);">
+
+            <div class="rejected-item">
+                <strong>❌ 无法确认年份</strong>: Gemini 3.0 vs GPT-5.1 vs Claude 4.5 vs Grok 4.1: AI Model ... - Clarifai...
+            </div>
+
+            <div class="rejected-item">
+                <strong>❌ 无法确认年份</strong>: AI產業罕見大團結OpenAI、DeepMind員工挺Anthropic對抗國防部...
+            </div>
+
+            <div class="rejected-item">
+                <strong>⚠️ 内容过旧 (105天前，超过 45 天)</strong>: 谷歌AI 凭什么赢了OpenAI？|deepmind - 网易...
+            </div>
+
+            <div class="rejected-item">
+                <strong>⚠️ 内容过旧 (105天前，超过 45 天)</strong>: 国内外知名大模型及应用——模型/应用维度（2026/04/10）...
+            </div>
+
+            <div class="rejected-item">
+                <strong>❌ 非 2026 年内容 (1970)</strong>: 信仰与突围：2026人工智能趋势前瞻-36氪...
+            </div>
+
+            <div class="rejected-item">
+                <strong>❌ 无法确认年份</strong>: Claude vs. ChatGPT vs. Gemini: Who Wrote it Better? - Blog - Type.ai...
+            </div>
+
+            <div class="rejected-item">
+                <strong>❌ 无法确认年份</strong>: GPT-5 vs Claude 4.5 vs Gemini 2.5 for 10 Tasks (Oct 2025) - YouTube...
+            </div>
+
+            <div class="rejected-item">
+                <strong>❌ 无法确认年份</strong>: OpenAI and DeepMind losing engineers to Anthropic in one-sided ......
+            </div>
+</div>
+        <div class="footer">
+            <p>🤖 Hermes Agent 多源并发信息抓取技能 v4.0</p>
+            <p>✅ 6 源并发 | ✅ 来源真实性验证 | ✅ 严格时效过滤 (2026+≤45 天) | ✅ 版本深度提取 | ✅ 自动去重评分</p>
+        </div>
+    </div>
+</body>
+</html>
