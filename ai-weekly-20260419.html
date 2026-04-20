@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📰 一周 AI 大事盘点 (4 月 19 日)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-tertiary: #1a1a25;
+      --accent-primary: #7c3aed;
+      --accent-secondary: #00f5ff;
+      --accent-success: #059669;
+      --accent-warning: #f59e0b;
+      --accent-danger: #ef4444;
+      --text-primary: #f3f4f6;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      --border-color: #2d2d3a;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+      --shadow-glow: 0 0 40px rgba(124, 58, 237, 0.3);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* 电路板背景纹理 */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(124, 58, 237, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124, 58, 237, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* 数据流动画 */
+    @keyframes dataFlow {
+      0% { transform: translateY(-100%); opacity: 0; }
+      50% { opacity: 0.5; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    .data-stream {
+      position: fixed;
+      width: 2px;
+      height: 200px;
+      background: linear-gradient(to bottom, transparent, var(--accent-secondary), transparent);
+      animation: dataFlow 3s infinite;
+      opacity: 0.3;
+      z-index: 0;
+    }
+
+    .data-stream:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .data-stream:nth-child(2) { left: 30%; animation-delay: 1.5s; }
+    .data-stream:nth-child(3) { left: 70%; animation-delay: 0.5s; }
+    .data-stream:nth-child(4) { left: 90%; animation-delay: 2s; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* 头部设计 */
+    .header {
+      text-align: center;
+      margin-bottom: 60px;
+      position: relative;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .header-badge .verified {
+      color: var(--accent-success);
+      font-weight: 600;
+    }
+
+    .header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent-primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+      text-shadow: 0 0 80px rgba(124, 58, 237, 0.5);
+    }
+
+    .header-meta {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      color: var(--text-muted);
+      font-size: 14px;
+      flex-wrap: wrap;
+    }
+
+    .header-meta span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 摘要卡片 */
+    .summary-card {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-xl), var(--shadow-glow);
+    }
+
+    .summary-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-secondary), var(--accent-primary), var(--accent-secondary));
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .summary-card h2 {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .summary-card p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-primary);
+    }
+
+    .highlight {
+      color: var(--accent-secondary);
+      font-weight: 600;
+    }
+
+    /* 新闻卡片 */
+    .news-section {
+      margin-bottom: 48px;
+    }
+
+    .news-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin-bottom: 32px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .news-card:hover {
+      border-color: var(--accent-primary);
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-2px);
+    }
+
+    .news-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent-primary);
+    }
+
+    .news-card.featured::after {
+      background: linear-gradient(to bottom, var(--accent-secondary), var(--accent-primary));
+    }
+
+    .news-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .news-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+    }
+
+    .news-title {
+      flex: 1;
+    }
+
+    .news-title h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .news-title .date {
+      color: var(--text-muted);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .news-title .date .live-badge {
+      background: var(--accent-success);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* 数据表格 */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .data-table th {
+      background: var(--bg-secondary);
+      font-weight: 600;
+      color: var(--text-secondary);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .data-table td {
+      color: var(--text-primary);
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .data-table tr:hover td {
+      background: var(--bg-secondary);
+    }
+
+    .improvement {
+      color: var(--accent-success);
+      font-weight: 600;
+    }
+
+    /* 特性列表 */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .feature-item {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+      border-color: var(--accent-secondary);
+      background: var(--bg-secondary);
+    }
+
+    .feature-item h4 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: var(--accent-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-item p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* 引用块 */
+    .quote-block {
+      background: var(--bg-tertiary);
+      border-left: 4px solid var(--accent-secondary);
+      padding: 20px 24px;
+      margin: 24px 0;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    .quote-block cite {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--text-muted);
+      font-style: normal;
+    }
+
+    /* 来源列表 */
+    .sources-list {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .sources-list h4 {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sources-list ul {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+
+    .sources-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .sources-list li::before {
+      content: '🔗';
+      font-size: 12px;
+    }
+
+    .sources-list a {
+      color: var(--accent-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .sources-list a:hover {
+      color: var(--accent-primary);
+      text-decoration: underline;
+    }
+
+    /* 趋势分析 */
+    .trend-section {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin-top: 48px;
+    }
+
+    .trend-section h2 {
+      font-size: 1.75rem;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .trend-item {
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .trend-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .trend-item h3 {
+      font-size: 1.25rem;
+      color: var(--accent-secondary);
+      margin-bottom: 12px;
+    }
+
+    .trend-item p {
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    /* 页脚 */
+    .footer {
+      margin-top: 60px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .footer-meta {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-meta span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 呼吸灯效果 */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .news-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .data-table {
+        font-size: 14px;
+      }
+
+      .data-table th,
+      .data-table td {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 数据流背景动画 -->
+  <div class="data-stream"></div>
+  <div class="data-stream"></div>
+  <div class="data-stream"></div>
+  <div class="data-stream"></div>
+
+  <div class="container">
+    <!-- 头部 -->
+    <header class="header">
+      <div class="header-badge">
+        <span class="verified">✓ 已验证</span>
+        <span>多源交叉验证 ≥3 来源</span>
+      </div>
+      <h1>📰 一周 AI 大事盘点</h1>
+      <div class="header-meta">
+        <span>📅 4 月 19 日</span>
+        <span>🔍 第 440 期</span>
+        <span>📍 来源：抖音@产品君</span>
+        <span>⏰ 整理：2026 年 4 月 20 日</span>
+      </div>
+    </header>
+
+    <!-- 核心摘要 -->
+    <section class="summary-card">
+      <h2>🎯 一段话总结</h2>
+      <p>
+        本周 AI 领域迎来<span class="highlight">Anthropic 双连发</span>：4 月 16 日发布最强编码模型<strong>Claude Opus 4.7</strong>
+        （编程能力 SWE-bench 从 80.8% 跃升至 87.6%），4 月 17 日同步推出<strong>Claude Design</strong>视觉设计工具
+        （支持原型/幻灯片/单页设计生成）；<strong>OpenAI</strong>被曝正在内测下一代图像模型<strong>GPT-Image</strong>
+        （文字渲染能力显著提升）。三大更新标志着 AI 从"对话助手"向"全栈生产力工具"演进。
+      </p>
+    </section>
+
+    <!-- 新闻详情 -->
+    <section class="news-section">
+      <!-- 新闻 1: Claude Opus 4.7 -->
+      <article class="news-card featured">
+        <div class="news-header">
+          <div class="news-icon">🤖</div>
+          <div class="news-title">
+            <h3>Claude Opus 4.7 —— Anthropic 最强编码模型</h3>
+            <div class="date">
+              <span class="live-badge">已发布</span>
+              <span>2026 年 4 月 16 日</span>
+            </div>
+          </div>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>能力维度</th>
+              <th>Opus 4.6</th>
+              <th>Opus 4.7</th>
+              <th>提升幅度</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>SWE-bench Verified</strong></td>
+              <td>80.8%</td>
+              <td><span class="improvement">87.6%</span></td>
+              <td><span class="improvement">+6.8 个百分点</span></td>
+            </tr>
+            <tr>
+              <td><strong>CursorBench</strong></td>
+              <td>58%</td>
+              <td><span class="improvement">70%</span></td>
+              <td><span class="improvement">+12 个百分点</span></td>
+            </tr>
+            <tr>
+              <td><strong>SWE-bench Pro</strong></td>
+              <td>-</td>
+              <td><span class="improvement">64.3%</span></td>
+              <td><span class="improvement">业界第一</span></td>
+            </tr>
+            <tr>
+              <td><strong>视觉分辨率</strong></td>
+              <td>基准</td>
+              <td><span class="improvement">3× 提升</span></td>
+              <td>可解析技术图纸/UI 界面</td>
+            </tr>
+            <tr>
+              <td><strong>上下文窗口</strong></td>
+              <td>1M tokens</td>
+              <td>1M tokens</td>
+              <td>保持不变</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="features-grid">
+          <div class="feature-item">
+            <h4>⚡ 代理式编码</h4>
+            <p>主动验证输出：在声明任务完成前自动编写测试→运行→修复失败。Notion AI 评测："首个通过隐性需求测试的模型"。</p>
+          </div>
+          <div class="feature-item">
+            <h4>🎚️ xhigh 努力等级</h4>
+            <p>介于 high 和 max 之间的新层级，Claude Code 默认使用 xhigh，平衡质量与成本的更优选择。</p>
+          </div>
+          <div class="feature-item">
+            <h4>⏱️ 长周期任务优化</h4>
+            <p>复杂、多步骤软件工程任务表现显著提升，支持更长时间的自主运行（减少人工干预）。</p>
+          </div>
+        </div>
+
+        <div class="quote-block">
+          "数据缺失时正确报告而非提供看似合理但错误的答案"
+          <cite>— Hex CTO 实测反馈</cite>
+        </div>
+
+        <div class="sources-list">
+          <h4>📚 信息来源</h4>
+          <ul>
+            <li><a href="https://www.anthropic.com/news/claude-opus-4-7" target="_blank">Anthropic 官方博客 - Introducing Claude Opus 4.7</a></li>
+            <li><a href="https://github.blog/changelog/2026-04-16-claude-opus-4-7-is-generally-available/" target="_blank">GitHub Changelog - Claude Opus 4.7 GA</a></li>
+            <li><a href="https://www.verdent.ai/guides/what-is-claude-opus-4-7" target="_blank">Verdent AI - Claude Opus 4.7 深度分析</a></li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- 新闻 2: Claude Design -->
+      <article class="news-card">
+        <div class="news-header">
+          <div class="news-icon">🎨</div>
+          <div class="news-title">
+            <h3>Claude Design —— Anthropic 进军视觉设计领域</h3>
+            <div class="date">
+              <span class="live-badge">研究预览</span>
+              <span>2026 年 4 月 17 日</span>
+            </div>
+          </div>
+        </div>
+
+        <p style="margin-bottom: 20px; color: var(--text-secondary);">
+          <strong>产品定位：</strong>Anthropic Labs 实验性产品，面向<strong>无设计背景的产品经理/创始人</strong>，
+          通过自然语言描述快速生成视觉内容。
+        </p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>功能</th>
+              <th>描述</th>
+              <th>示例</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>原型设计</strong></td>
+              <td>生成移动端/网页应用原型</td>
+              <td>"设计一款宁静的冥想应用"</td>
+            </tr>
+            <tr>
+              <td><strong>幻灯片生成</strong></td>
+              <td>创建演示文稿</td>
+              <td>一键生成 PPT 风格幻灯片</td>
+            </tr>
+            <tr>
+              <td><strong>单页设计</strong></td>
+              <td>产品简介/营销单页</td>
+              <td>快速制作产品介绍页面</td>
+            </tr>
+            <tr>
+              <td><strong>迭代优化</strong></td>
+              <td>通过对话微调设计</td>
+              <td>"把字体调大"、"增加深色模式"</td>
+            </tr>
+            <tr>
+              <td><strong>多格式导出</strong></td>
+              <td>支持多种输出格式</td>
+              <td>Canva、PDF、PPTX、Claude Code</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="features-grid">
+          <div class="feature-item">
+            <h4>🎯 设计系统 Onboard</h4>
+            <p>支持自定义设计系统配置，可学习品牌规范（色彩、字体、间距等），确保输出符合品牌一致性。</p>
+          </div>
+          <div class="feature-item">
+            <h4>👥 可用用户群</h4>
+            <p>Claude Pro / Max / Team / Enterprise 用户，目前为研究预览版（Research Preview）。</p>
+          </div>
+        </div>
+
+        <div class="sources-list">
+          <h4>📚 信息来源</h4>
+          <ul>
+            <li><a href="https://techcrunch.com/2026/04/17/anthropic-launches-claude-design-a-new-product-for-creating-quick-visuals/" target="_blank">TechCrunch - Anthropic launches Claude Design</a></li>
+            <li><a href="https://www.youtube.com/watch?v=o7HSVPHCX8I" target="_blank">YouTube - Claude Design Tutorial</a></li>
+            <li><a href="https://tygartmedia.com/claude-updates-april-2026/" target="_blank">Tygart Media - Claude Updates April 2026</a></li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- 新闻 3: GPT-Image -->
+      <article class="news-card">
+        <div class="news-header">
+          <div class="news-icon">🖼️</div>
+          <div class="news-title">
+            <h3>OpenAI GPT-Image —— 下一代图像模型内测中</h3>
+            <div class="date">
+              <span style="background: var(--accent-warning); color: #000; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">内测</span>
+              <span>2026 年 4 月</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-item">
+            <h4>✍️ 文字渲染突破</h4>
+            <p>嵌入文字（标志、标签、UI 元素、代码片段）更准确，字符正确形成，间距一致，长文本串保持连贯。</p>
+          </div>
+          <div class="feature-item">
+            <h4>🌐 多语言支持</h4>
+            <p>预计支持 CJK（中日韩）、阿拉伯语、梵文等脚本。OpenAI 近期在国际化团队大量招聘。</p>
+          </div>
+          <div class="feature-item">
+            <h4>📐 分辨率提升</h4>
+            <p>前代 1536×1536 → 预测至少 2048×2048，高级 tier 可能支持 4K。</p>
+          </div>
+        </div>
+
+        <table class="data-table" style="margin-top: 24px;">
+          <thead>
+            <tr>
+              <th>模型</th>
+              <th>厂商</th>
+              <th>优势场景</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>GPT-Image 1.5</strong></td>
+              <td>OpenAI</td>
+              <td>文字渲染、多模态理解</td>
+            </tr>
+            <tr>
+              <td><strong>Gemini 3.1 Flash</strong></td>
+              <td>Google</td>
+              <td>快速迭代、4K 质量</td>
+            </tr>
+            <tr>
+              <td><strong>Flux 2 Pro</strong></td>
+              <td>Black Forest Labs</td>
+              <td>全能型专业生产</td>
+            </tr>
+            <tr>
+              <td><strong>Midjourney v7</strong></td>
+              <td>Midjourney</td>
+              <td>艺术风格化</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="sources-list">
+          <h4>📚 信息来源</h4>
+          <ul>
+            <li><a href="https://www.mindstudio.ai/blog/what-is-gpt-image-2/" target="_blank">MindStudio - What Is GPT Image 2</a></li>
+            <li><a href="https://wavespeed.ai/blog/posts/what-is-gpt-image-2/" target="_blank">WaveSpeedAI - GPT Image 2 Predictions</a></li>
+            <li><a href="https://till-freitag.com/en/blog/ai-image-generation-models-2026" target="_blank">Till Freitag - AI Image Generation 2026</a></li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <!-- 行业趋势分析 -->
+    <section class="trend-section">
+      <h2>📈 行业趋势分析</h2>
+      
+      <div class="trend-item">
+        <h3>1️⃣ AI 从"对话"向"全栈工具"演进</h3>
+        <p>
+          Claude Opus 4.7 不仅是聊天，而是能独立完成软件开发全流程；Claude Design 从文本扩展到视觉设计，
+          覆盖产品经理核心工作流；GPT-Image 文字渲染突破意味着 AI 可生成可直接使用的营销素材。
+        </p>
+      </div>
+
+      <div class="trend-item">
+        <h3>2️⃣ 代理式 AI（Agentic AI）成为竞争焦点</h3>
+        <p>
+          Opus 4.7 的"主动验证"行为标志着 AI 从"执行指令"到"理解意图"的跃迁。
+          SWE-bench Pro 64.3% 的分数意味着 AI 已能处理真实世界的复杂工程任务。
+        </p>
+      </div>
+
+      <div class="trend-item">
+        <h3>3️⃣ Anthropic 与 OpenAI 竞争白热化</h3>
+        <p>
+          Anthropic 估值 reportedly 达 8000 亿美元，直逼 OpenAI。双方在编码、设计、图像三大战场同步交火。
+          2026 年 Q2-Q3 预计 Claude 5 与 GPT-6 将正面交锋。
+        </p>
+      </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      <div class="footer-meta">
+        <span>🔍 验证方法：多源交叉验证（≥3 独立来源）</span>
+        <span>📊 数据来源：权威科技媒体 + 官方博客</span>
+        <span>⏰ 更新时间：2026 年 4 月 20 日 16:30</span>
+      </div>
+      <p>交付渠道：GitHub Pages + IMA 知识库</p>
+    </footer>
+  </div>
+
+  <script>
+    // 添加滚动时的微交互
+    document.addEventListener('scroll', () => {
+      const cards = document.querySelectorAll('.news-card');
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
