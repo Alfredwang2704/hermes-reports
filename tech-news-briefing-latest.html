@@ -2,550 +2,559 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 科技情报简报 - 2026-04-21 09:15</title>
+    <title>AI 科技情报简报 - 2026-04-21 11:06</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
     <style>
+        /* taste-skill 设计原则 v2 - 修复动画+配色+图标 */
         :root {
-            --bg-primary: #f3f4f6; --bg-card: #ffffff;
-            --text-primary: #111827; --text-secondary: #4b5563; --text-tertiary: #9ca3af;
-            --border-color: #e5e7eb; --accent-primary: #7c3aed;
+            --bg-primary: #f3f4f6;
+            --bg-card: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --text-tertiary: #9ca3af;
+            --border-color: #e5e7eb;
+            --accent-primary: #7c3aed;
             --accent-primary-light: #a78bfa;
-            --shadow-diffusion: 0 10px 40px -10px rgba(0,0,0,0.1);
-            --shadow-hover: 0 20px 50px -12px rgba(124,58,237,0.15);
-            --radius-large: 24px; --radius-md: 16px; --radius-sm: 8px;
+            --accent-success: #059669;
+            --accent-warning: #d97706;
+            --accent-danger: #dc2626;
+            --shadow-diffusion: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 20px 50px -12px rgba(124, 58, 237, 0.15);
+            --radius-large: 24px;
+            --radius-md: 16px;
+            --radius-sm: 8px;
         }
-        * { margin:0; padding:0; box-sizing:border-box; }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 50%, #d1d5db 100%);
-            color: var(--text-primary); line-height: 1.6; min-height: 100dvh; padding: 2rem 1rem;
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100dvh;
+            padding: 2rem 1rem;
+            animation: fadeIn 0.6s ease-out;
         }
-        .container { max-width: 1200px; margin: 0 auto; }
+        
+        @keyframes fadeIn {
+            from {{ opacity: 0; transform: translateY(10px); }}
+            to {{ opacity: 1; transform: translateY(0); }}
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header - 渐变背景 */
         .header {
             background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%);
-            border-radius: var(--radius-large); padding: 3rem; margin-bottom: 2.5rem;
-            box-shadow: 0 10px 40px rgba(124,58,237,0.3); color: white;
+            border-radius: var(--radius-large);
+            padding: 3rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 40px rgba(124, 58, 237, 0.3);
+            color: white;
+            position: relative;
+            overflow: hidden;
         }
-        .header h1 { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 700; margin-bottom: 1rem; }
-        .header-meta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-top: 1.5rem; }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .header h1 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header-meta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
         .timestamp {
-            font-family: 'Geist Mono', monospace; font-size: 0.875rem;
-            background: rgba(255,255,255,0.15); padding: 0.5rem 1rem;
-            border-radius: 9999px; backdrop-filter: blur(10px);
+            font-family: 'Geist Mono', monospace;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            backdrop-filter: blur(10px);
         }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin: 2.5rem 0; }
+        
+        /* 过滤器徽章 */
+        .filter-badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .filter-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.875rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: 'Geist Mono', monospace;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .filter-badge:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 统计网格 - Bento Grid 布局 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin: 2.5rem 0;
+        }
+        
         .stat-card {
-            background: var(--bg-card); border-radius: var(--radius-md); padding: 1.5rem;
-            text-align: center; box-shadow: var(--shadow-diffusion); border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-diffusion);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
         }
-        .stat-number { font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, var(--accent-primary), #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 0.5rem; }
-        .stat-label { font-size: 0.75rem; color: var(--text-tertiary); font-weight: 500; text-transform: uppercase; }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .stat-card:hover::before {
+            left: 100%;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent-primary);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary), #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            animation: numberPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes numberPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* 摘要框 - 渐变背景 */
         .summary-section {
-            margin: 3rem 0; padding: 2.5rem;
+            margin: 3rem 0;
+            padding: 2.5rem;
             background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
-            border-radius: var(--radius-large); color: white;
+            border-radius: var(--radius-large);
+            color: white;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
         }
-        .summary-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; }
-        .summary-content { font-size: 1rem; line-height: 1.8; opacity: 0.95; }
-        .news-section { margin-top: 3rem; }
-        .section-title { font-size: 1.75rem; font-weight: 700; margin-bottom: 2rem; }
+        
+        .summary-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(124, 58, 237, 0.1) 50%, transparent 70%);
+            background-size: 200% 200%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        .summary-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .summary-content {
+            font-size: 1rem;
+            line-height: 1.8;
+            opacity: 0.95;
+            max-width: 65ch;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 新闻列表 */
+        .news-section {
+            margin-top: 3rem;
+        }
+        
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-primary);
+        }
+        
         .news-item {
-            background: var(--bg-card); padding: 1.5rem; margin-bottom: 1rem;
-            border-radius: var(--radius-md); box-shadow: var(--shadow-diffusion);
-            border: 1px solid var(--border-color); transition: all 0.2s ease;
+            background: var(--bg-card);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-diffusion);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .news-item:hover { transform: translateX(8px); box-shadow: var(--shadow-hover); border-color: var(--accent-primary-light); }
-        .news-header { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+        
+        .news-item:hover {
+            transform: translateX(8px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent-primary-light);
+        }
+        
+        .news-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        
         .news-rank {
-            font-family: 'Geist Mono', monospace; font-size: 1rem; font-weight: 700;
-            color: white; background: linear-gradient(135deg, var(--accent-primary), #c084fc);
-            min-width: 2.5rem; height: 2.5rem; display: flex; align-items: center;
-            justify-content: center; border-radius: 12px; flex-shrink: 0;
+            font-family: 'Geist Mono', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, var(--accent-primary), #c084fc);
+            min-width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
         }
-        .news-title { font-size: 1.125rem; font-weight: 600; line-height: 1.4; flex: 1; }
-        .news-title a { color: inherit; text-decoration: none; }
-        .news-title a:hover { color: var(--accent-primary); }
-        .category-badge { display: inline-flex; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
-        .badge-new { background: linear-gradient(135deg, #065f46, #047857); color: #fff; }
-        .badge-compare { background: linear-gradient(135deg, #1e40af, #1d4ed8); color: #fff; }
-        .badge-market { background: linear-gradient(135deg, #b45309, #92400e); color: #fff; }
-        .badge-update { background: linear-gradient(135deg, #5b21b6, #6d28d9); color: #fff; }
-        .badge-funding { background: linear-gradient(135deg, #9d174d, #be185d); color: #fff; }
-        .badge-default { background: linear-gradient(135deg, #374151, #4b5563); color: #fff; }
-        .news-meta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-top: 1rem; font-size: 0.875rem; }
-        .news-source { font-family: 'Geist Mono', monospace; background: #f3f4f6; padding: 0.25rem 0.75rem; border-radius: 6px; color: var(--text-tertiary); }
-        .news-snippet { margin-top: 1rem; padding: 1rem 1.25rem; background: linear-gradient(135deg, #f3f4f6, #e5e7eb); border-radius: var(--radius-sm); border-left: 4px solid var(--accent-primary); font-size: 0.875rem; color: var(--text-secondary); line-height: 1.7; }
-        .quality-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
-        .quality-badge { display: inline-flex; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.7rem; font-weight: 600; background: #d1fae5; color: #065f46; }
-        .quality-badge.warn { background: #fef3c7; color: #92400e; }
+        
+        .news-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--text-primary);
+            flex: 1;
+        }
+        
+        .news-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .news-title a:hover {
+            color: var(--accent-primary);
+        }
+        
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: 'Geist Mono', monospace;
+        }
+        
+        .badge-new { background: linear-gradient(135deg, #065f46, #047857); color: #ffffff; }
+        .badge-compare { background: linear-gradient(135deg, #1e40af, #1d4ed8); color: #ffffff; }
+        .badge-market { background: linear-gradient(135deg, #b45309, #92400e); color: #ffffff; }
+        .badge-update { background: linear-gradient(135deg, #5b21b6, #6d28d9); color: #ffffff; }
+        .badge-funding { background: linear-gradient(135deg, #9d174d, #be185d); color: #ffffff; }
+        .badge-default { background: linear-gradient(135deg, #374151, #4b5563); color: #ffffff; }
+        
+        .news-meta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+        }
+        
+        .news-source {
+            font-family: 'Geist Mono', monospace;
+            color: var(--text-tertiary);
+            background: #f3f4f6;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+        }
+        
+        .news-days {
+            color: var(--text-secondary);
+        }
+        
+        .news-link {
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .news-link:hover {
+            color: var(--accent-primary-light);
+            text-decoration: underline;
+        }
+        
+        .news-snippet {
+            margin-top: 1rem;
+            padding: 1rem 1.25rem;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--accent-primary);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .verification-badge {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            border: 1px solid #10b981;
+            border-radius: var(--radius-sm);
+            font-size: 0.8125rem;
+            color: #065f46;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .translated-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.625rem;
+            background: linear-gradient(135deg, #c7d2fe, #a5b4fc);
+            color: #4338ca;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+        
+        /* 已过滤内容 */
+        .rejected-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+            border-radius: var(--radius-md);
+        }
+        
+        .rejected-item {
+            padding: 0.75rem 0;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        .rejected-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Footer */
         .footer {
-            margin-top: 4rem; padding: 3rem 2rem; background: var(--bg-card);
-            border-radius: var(--radius-large); text-align: center;
-            box-shadow: var(--shadow-diffusion); border: 1px solid var(--border-color);
+            margin-top: 4rem;
+            padding: 3rem 2rem;
+            background: var(--bg-card);
+            border-radius: var(--radius-large);
+            text-align: center;
+            box-shadow: var(--shadow-diffusion);
+            border: 1px solid var(--border-color);
         }
-        .footer-text { font-size: 0.875rem; color: var(--text-tertiary); }
-        @media (max-width: 768px) { body { padding: 1rem; } .header { padding: 2rem 1.5rem; } }
+        
+        .footer-text {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            line-height: 1.8;
+        }
+        
+        .footer-highlight {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            .header { padding: 2rem 1.5rem; }
+            .header h1 { font-size: 1.75rem; }
+            .summary-section { padding: 1.5rem; }
+            .news-item:hover {
+                transform: none;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <header class="header">
-        <h1>📰 AI 科技情报简报</h1>
-        <div class="header-meta">
-            <span class="timestamp">🕐 2026-04-21 09:15</span>
+    <div class="container">
+        <header class="header">
+            <h1>📰 AI 科技情报简报</h1>
+            <div class="header-meta">
+                <span class="timestamp">🕐 2026-04-21 11:06</span>
+            </div>
+            <div class="filter-badges">
+                <span class="filter-badge pass">✅ 2026 年内容</span>
+                <span class="filter-badge pass">✅ ≤45 天时效</span>
+                <span class="filter-badge pass">✅ 来源真实性验证</span>
+                <span class="filter-badge pass">✅ translators 翻译</span>
+                <span class="filter-badge pass">✅ 5 源并发</span>
+            </div>
+        </header>
+        
+        <section class="summary-section">
+            <div class="summary-title">📝 一句话总结</div>
+            <div class="summary-content">
+                今日 AI 领域共捕获 1 条高价值资讯，主要聚焦于 综合资讯。
+                0 条英文内容已翻译为中文，平均内容时效 20.0 天，来源真实性验证通过率 100%。
+                行业持续高速发展，建议重点关注 Top 5 热点。
+            </div>
+        </section>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">6</div>
+                <div class="stat-label">数据源</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">成功抓取</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1</div>
+                <div class="stat-label">通过验证</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">0</div>
+                <div class="stat-label">已过滤</div>
+            </div>
         </div>
-        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1rem;">
-            <span style="background:rgba(255,255,255,0.2);padding:0.375rem 0.875rem;border-radius:9999px;font-size:0.75rem;font-weight:600;">✅ ≤30天时效</span>
-            <span style="background:rgba(255,255,255,0.2);padding:0.375rem 0.875rem;border-radius:9999px;font-size:0.75rem;font-weight:600;">✅ 完整正文提取</span>
-            <span style="background:rgba(255,255,255,0.2);padding:0.375rem 0.875rem;border-radius:9999px;font-size:0.75rem;font-weight:600;">✅ 智能摘要≤100字</span>
-        </div>
-    </header>
+        
+        <section class="news-section">
+            <h2 class="section-title">🔥 热点 Top 1</h2>
 
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-number">5</div>
-            <div class="stat-label">数据源</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number">5</div>
-            <div class="stat-label">成功抓取</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number">27</div>
-            <div class="stat-label">通过验证</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number">27</div>
-            <div class="stat-label">完整正文提取</div>
-        </div>
+            <div class="news-item">
+                <div class="news-header">
+                    <span class="news-rank">#1</span>
+                    <span class="category-badge badge-default">📰 综合资讯</span>
+                    <h3 class="news-title">
+                        <a href="https://www.qbitai.com/2026/04/403777.html" target="_blank" rel="noopener noreferrer">跨维智能DexWorldModel斩获榜首，世界模型真正的考场在机器人执行里</a>
+                        
+                    </h3>
+                </div>
+                <div class="news-meta">
+                    <span class="news-source">📍 量子位</span>
+                    <span class="news-days">📅 20天前</span>
+                    <span>⭐ 100/100</span>
+                    <a href="https://www.qbitai.com/2026/04/403777.html" target="_blank" rel="noopener noreferrer" class="news-link">🔗 原文链接</a>
+                </div>
+                <div class="news-snippet">量子位: 跨维智能DexWorldModel斩获榜首，世界模型真正的考场在机器人执行里...</div>
+                <div class="verification-badge">
+                    <span>✅ 验证通过</span>
+                    <span>•</span>
+                    <span>来源真实性 50分</span>
+                    <span>•</span>
+                    <span>2026 年内容</span>
+                    <span>•</span>
+                    <span>≤45 天时效</span>
+                </div>
+                
+            </div>
+</section>
+        <footer class="footer">
+            <p class="footer-text">
+                🤖 <span class="footer-highlight">Hermes Agent 多源并发信息抓取技能 v7.2</span><br>
+                ✅ 5 源并发 | ✅ 来源真实性验证 | ✅ 严格时效过滤 (2026+≤45 天) | ✅ translators 库翻译 | ✅ 保留原文链接 | ✅ 一句话总结<br>
+                🎨 设计原则：<span class="footer-highlight">taste-skill</span> (高端前端设计)
+            </p>
+        </footer>
     </div>
-
-    <section class="summary-section">
-        <div class="summary-title">📝 今日要点</div>
-        <div class="summary-content">
-            今日 AI 领域共捕获 27 条高价值资讯，主要聚焦  综合资讯。
-            17 条英文已翻译，平均时效 2.8 天。
-            其中 27 条成功提取完整正文并生成精炼摘要，27 条通过质量检查。
-        </div>
-    </section>
-
-    <section class="news-section">
-        <h2 class="section-title">🔥 热点 Top 20</h2>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#1</span>
-                <span class="category-badge badge-default">📰 综合资讯</span>
-                <h3 class="news-title">
-                    <a href="https://sspai.com/post/108768" target="_blank">AI 输出中的 ** 是怎么来的：谈中文 Markdown 强调标记的渲染问题</a>
-                    
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 少数派</span>
-                <span style="color:var(--text-secondary);">📅 1天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://sspai.com/post/108768" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">有一定技术背景的读者都知道，这些星号是 Markdown 中的强调标记。Markdown 是一种格式标记语言，可以用一些简单而直观的语法，为纯文本附加格式信息。</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#2</span>
-                <span class="category-badge badge-new">🆕 新品发布</span>
-                <h3 class="news-title">
-                    <a href="https://sspai.com/post/108742" target="_blank">派早报：Canva 人工智能 2.0 发布、Anthropic 发布 Claude Opus 4.7 模型等</a>
-                    <span style="display:inline-block;margin-left:0.5rem;padding:0.15rem 0.5rem;background:#c7d2fe;color:#4338ca;border-radius:9999px;font-size:0.7rem;">🌐 已翻译</span>
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 少数派</span>
-                <span style="color:var(--text-secondary);">📅 4天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://sspai.com/post/108742" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">在智能化工作流方面，Canva AI 2.0 将应用场景拓展至日常办公处理。</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#3</span>
-                <span class="category-badge badge-new">🆕 新品发布</span>
-                <h3 class="news-title">
-                    <a href="https://www.ifanr.com/1662987?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank">早报｜苹果官宣新CEO，设立首席硬件官职位/华为发布大阔折叠，余承东：扛不住了也可能涨价/多平台回应12306拒绝出票</a>
-                    
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 爱范儿</span>
-                <span style="color:var(--text-secondary);">📅 0天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://www.ifanr.com/1662987?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">同期，两封内部信流出，一封来自现任 CEO Tim Cook，另一封来自 John Ternus。库克在信中表示，自己将在今年内卸任 CEO 并转任董事长。</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#4</span>
-                <span class="category-badge badge-default">📰 综合资讯</span>
-                <h3 class="news-title">
-                    <a href="https://www.ifanr.com/1662860?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank">实测Claude Design：小白也能做出专业级设计｜附最全玩法+官方实用技巧</a>
-                    
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 爱范儿</span>
-                <span style="color:var(--text-secondary);">📅 0天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://www.ifanr.com/1662860?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">所有你能想到关于设计的工作，Claude Design 现在都能做。无论是惊艳复杂的动效模拟，用简单的一句提示词，就能创建一个能互动的着色器壁纸库。</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#5</span>
-                <span class="category-badge badge-new">🆕 新品发布</span>
-                <h3 class="news-title">
-                    <a href="https://www.ifanr.com/1662838?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank">早报｜受内存影响，新MacBook发布或延期/北京机器人半马落幕，冠军打破人类纪录/微信朋友圈迎14周年，官方分享内部细节</a>
-                    
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 爱范儿</span>
-                <span style="color:var(--text-secondary);">📅 1天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://www.ifanr.com/1662838?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">本届赛事吸引了 300 余台人形机器人、26 个主流品牌参赛，参赛阵容较去年实现近 5 倍增长。</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#6</span>
-                <span class="category-badge badge-default">📰 综合资讯</span>
-                <h3 class="news-title">
-                    <a href="https://www.ifanr.com/1662773?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank">史上最萌垫底，2026机器人半马抽象大赏</a>
-                    
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 爱范儿</span>
-                <span style="color:var(--text-secondary);">📅 2天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://www.ifanr.com/1662773?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">就在刚刚，2026 北京亦庄人形机器人半程马拉松鸣枪开跑。</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#7</span>
-                <span class="category-badge badge-default">📰 综合资讯</span>
-                <h3 class="news-title">
-                    <a href="https://www.ifanr.com/1662774?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank">早报｜刚刚，OpenAI两位大牛离职/一季度iPhone出货量激增20%/雷军回应小米做入门车型：10万块难做好智能化</a>
-                    
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 爱范儿</span>
-                <span style="color:var(--text-secondary);">📅 3天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://www.ifanr.com/1662774?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">知情人士透露，DeepSeek 正与投资者接触以充实资金储备。据了解，DeepSeek 此前由对冲基金幻方量化独家提供资金支持，并曾多次拒绝顶级风投及科技巨头的投资报价。</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#8</span>
-                <span class="category-badge badge-default">📰 综合资讯</span>
-                <h3 class="news-title">
-                    <a href="https://www.ifanr.com/1662676?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank">一句话，AI 直接给我建了个能跑能跳的「吉卜力」3D小镇</a>
-                    
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 爱范儿</span>
-                <span style="color:var(--text-secondary);">📅 3天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://www.ifanr.com/1662676?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">这周的大模型热点除了 Anthropic 刚刚发布的 Opus 4.7，世界模型成了另一块角力的阵地。短短几天内，AI 圈几乎是连珠炮式地发布了一系列重磅世界模型。</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#9</span>
-                <span class="category-badge badge-new">🆕 新品发布</span>
-                <h3 class="news-title">
-                    <a href="https://www.ifanr.com/1662626?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank">早报｜雷军:不能因为有黑稿就不说话/曝OLED版iPad Air明年到来/2999起，大疆发布Osmo Pocket 4</a>
-                    <span style="display:inline-block;margin-left:0.5rem;padding:0.15rem 0.5rem;background:#c7d2fe;color:#4338ca;border-radius:9999px;font-size:0.7rem;">🌐 已翻译</span>
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 爱范儿</span>
-                <span style="color:var(--text-secondary);">📅 4天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://www.ifanr.com/1662626?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">据介绍，Opus 4.7 能够在长时间运行的复杂任务中保持严谨与一致，并具备在回报结果前自我验证输出的能力。</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#10</span>
-                <span class="category-badge badge-new">🆕 新品发布</span>
-                <h3 class="news-title">
-                    <a href="https://www.ifanr.com/1662528?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank">刚刚，Claude Opus 4.7突然发布：不是最强，但奥特曼又得失眠</a>
-                    
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 爱范儿</span>
-                <span style="color:var(--text-secondary);">📅 4天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://www.ifanr.com/1662528?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">今年 Anthropic 的势头异常凶猛。不仅热度居高不下，口碑也持续攀升，稳坐 AI 圈「顶流」的交椅。</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#11</span>
-                <span class="category-badge badge-default">📰 综合资讯</span>
-                <h3 class="news-title">
-                    <a href="https://www.ifanr.com/1662529?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank">卸载龙虾后，我找到了更香的爱马仕 Agent，5 分钟带你极速上手</a>
-                    
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 爱范儿</span>
-                <span style="color:var(--text-secondary);">📅 4天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://www.ifanr.com/1662529?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">「人红是非多」，Hermes Agent 最近真的火了，一边是 GitHub 积累了超过 8 万星，增长趋势完全是直线上升。</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#12</span>
-                <span class="category-badge badge-default">📰 综合资讯</span>
-                <h3 class="news-title">
-                    <a href="https://www.ifanr.com/1662432?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank">苹果把Siri员工送进AI「补习班」，黄仁勋的暴论开始应验了</a>
-                    
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 爱范儿</span>
-                <span style="color:var(--text-secondary);">📅 5天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://www.ifanr.com/1662432?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">想象一下，你是全球市值最高科技公司的资深软件工程师，薪水丰厚，履历光鲜。在科技巨头的核心业务线里，临阵换将已属罕见，临阵「送去培训」更是头一回听说。</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#13</span>
-                <span class="category-badge badge-default">📰 综合资讯</span>
-                <h3 class="news-title">
-                    <a href="https://arxiv.org/abs/2604.16286v1" target="_blank">ASMR-Bench: Auditing for Sabotage in ML 研究</a>
-                    <span style="display:inline-block;margin-left:0.5rem;padding:0.15rem 0.5rem;background:#c7d2fe;color:#4338ca;border-radius:9999px;font-size:0.7rem;">🌐 已翻译</span>
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 arXiv AI</span>
-                <span style="color:var(--text-secondary);">📅 3天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://arxiv.org/abs/2604.16286v1" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">)
-Connected Papers Toggle
-Connected Papers (What is Connected Papers?)
-Litmaps (What is Litmaps?</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#14</span>
-                <span class="category-badge badge-default">📰 综合资讯</span>
-                <h3 class="news-title">
-                    <a href="https://arxiv.org/abs/2604.16282v1" target="_blank">Geometric regularization of autoencoders via observed stochastic dynamics</a>
-                    <span style="display:inline-block;margin-left:0.5rem;padding:0.15rem 0.5rem;background:#c7d2fe;color:#4338ca;border-radius:9999px;font-size:0.7rem;">🌐 已翻译</span>
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 arXiv AI</span>
-                <span style="color:var(--text-secondary);">📅 3天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://arxiv.org/abs/2604.16282v1" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">)
-Connected Papers Toggle
-Connected Papers (What is Connected Papers?)
-Litmaps (What is Litmaps?</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#15</span>
-                <span class="category-badge badge-default">📰 综合资讯</span>
-                <h3 class="news-title">
-                    <a href="https://arxiv.org/abs/2604.16280v1" target="_blank">Using Large Language Models and Knowledge Graphs to Improve the Interpretability of 机器学习 Models in Manufacturing</a>
-                    <span style="display:inline-block;margin-left:0.5rem;padding:0.15rem 0.5rem;background:#c7d2fe;color:#4338ca;border-radius:9999px;font-size:0.7rem;">🌐 已翻译</span>
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 arXiv AI</span>
-                <span style="color:var(--text-secondary);">📅 3天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://arxiv.org/abs/2604.16280v1" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">)
-Connected Papers Toggle
-Connected Papers (What is Connected Papers?)
-Litmaps (What is Litmaps?</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#16</span>
-                <span class="category-badge badge-default">📰 综合资讯</span>
-                <h3 class="news-title">
-                    <a href="https://arxiv.org/abs/2604.16279v1" target="_blank">Evaluating the Progression of Large Language 模型 Capabilities for Small-Molecule Drug Design</a>
-                    <span style="display:inline-block;margin-left:0.5rem;padding:0.15rem 0.5rem;background:#c7d2fe;color:#4338ca;border-radius:9999px;font-size:0.7rem;">🌐 已翻译</span>
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 arXiv AI</span>
-                <span style="color:var(--text-secondary);">📅 3天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://arxiv.org/abs/2604.16279v1" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">)
-Connected Papers Toggle
-Connected Papers (What is Connected Papers?)
-Litmaps (What is Litmaps?</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#17</span>
-                <span class="category-badge badge-default">📰 综合资讯</span>
-                <h3 class="news-title">
-                    <a href="https://arxiv.org/abs/2604.16278v1" target="_blank">Learning to Reason with Insight for Informal Theorem Proving</a>
-                    <span style="display:inline-block;margin-left:0.5rem;padding:0.15rem 0.5rem;background:#c7d2fe;color:#4338ca;border-radius:9999px;font-size:0.7rem;">🌐 已翻译</span>
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 arXiv AI</span>
-                <span style="color:var(--text-secondary);">📅 3天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://arxiv.org/abs/2604.16278v1" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">)
-Connected Papers Toggle
-Connected Papers (What is Connected Papers?)
-Litmaps (What is Litmaps?</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#18</span>
-                <span class="category-badge badge-default">📰 综合资讯</span>
-                <h3 class="news-title">
-                    <a href="https://arxiv.org/abs/2604.16275v1" target="_blank">No Universal Courtesy: A Cross-Linguistic, Multi-模型 Study of Politeness Effects on LLMs Using the PLUM Corpus</a>
-                    <span style="display:inline-block;margin-left:0.5rem;padding:0.15rem 0.5rem;background:#c7d2fe;color:#4338ca;border-radius:9999px;font-size:0.7rem;">🌐 已翻译</span>
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 arXiv AI</span>
-                <span style="color:var(--text-secondary);">📅 3天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://arxiv.org/abs/2604.16275v1" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">)
-Connected Papers Toggle
-Connected Papers (What is Connected Papers?)
-Litmaps (What is Litmaps?</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#19</span>
-                <span class="category-badge badge-default">📰 综合资讯</span>
-                <h3 class="news-title">
-                    <a href="https://arxiv.org/abs/2604.16272v1" target="_blank">VEFX-Bench: A Holistic Benchmark for Generic Video Editing and Visual Effects</a>
-                    <span style="display:inline-block;margin-left:0.5rem;padding:0.15rem 0.5rem;background:#c7d2fe;color:#4338ca;border-radius:9999px;font-size:0.7rem;">🌐 已翻译</span>
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 arXiv AI</span>
-                <span style="color:var(--text-secondary);">📅 3天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://arxiv.org/abs/2604.16272v1" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">)
-Connected Papers Toggle
-Connected Papers (What is Connected Papers?)
-Litmaps (What is Litmaps?</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-        <div class="news-item">
-            <div class="news-header">
-                <span class="news-rank">#20</span>
-                <span class="category-badge badge-default">📰 综合资讯</span>
-                <h3 class="news-title">
-                    <a href="https://arxiv.org/abs/2604.16270v1" target="_blank">From Benchmarking to Reasoning: A Dual-Aspect, Large-Scale Evaluation of LLMs on Vietnamese Legal Text</a>
-                    <span style="display:inline-block;margin-left:0.5rem;padding:0.15rem 0.5rem;background:#c7d2fe;color:#4338ca;border-radius:9999px;font-size:0.7rem;">🌐 已翻译</span>
-                </h3>
-            </div>
-            <div class="news-meta">
-                <span class="news-source">📍 arXiv AI</span>
-                <span style="color:var(--text-secondary);">📅 3天前</span>
-                <span>⭐ 100/100</span>
-                <a href="https://arxiv.org/abs/2604.16270v1" target="_blank" style="color:var(--accent-primary);font-weight:500;">🔗 原文</a>
-            </div>
-            <div class="news-snippet">)
-Connected Papers Toggle
-Connected Papers (What is Connected Papers?)
-Litmaps (What is Litmaps?</div>
-            <div class="quality-badges"><span class="quality-badge">✅ 完整正文</span><span class="quality-badge">✅ 7/7 质量通过</span></div>
-        </div>
-
-    <footer class="footer">
-        <p class="footer-text">
-            🤖 <strong>Hermes Agent 多源并发信息抓取 v8.3+</strong><br>
-            ✅ 筛选→清晰→归纳 | ✅ 完整正文提取 | ✅ 智能摘要≤100字 | ✅ 质量检查<br>
-            🎨 设计原则：taste-skill
-        </p>
-    </footer>
-</div>
 </body>
 </html>
