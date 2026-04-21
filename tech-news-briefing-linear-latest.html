@@ -3,489 +3,480 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 科技情报简报 - 2026-04-21</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;510;590;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <title>每日科技简报 - 2026-04-21</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;510;590&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* Linear Design System - Dark Mode Native */
         :root {
-            /* Backgrounds */
             --bg-marketing: #08090a;
             --bg-panel: #0f1011;
             --bg-surface: #191a1b;
-            --bg-secondary: #28282c;
-            
-            /* Text */
+            --bg-surface-2: #28282c;
             --text-primary: #f7f8f8;
             --text-secondary: #d0d6e0;
             --text-tertiary: #8a8f98;
             --text-quaternary: #62666d;
-            
-            /* Brand */
             --brand-indigo: #5e6ad2;
             --brand-violet: #7170ff;
             --brand-hover: #828fff;
-            
-            /* Borders */
             --border-subtle: rgba(255,255,255,0.05);
             --border-standard: rgba(255,255,255,0.08);
-            --border-primary: #23252a;
-            
-            /* Status */
-            --success-green: #27a644;
-            --success-emerald: #10b981;
-            
-            /* Typography */
-            --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
-            --font-mono: 'JetBrains Mono', ui-monospace, monospace;
-            
-            /* Spacing */
-            --spacing-xs: 4px;
-            --spacing-sm: 8px;
-            --spacing-md: 16px;
-            --spacing-lg: 24px;
-            --spacing-xl: 32px;
-            --spacing-2xl: 48px;
-            
-            /* Radius */
-            --radius-sm: 4px;
-            --radius-md: 6px;
-            --radius-lg: 8px;
-            --radius-xl: 12px;
-            --radius-pill: 9999px;
+            --success-green: #10b981;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: var(--font-primary);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             font-feature-settings: "cv01", "ss03";
             background: var(--bg-marketing);
             color: var(--text-primary);
             line-height: 1.5;
             min-height: 100vh;
-            padding: 0;
         }
-        
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
         /* Header */
-        .header {
+        header {
             background: var(--bg-panel);
             border-bottom: 1px solid var(--border-subtle);
-            padding: var(--spacing-md) var(--spacing-xl);
+            padding: 16px 0;
             position: sticky;
             top: 0;
             z-index: 100;
             backdrop-filter: blur(12px);
         }
-        
+
         .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .logo {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-        }
-        
-        .logo-icon {
-            width: 24px;
-            height: 24px;
-            background: linear-gradient(135deg, var(--brand-indigo), var(--brand-violet));
-            border-radius: var(--radius-sm);
-        }
-        
-        .logo-text {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 510;
-            color: var(--text-primary);
+            color: var(--text-secondary);
             letter-spacing: -0.13px;
         }
-        
-        .header-meta {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-lg);
+
+        .logo span {
+            color: var(--brand-indigo);
         }
-        
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-xs);
+
+        .date {
             font-size: 13px;
             font-weight: 510;
-            color: var(--text-secondary);
-        }
-        
-        .meta-item svg {
-            width: 14px;
-            height: 14px;
             color: var(--text-tertiary);
+            font-family: 'JetBrains Mono', monospace;
         }
-        
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
-            background: transparent;
-            border: 1px solid var(--border-primary);
-            border-radius: var(--radius-pill);
-            font-size: 12px;
+
+        /* Hero */
+        .hero {
+            padding: 80px 0 60px;
+            background: linear-gradient(180deg, var(--bg-marketing) 0%, var(--bg-panel) 100%);
+        }
+
+        .hero h1 {
+            font-size: 48px;
             font-weight: 510;
-            color: var(--text-secondary);
-        }
-        
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--success-emerald);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        /* Main Content */
-        .main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: var(--spacing-2xl) var(--spacing-xl);
-        }
-        
-        /* Section Title */
-        .section-title {
-            font-size: 20px;
-            font-weight: 590;
-            letter-spacing: -0.24px;
+            line-height: 1.00;
+            letter-spacing: -1.056px;
             color: var(--text-primary);
-            margin-bottom: var(--spacing-lg);
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.60;
+            color: var(--text-tertiary);
+            max-width: 600px;
+        }
+
+        /* Stats Grid */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-standard);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 590;
+            letter-spacing: -0.704px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            font-weight: 510;
+            color: var(--text-tertiary);
+            letter-spacing: -0.13px;
+        }
+
+        .stat-value.highlight {
+            color: var(--brand-indigo);
+        }
+
+        /* Section */
+        section {
+            padding: 60px 0;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 510;
+            letter-spacing: -0.288px;
+            color: var(--text-primary);
+            margin-bottom: 32px;
             display: flex;
             align-items: center;
-            gap: var(--spacing-sm);
+            gap: 12px;
         }
-        
-        .section-title svg {
-            width: 20px;
-            height: 20px;
-            color: var(--brand-violet);
+
+        .section-title .icon {
+            font-size: 20px;
         }
-        
-        /* News Card */
+
+        /* News Cards */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
         .news-card {
             background: rgba(255,255,255,0.02);
             border: 1px solid var(--border-standard);
-            border-radius: var(--radius-lg);
-            padding: var(--spacing-lg);
-            margin-bottom: var(--spacing-md);
+            border-radius: 8px;
+            padding: 24px;
             transition: all 0.2s ease;
         }
-        
+
         .news-card:hover {
             background: rgba(255,255,255,0.03);
             border-color: rgba(255,255,255,0.12);
         }
-        
+
         .news-header {
             display: flex;
+            justify-content: space-between;
             align-items: flex-start;
-            gap: var(--spacing-sm);
-            margin-bottom: var(--spacing-sm);
+            margin-bottom: 12px;
+            gap: 16px;
         }
-        
-        .news-category {
-            flex-shrink: 0;
-            padding: 2px 8px;
-            background: rgba(94,106,210,0.15);
-            border: 1px solid rgba(94,106,210,0.3);
-            border-radius: var(--radius-pill);
-            font-size: 11px;
-            font-weight: 510;
-            color: var(--brand-violet);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+
+        .news-rank {
+            font-size: 14px;
+            font-weight: 590;
+            color: var(--brand-indigo);
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(94,106,210,0.1);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(94,106,210,0.2);
         }
-        
-        .news-score {
-            flex-shrink: 0;
+
+        .news-meta {
             display: flex;
+            gap: 12px;
             align-items: center;
-            gap: 4px;
-            padding: 2px 8px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-pill);
-            font-size: 11px;
+        }
+
+        .news-category {
+            font-size: 12px;
             font-weight: 510;
             color: var(--text-tertiary);
+            padding: 4px 10px;
+            border-radius: 9999px;
+            border: 1px solid var(--border-subtle);
+            background: rgba(255,255,255,0.02);
         }
-        
-        .news-score svg {
-            width: 12px;
-            height: 12px;
-            color: var(--brand-violet);
-        }
-        
-        .news-title {
-            font-size: 16px;
+
+        .news-source {
+            font-size: 12px;
             font-weight: 510;
+            color: var(--text-quaternary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .news-title {
+            font-size: 18px;
+            font-weight: 510;
+            line-height: 1.4;
             color: var(--text-primary);
-            line-height: 1.5;
-            margin-bottom: var(--spacing-sm);
+            margin-bottom: 12px;
         }
-        
-        .news-title a {
-            color: inherit;
-            text-decoration: none;
-            transition: color 0.15s ease;
-        }
-        
-        .news-title a:hover {
-            color: var(--brand-violet);
-        }
-        
+
         .news-snippet {
             font-size: 15px;
             font-weight: 400;
+            line-height: 1.60;
             color: var(--text-secondary);
-            line-height: 1.6;
+            margin-bottom: 16px;
             letter-spacing: -0.165px;
-            margin-bottom: var(--spacing-md);
         }
-        
-        .news-meta {
+
+        .news-footer {
             display: flex;
+            gap: 16px;
             align-items: center;
-            gap: var(--spacing-md);
-            padding-top: var(--spacing-sm);
-            border-top: 1px solid var(--border-subtle);
+            flex-wrap: wrap;
         }
-        
-        .news-source {
-            display: flex;
+
+        .news-tag {
+            font-size: 12px;
+            font-weight: 510;
+            color: var(--text-tertiary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .news-link {
+            font-size: 13px;
+            font-weight: 510;
+            color: var(--brand-violet);
+            text-decoration: none;
+            display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-size: 13px;
-            font-weight: 400;
-            color: var(--text-tertiary);
+            transition: color 0.2s;
         }
-        
-        .news-source svg {
-            width: 14px;
-            height: 14px;
-            color: var(--text-quaternary);
+
+        .news-link:hover {
+            color: var(--brand-hover);
         }
-        
-        .news-date {
-            font-size: 13px;
-            font-weight: 400;
-            color: var(--text-quaternary);
+
+        /* Summary Box */
+        .summary-box {
+            background: linear-gradient(135deg, rgba(94,106,210,0.08) 0%, rgba(94,106,210,0.02) 100%);
+            border: 1px solid rgba(94,106,210,0.2);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 40px 0;
         }
-        
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: var(--spacing-2xl);
-            background: rgba(255,255,255,0.02);
-            border: 1px solid var(--border-standard);
-            border-radius: var(--radius-xl);
-        }
-        
-        .empty-state-icon {
-            width: 48px;
-            height: 48px;
-            margin: 0 auto var(--spacing-lg);
-            background: rgba(94,106,210,0.15);
-            border-radius: var(--radius-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .empty-state-icon svg {
-            width: 24px;
-            height: 24px;
-            color: var(--brand-violet);
-        }
-        
-        .empty-state-title {
-            font-size: 18px;
-            font-weight: 510;
+
+        .summary-box h3 {
+            font-size: 16px;
+            font-weight: 590;
+            letter-spacing: -0.24px;
             color: var(--text-primary);
-            margin-bottom: var(--spacing-sm);
+            margin-bottom: 12px;
         }
-        
-        .empty-state-text {
+
+        .summary-box p {
             font-size: 15px;
+            font-weight: 400;
+            line-height: 1.60;
             color: var(--text-secondary);
-            max-width: 400px;
-            margin: 0 auto;
+            letter-spacing: -0.165px;
         }
-        
+
         /* Footer */
-        .footer {
+        footer {
+            padding: 40px 0;
             border-top: 1px solid var(--border-subtle);
-            padding: var(--spacing-lg) var(--spacing-xl);
-            margin-top: var(--spacing-2xl);
+            text-align: center;
         }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
+
         .footer-text {
             font-size: 13px;
+            font-weight: 400;
             color: var(--text-tertiary);
         }
-        
-        .footer-link {
-            font-size: 13px;
-            font-weight: 510;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.15s ease;
-        }
-        
-        .footer-link:hover {
+
+        .footer-text a {
             color: var(--brand-violet);
+            text-decoration: none;
         }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
-            .header-content {
+            .hero h1 {
+                font-size: 32px;
+                letter-spacing: -0.704px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .news-header {
                 flex-direction: column;
-                gap: var(--spacing-md);
-            }
-            
-            .header-meta {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .main {
-                padding: var(--spacing-lg) var(--spacing-md);
-            }
-            
-            .footer-content {
-                flex-direction: column;
-                gap: var(--spacing-sm);
-                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <div class="logo-icon"></div>
-                <span class="logo-text">Hermes Intelligence</span>
-            </div>
-            <div class="header-meta">
-                <div class="meta-item">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                    </svg>
-                    <span>2026-04-21</span>
-                </div>
-                <div class="status-badge">
-                    <span class="status-dot"></span>
-                    <span>Live</span>
-                </div>
-            </div>
+    <header>
+        <div class="container header-content">
+            <div class="logo">🤖 <span>Hermes</span> Agent</div>
+            <div class="date">2026-04-21 14:16</div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="main">
-        <h2 class="section-title">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-            今日热点
-        </h2>
+    <main>
+        <div class="hero">
+            <div class="container">
+                <h1>每日科技简报</h1>
+                <p>AI 领域高价值资讯精选 · 多源验证 · 实时监控</p>
 
-        <!-- News Item 1 -->
-        <article class="news-card">
-            <div class="news-header">
-                <span class="news-category">世界模型</span>
-                <div class="news-score">
-                    <svg fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                    </svg>
-                    <span>100</span>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-value highlight">3</div>
+                        <div class="stat-label">通过验证</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">数据源</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">1</div>
+                        <div class="stat-label">已翻译</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">20 天</div>
+                        <div class="stat-label">平均时效</div>
+                    </div>
                 </div>
             </div>
-            <h3 class="news-title">
-                <a href="#" target="_blank">跨维智能 DexWorldModel 斩获榜首，世界模型真正的考场在机器人执行里</a>
-            </h3>
-            <p class="news-snippet">
-                跨维智能推出的 DexWorldModel 在世界模型基准测试中取得领先成绩。该模型专注于机器人操作任务，通过世界模拟预测物理交互结果，为具身智能提供核心认知能力。测试显示其在复杂操作场景中的预测准确率显著优于现有方案。
-            </p>
-            <div class="news-meta">
-                <div class="news-source">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
-                    </svg>
-                    量子位
-                </div>
-                <span class="news-date">20 天前</span>
-            </div>
-        </article>
-
-        <!-- Empty State Suggestion -->
-        <div class="empty-state" style="margin-top: 2rem;">
-            <div class="empty-state-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-            </div>
-            <h3 class="empty-state-title">数据源待优化</h3>
-            <p class="empty-state-text">
-                今日抓取到的有效新闻较少。正在修复 AI 产品官网监控模块和媒体源解析规则，提升数据覆盖率。
-            </p>
         </div>
+
+        <section>
+            <div class="container">
+                <div class="summary-box">
+                    <h3>📊 一句话总结</h3>
+                    <p>今日 AI 领域共捕获 <strong>3</strong> 条高价值资讯，主要聚焦于 <strong>综合资讯</strong>。1 条英文内容已翻译为中文，平均内容时效 <strong>20.0 天</strong>，来源真实性验证通过率 100%。行业持续高速发展，建议重点关注 Top 3 热点。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="icon">🔥</span>
+                    热点 Top 3
+                </h2>
+
+                <div class="news-list">
+                    <!-- News #1 -->
+                    <article class="news-card">
+                        <div class="news-header">
+                            <div class="news-rank">#1</div>
+                            <div class="news-meta">
+                                <span class="news-category">📰 综合资讯</span>
+                                <span class="news-source">量子位</span>
+                            </div>
+                        </div>
+                        <h3 class="news-title">Agent 正杀入软件研发一线！全球超 60 位技术专家拆解 AI 落地困局，2026 奇点智能技术大会收官</h3>
+                        <p class="news-snippet">Agent 正杀入软件研发一线！全球超 60 位技术专家拆解 AI 落地困局，2026 奇点智能技术大会收官...</p>
+                        <div class="news-footer">
+                            <span class="news-tag">⭐ 100/100</span>
+                            <span class="news-tag">20 天前</span>
+                            <a href="https://www.qbitai.com/2026/04/403859.html" class="news-link" target="_blank">
+                                阅读原文 →
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- News #2 -->
+                    <article class="news-card">
+                        <div class="news-header">
+                            <div class="news-rank">#2</div>
+                            <div class="news-meta">
+                                <span class="news-category">📰 综合资讯</span>
+                                <span class="news-source">量子位</span>
+                            </div>
+                        </div>
+                        <h3 class="news-title">天立启鸣 AI 研究院院长刘志毅，入选 2025 福布斯中国科创人物</h3>
+                        <p class="news-snippet">天立启鸣 AI 研究院院长刘志毅，入选 2025 福布斯中国科创人物...</p>
+                        <div class="news-footer">
+                            <span class="news-tag">⭐ 100/100</span>
+                            <span class="news-tag">20 天前</span>
+                            <a href="https://www.qbitai.com/2026/04/403825.html" class="news-link" target="_blank">
+                                阅读原文 →
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- News #3 -->
+                    <article class="news-card">
+                        <div class="news-header">
+                            <div class="news-rank">#3</div>
+                            <div class="news-meta">
+                                <span class="news-category">🔄 版本更新</span>
+                                <span class="news-source">AI 产品官网</span>
+                            </div>
+                        </div>
+                        <h3 class="news-title">Kimi K2.6</h3>
+                        <p class="news-snippet">Kimi 版本更新：K2.6 | 置信度：已验证 | 2026 年实时监控</p>
+                        <div class="news-footer">
+                            <span class="news-tag">⭐ 100/100</span>
+                            <span class="news-tag">实时监控</span>
+                            <span class="news-tag" style="color: var(--success-green); border-color: rgba(16,185,129,0.2);">✅ 已验证</span>
+                            <a href="https://kimi.moonshot.cn" class="news-link" target="_blank">
+                                查看官网 →
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="icon">ℹ️</span>
+                    说明
+                </h2>
+                <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-standard); border-radius: 8px; padding: 20px;">
+                    <p style="font-size: 14px; font-weight: 400; line-height: 1.60; color: var(--text-secondary); margin-bottom: 12px;">
+                        <strong style="color: var(--text-primary);">数据来源：</strong>量子位，机器之心，36 氪 AI, InfoQ AI, Tavily API, AI 产品官网
+                    </p>
+                    <p style="font-size: 14px; font-weight: 400; line-height: 1.60; color: var(--text-secondary); margin-bottom: 12px;">
+                        <strong style="color: var(--text-primary);">筛选标准：</strong>2026 年内容、≤45 天时效、来源真实性验证≥50 分
+                    </p>
+                    <p style="font-size: 14px; font-weight: 400; line-height: 1.60; color: var(--text-secondary);">
+                        <strong style="color: var(--text-primary);">翻译方式：</strong>translators 库（Bing/Google）
+                    </p>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
+    <footer>
+        <div class="container">
             <p class="footer-text">
-                Generated by Hermes Agent · Linear Design System
+                Generated by <a href="#" style="color: var(--brand-violet);">Hermes Agent</a> · 
+                <a href="https://alfredwang2704.github.io/hermes-reports/tech-news-briefing-latest.html" style="color: var(--brand-violet);">HTML 完整版</a>
             </p>
-            <a href="https://alfredwang2704.github.io/hermes-reports/tech-news-briefing-latest.html" class="footer-link" target="_blank">
-                查看完整版 →
-            </a>
         </div>
     </footer>
-
-    <script>
-        // Subtle hover animation for cards
-        document.querySelectorAll('.news-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-2px)';
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0)';
-            });
-        });
-    </script>
 </body>
 </html>
