@@ -1,41 +1,44 @@
-📰 **AI 科技情报简报** | 2026-04-22 09:10
+📰 **AI 科技情报简报** | 2026-04-23 09:24
 
-✅ 通过：9 条 | ❌ 过滤：8 条 | 🌐 翻译：2 条
+✅ 通过：10 条 | ❌ 过滤：6 条 | 🌐 翻译：4 条
 
 ━━━ 📝 **今日要点** ━━━
 
-🔹 **核心趋势**：多款 AI 新品发布、主流模型版本迭代，行业持续高速发展。今日共捕获 9 条高价值资讯，平均时效 21 天，2 条英文内容已翻译，来源真实性验证 100% 通过。
+🔹 **核心趋势**：多款 AI 新品发布、主流模型版本迭代，行业持续高速发展。今日共捕获 10 条高价值资讯，平均时效 22 天，4 条英文内容已翻译，来源真实性验证 100% 通过。
 
 ---
 
 🔥 **热点 Top 10**:
 
-1. **[📰 综合资讯]** 5月20日，马上AI起来！中国AIGC产业峰会报名已启动｜首波嘉宾官宣...
-   📅 21天前 | 📍 量子位 | 🔗 [原文](https://www.qbitai.com/2026/04/404096.html)
+1. **[📰 综合资讯]** 挖漏洞何必Mythos，国产智能体早跑通了...
+   📅 22天前 | 📍 量子位 | 🔗 [原文](https://www.qbitai.com/2026/04/405299.html)
 
-2. **[📰 综合资讯]** 物理优先+VLA闭环进化：高德ABot-World世界模型，破解具身智能零样本泛化难题...
-   📅 21天前 | 📍 量子位 | 🔗 [原文](https://www.qbitai.com/2026/04/404086.html)
+2. **[🆕 新品发布]** 科大讯飞发布燎原N30m笔记本，重塑全栈国产AIPC新标杆...
+   📅 22天前 | 📍 量子位 | 🔗 [原文](https://www.qbitai.com/2026/04/404713.html)
 
-3. **[📰 综合资讯]** ISC.AI 2026创新独角兽沙盒大赛在京启动 聚焦智能体 共筑AI创新生态...
-   📅 21天前 | 📍 量子位 | 🔗 [原文](https://www.qbitai.com/2026/04/404082.html)
-
-4. **[🔄 版本更新]** Kimi K2.6...
+3. **[🔄 版本更新]** Kimi K2.6...
    📅 None天前 | 📍 AI 产品官网 | 🔗 [原文](https://kimi.moonshot.cn)
 
-5. **[🔄 版本更新]** OpenAI o3...
+4. **[🔄 版本更新]** OpenAI o3...
    📅 None天前 | 📍 AI 产品官网 | 🔗 [原文](https://openai.com)
 
-6. **[🆕 新品发布]** 给大模型集体“把脉”，清程极智发布AI Ping 平台- InfoQ...
-   📅 None天前 | 📍 InfoQ AI | 🔗 [原文](https://www.infoq.cn/article/SDsUhSvWcp0PVTXNXArm)
+5. **[🔄 版本更新]** 帆板 帆板...
+   📅 None天前 | 📍 AI 产品官网 | 🔗 [原文](https://codeium.com)
 
-7. **[🆕 新品发布]** 开源信仰崩塌？Meta发布闭源巨兽，143亿美金重注AI赛道的野心- InfoQ...
-   📅 None天前 | 📍 InfoQ AI | 🔗 [原文](https://www.infoq.cn/article/I71O7o2pufO4WFbpyTFT)
+6. **[🔄 版本更新]** Grok Grok 4...
+   📅 None天前 | 📍 AI 产品官网 | 🔗 [原文](https://grok4.me/)
 
-8. **[📰 综合资讯]** InfoQ - 促进软件开发及相关领域知识与创新的传播-极客邦...
-   📅 None天前 | 📍 InfoQ AI | 🔗 [原文](https://www.infoq.cn/)
+7. **[📰 综合资讯]** 中国AI正在绕过大模型，直奔Agent时代-36氪...
+   📅 None天前 | 📍 Tavily | 🔗 [原文](https://api.tavily.com/search)
 
-9. **[📰 综合资讯]** 深度访谈：阿里云X平头哥，模型推理提升13倍背后的秘密 - InfoQ...
-   📅 None天前 | 📍 InfoQ AI | 🔗 [原文](https://www.infoq.cn/article/Y2Vxov2UT0LbMjG5JjF1)
+8. **[📰 综合资讯]** 国产大模型：这次剧本不一样-36氪...
+   📅 None天前 | 📍 Tavily | 🔗 [原文](https://api.tavily.com/search)
+
+9. **[💰 融资动态]** DeepSeek终于要融资了？而五家国产大模型都找到了赚钱的路-36氪...
+   📅 None天前 | 📍 Tavily | 🔗 [原文](https://api.tavily.com/search)
+
+10. **[📰 综合资讯]** 国产大模型集体转身-36氪...
+   📅 None天前 | 📍 Tavily | 🔗 [原文](https://api.tavily.com/search)
 
 ---
 
