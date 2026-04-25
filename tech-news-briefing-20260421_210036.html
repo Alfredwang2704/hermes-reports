@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>AI 科技情报简报 - 2026-04-21 21:00</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <style>
+        /* taste-skill 设计原则 v2 - 修复动画+配色+图标 */
+        :root {
+            --bg-primary: #f3f4f6;
+            --bg-card: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --text-tertiary: #9ca3af;
+            --border-color: #e5e7eb;
+            --accent-primary: #7c3aed;
+            --accent-primary-light: #a78bfa;
+            --accent-success: #059669;
+            --accent-warning: #d97706;
+            --accent-danger: #dc2626;
+            --shadow-diffusion: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 20px 50px -12px rgba(124, 58, 237, 0.15);
+            --radius-large: 24px;
+            --radius-md: 16px;
+            --radius-sm: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 50%, #d1d5db 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100dvh;
+            padding: 2rem 1rem;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {{ opacity: 0; transform: translateY(10px); }}
+            to {{ opacity: 1; transform: translateY(0); }}
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header - 渐变背景 */
+        .header {
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%);
+            border-radius: var(--radius-large);
+            padding: 3rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 40px rgba(124, 58, 237, 0.3);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .header h1 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header-meta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .timestamp {
+            font-family: 'Geist Mono', monospace;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* 过滤器徽章 */
+        .filter-badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .filter-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.875rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: 'Geist Mono', monospace;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .filter-badge:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 统计网格 - Bento Grid 布局 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin: 2.5rem 0;
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-diffusion);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .stat-card:hover::before {
+            left: 100%;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent-primary);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary), #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            animation: numberPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes numberPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* 摘要框 - 渐变背景 */
+        .summary-section {
+            margin: 3rem 0;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+            border-radius: var(--radius-large);
+            color: white;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .summary-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(124, 58, 237, 0.1) 50%, transparent 70%);
+            background-size: 200% 200%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        .summary-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .summary-content {
+            font-size: 1rem;
+            line-height: 1.8;
+            opacity: 0.95;
+            max-width: 65ch;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 新闻列表 */
+        .news-section {
+            margin-top: 3rem;
+        }
+        
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-primary);
+        }
+        
+        .news-item {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-diffusion);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .news-item:hover {
+            transform: translateX(8px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent-primary-light);
+        }
+        
+        .news-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .news-rank {
+            font-family: 'Geist Mono', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, var(--accent-primary), #c084fc);
+            min-width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+        
+        .news-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--text-primary);
+            flex: 1;
+        }
+        
+        .news-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .news-title a:hover {
+            color: var(--accent-primary);
+        }
+        
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: 'Geist Mono', monospace;
+        }
+        
+        .badge-new { background: linear-gradient(135deg, #065f46, #047857); color: #ffffff; }
+        .badge-compare { background: linear-gradient(135deg, #1e40af, #1d4ed8); color: #ffffff; }
+        .badge-market { background: linear-gradient(135deg, #b45309, #92400e); color: #ffffff; }
+        .badge-update { background: linear-gradient(135deg, #5b21b6, #6d28d9); color: #ffffff; }
+        .badge-funding { background: linear-gradient(135deg, #9d174d, #be185d); color: #ffffff; }
+        .badge-default { background: linear-gradient(135deg, #374151, #4b5563); color: #ffffff; }
+        
+        .news-meta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+        }
+        
+        .news-source {
+            font-family: 'Geist Mono', monospace;
+            color: var(--text-tertiary);
+            background: #f3f4f6;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+        }
+        
+        .news-days {
+            color: var(--text-secondary);
+        }
+        
+        .news-link {
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .news-link:hover {
+            color: var(--accent-primary-light);
+            text-decoration: underline;
+        }
+        
+        .news-snippet {
+            margin-top: 1rem;
+            padding: 1rem 1.25rem;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--accent-primary);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .verification-badge {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            border: 1px solid #10b981;
+            border-radius: var(--radius-sm);
+            font-size: 0.8125rem;
+            color: #065f46;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .translated-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.625rem;
+            background: linear-gradient(135deg, #c7d2fe, #a5b4fc);
+            color: #4338ca;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+        
+        /* 已过滤内容 */
+        .rejected-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+            border-radius: var(--radius-md);
+        }
+        
+        .rejected-item {
+            padding: 0.75rem 0;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        .rejected-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 4rem;
+            padding: 3rem 2rem;
+            background: var(--bg-card);
+            border-radius: var(--radius-large);
+            text-align: center;
+            box-shadow: var(--shadow-diffusion);
+            border: 1px solid var(--border-color);
+        }
+        
+        .footer-text {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            line-height: 1.8;
+        }
+        
+        .footer-highlight {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            .header { padding: 2rem 1.5rem; }
+            .header h1 { font-size: 1.75rem; }
+            .summary-section { padding: 1.5rem; }
+            .news-item:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📰 AI 科技情报简报</h1>
+            <div class="header-meta">
+                <span class="timestamp">🕐 2026-04-21 21:00</span>
+            </div>
+            <div class="filter-badges">
+                <span class="filter-badge pass">✅ 2026 年内容</span>
+                <span class="filter-badge pass">✅ ≤45 天时效</span>
+                <span class="filter-badge pass">✅ 来源真实性验证</span>
+                <span class="filter-badge pass">✅ translators 翻译</span>
+                <span class="filter-badge pass">✅ 5 源并发</span>
+            </div>
+        </header>
+        
+        <section class="summary-section">
+            <div class="summary-title">📝 一句话总结</div>
+            <div class="summary-content">
+                今日 AI 领域共捕获 3 条高价值资讯，主要聚焦于 综合资讯。
+                0 条英文内容已翻译为中文，平均内容时效 20.0 天，来源真实性验证通过率 100%。
+                行业持续高速发展，建议重点关注 Top 5 热点。
+            </div>
+        </section>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">6</div>
+                <div class="stat-label">数据源</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">成功抓取</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">通过验证</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">0</div>
+                <div class="stat-label">已过滤</div>
+            </div>
+        </div>
+        
+        <section class="news-section">
+            <h2 class="section-title">🔥 热点 Top 3</h2>
+
+            <div class="news-item">
+                <div class="news-header">
+                    <span class="news-rank">#1</span>
+                    <span class="category-badge badge-default">📰 综合资讯</span>
+                    <h3 class="news-title">
+                        <a href="https://www.qbitai.com/2026/04/404096.html" target="_blank" rel="noopener noreferrer">5月20日，马上AI起来！中国AIGC产业峰会报名已启动｜首波嘉宾官宣</a>
+                        
+                    </h3>
+                </div>
+                <div class="news-meta">
+                    <span class="news-source">📍 量子位</span>
+                    <span class="news-days">📅 20天前</span>
+                    <span>⭐ 100/100</span>
+                    <a href="https://www.qbitai.com/2026/04/404096.html" target="_blank" rel="noopener noreferrer" class="news-link">🔗 原文链接</a>
+                </div>
+                <div class="news-snippet">量子位: 5月20日，马上AI起来！中国AIGC产业峰会报名已启动｜首波嘉宾官宣...</div>
+                <div class="verification-badge">
+                    <span>✅ 验证通过</span>
+                    <span>•</span>
+                    <span>来源真实性 50分</span>
+                    <span>•</span>
+                    <span>2026 年内容</span>
+                    <span>•</span>
+                    <span>≤45 天时效</span>
+                </div>
+                
+            </div>
+
+            <div class="news-item">
+                <div class="news-header">
+                    <span class="news-rank">#2</span>
+                    <span class="category-badge badge-default">📰 综合资讯</span>
+                    <h3 class="news-title">
+                        <a href="https://www.qbitai.com/2026/04/404086.html" target="_blank" rel="noopener noreferrer">物理优先+VLA闭环进化：高德ABot-World世界模型，破解具身智能零样本泛化难题</a>
+                        
+                    </h3>
+                </div>
+                <div class="news-meta">
+                    <span class="news-source">📍 量子位</span>
+                    <span class="news-days">📅 20天前</span>
+                    <span>⭐ 100/100</span>
+                    <a href="https://www.qbitai.com/2026/04/404086.html" target="_blank" rel="noopener noreferrer" class="news-link">🔗 原文链接</a>
+                </div>
+                <div class="news-snippet">量子位: 物理优先+VLA闭环进化：高德ABot-World世界模型，破解具身智能零样本泛化难题...</div>
+                <div class="verification-badge">
+                    <span>✅ 验证通过</span>
+                    <span>•</span>
+                    <span>来源真实性 50分</span>
+                    <span>•</span>
+                    <span>2026 年内容</span>
+                    <span>•</span>
+                    <span>≤45 天时效</span>
+                </div>
+                
+            </div>
+
+            <div class="news-item">
+                <div class="news-header">
+                    <span class="news-rank">#3</span>
+                    <span class="category-badge badge-default">📰 综合资讯</span>
+                    <h3 class="news-title">
+                        <a href="https://www.qbitai.com/2026/04/404082.html" target="_blank" rel="noopener noreferrer">ISC.AI 2026创新独角兽沙盒大赛在京启动 聚焦智能体 共筑AI创新生态</a>
+                        
+                    </h3>
+                </div>
+                <div class="news-meta">
+                    <span class="news-source">📍 量子位</span>
+                    <span class="news-days">📅 20天前</span>
+                    <span>⭐ 100/100</span>
+                    <a href="https://www.qbitai.com/2026/04/404082.html" target="_blank" rel="noopener noreferrer" class="news-link">🔗 原文链接</a>
+                </div>
+                <div class="news-snippet">量子位: ISC.AI 2026创新独角兽沙盒大赛在京启动 聚焦智能体 共筑AI创新生态...</div>
+                <div class="verification-badge">
+                    <span>✅ 验证通过</span>
+                    <span>•</span>
+                    <span>来源真实性 50分</span>
+                    <span>•</span>
+                    <span>2026 年内容</span>
+                    <span>•</span>
+                    <span>≤45 天时效</span>
+                </div>
+                
+            </div>
+</section>
+        <footer class="footer">
+            <p class="footer-text">
+                🤖 <span class="footer-highlight">Hermes Agent 多源并发信息抓取技能 v7.2</span><br>
+                ✅ 5 源并发 | ✅ 来源真实性验证 | ✅ 严格时效过滤 (2026+≤45 天) | ✅ translators 库翻译 | ✅ 保留原文链接 | ✅ 一句话总结<br>
+                🎨 设计原则：<span class="footer-highlight">taste-skill</span> (高端前端设计)
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

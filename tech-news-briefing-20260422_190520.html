@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 科技情报简报 - 2026-04-22 19:05</title>
+    <style>
+        /* Apple Design System - Daily Tech Briefing */
+        :root {
+            /* Apple Color Palette */
+            --apple-black: #000000;
+            --apple-dark-gray: #1d1d1f;
+            --apple-light-gray: #f5f5f7;
+            --apple-blue: #0071e3;
+            --apple-link-blue: #0066cc;
+            --apple-bright-blue: #2997ff;
+            --apple-white: #ffffff;
+            --apple-shadow: rgba(0, 0, 0, 0.22) 3px 5px 30px 0px;
+            
+            /* Typography - SF Pro Stack */
+            --font-display: -apple-system, 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --font-text: -apple-system, 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --font-mono: 'SF Mono (system)', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-text);
+            background: var(--apple-white);
+            color: var(--apple-dark-gray);
+            line-height: 1.47;
+            letter-spacing: -0.022em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Navigation - Apple Glass Effect */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 48px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-content {
+            max-width: 980px;
+            width: 100%;
+            padding: 0 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .nav-logo {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--apple-white);
+            letter-spacing: -0.02em;
+        }
+        
+        .nav-date {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-family: var(--font-mono);
+        }
+        
+        /* Hero Section - Black Background */
+        .hero {
+            background: var(--apple-black);
+            color: var(--apple-white);
+            padding: 120px 22px 80px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 600;
+            line-height: 1.07;
+            letter-spacing: -0.005em;
+            margin-bottom: 16px;
+        }
+        
+        .hero-subtitle {
+            font-family: var(--font-display);
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 400;
+            line-height: 1.19;
+            letter-spacing: 0.011em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 32px;
+        }
+        
+        /* Stats Pills */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 980px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--apple-white);
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-pill .number {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        /* Section Styling */
+        .section {
+            padding: 80px 22px;
+        }
+        
+        .section-light {
+            background: var(--apple-light-gray);
+        }
+        
+        .section-dark {
+            background: var(--apple-black);
+            color: var(--apple-white);
+        }
+        
+        .section-header {
+            max-width: 980px;
+            margin: 0 auto 48px;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.005em;
+            margin-bottom: 12px;
+        }
+        
+        .section-subtitle {
+            font-family: var(--font-display);
+            font-size: 1.06rem;
+            font-weight: 400;
+            line-height: 1.47;
+            letter-spacing: -0.022em;
+            color: inherit;
+            opacity: 0.8;
+        }
+        
+        /* News Grid */
+        .news-grid {
+            max-width: 980px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        
+        .news-card {
+            background: var(--apple-white);
+            border-radius: 18px;
+            padding: 32px;
+            box-shadow: var(--apple-shadow);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .news-card:hover {
+            transform: scale(1.02);
+        }
+        
+        .news-card.dark {
+            background: #1d1d1f;
+            color: var(--apple-white);
+        }
+        
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .news-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--apple-blue);
+        }
+        
+        .news-source {
+            font-size: 0.75rem;
+            color: rgba(0, 0, 0, 0.5);
+            font-family: var(--font-mono);
+        }
+        
+        .news-card.dark .news-source {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .news-title {
+            font-family: var(--font-display);
+            font-size: 1.31rem;
+            font-weight: 600;
+            line-height: 1.19;
+            letter-spacing: 0.011em;
+        }
+        
+        .news-summary {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: rgba(0, 0, 0, 0.8);
+            flex-grow: 1;
+        }
+        
+        .news-card.dark .news-summary {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Apple-style Links */
+        .news-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--apple-link-blue);
+            text-decoration: none;
+            padding: 4px 0;
+        }
+        
+        .news-card.dark .news-link {
+            color: var(--apple-bright-blue);
+        }
+        
+        .news-link:hover {
+            text-decoration: underline;
+        }
+        
+        .news-link::after {
+            content: '›';
+            font-size: 1.2em;
+            line-height: 1;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--apple-light-gray);
+            padding: 48px 22px;
+            text-align: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .footer-text {
+            font-size: 0.75rem;
+            color: rgba(0, 0, 0, 0.5);
+            line-height: 1.33;
+        }
+        
+        /* Responsive */
+        @media (max-width: 734px) {
+            .hero {
+                padding: 80px 22px 60px;
+            }
+            
+            .section {
+                padding: 60px 22px;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-pill {
+                font-size: 0.75rem;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-logo"> AI 科技情报</div>
+            <div class="nav-date">2026-04-22 19:05</div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>每日科技简报</h1>
+        <p class="hero-subtitle">AI 大模型 · 前沿技术 · 行业动态</p>
+        <div class="stats-container">
+            <div class="stat-pill">
+                <span class="number">2</span>
+                <span>条资讯</span>
+            </div>
+            <div class="stat-pill">
+                <span class="number">1</span>
+                <span>条翻译</span>
+            </div>
+            <div class="stat-pill">
+                <span class="number">21.0</span>
+                <span>天平均时效</span>
+            </div>
+            <div class="stat-pill">
+                <span class="number">7</span>
+                <span>个数据源</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- News Section -->
+    <section class="section section-light">
+        <div class="section-header">
+            <h2 class="section-title">今日头条</h2>
+            <p class="section-subtitle">精选全球 AI 科技领域最新动态</p>
+        </div>
+        
+        <div class="news-grid">
+            
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="news-tag">📰 综合资讯</span>
+                    <span class="news-source">量子位</span>
+                </div>
+                <h3 class="news-title">从GPU到Token：AI基础设施竞争逻辑重构</h3>
+                <p class="news-summary">量子位: 从GPU到Token：AI基础设施竞争逻辑重构...</p>
+                <div class="news-meta" style="margin-top: auto;">
+                    <span class="news-source">📅 21天前</span>
+                    <a href="https://www.qbitai.com/2026/04/404440.html" target="_blank" rel="noopener noreferrer" class="news-link">了解更多</a>
+                </div>
+            </div>
+
+            <div class="news-card dark">
+                <div class="news-meta">
+                    <span class="news-tag">🔄 版本更新</span>
+                    <span class="news-source">AI 产品官网</span>
+                </div>
+                <h3 class="news-title">OpenAI o3</h3>
+                <p class="news-summary">OpenAI 版本更新：o3 | 置信度：已验证 | 2026 年实时监控（官网直连）...</p>
+                <div class="news-meta" style="margin-top: auto;">
+                    <span class="news-source">📅 None天前</span>
+                    <a href="https://openai.com" target="_blank" rel="noopener noreferrer" class="news-link">了解更多</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">
+            数据来源：Tavily API · 量子位 · 机器之心 · InfoQ · 36 氪 · IMA 前沿洞察<br>
+            生成时间：2026-04-22 19:05 · GitHub Pages 托管
+        </p>
+    </footer>
+</body>
+</html>

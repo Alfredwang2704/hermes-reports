@@ -1,0 +1,15 @@
+🤖 **每日科技简报已生成**
+
+📅 生成时间：2026-04-25 09:11
+📊 数据概览：
+  • 原始抓取：6 条
+  • 去重过滤：0 条（含历史新闻）
+  • 质量过滤：4 条
+  • ✅ 最终生成：12 条
+  • 🌐 翻译：4 条
+  • ⏱️ 平均时效：24 天
+
+🔗 GitHub Pages: https://alfredwang2704.github.io/hermes-reports/tech-news-briefing-latest.html
+📚 IMA 归档：已上传至「每日科技简报」知识库
+
+💡 点击链接查看完整报告
