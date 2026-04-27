@@ -3,536 +3,476 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 科技情报简报 - 2026-04-27 09:16</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>AI 科技情报简报 - 2026-04-27 10:11</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* NVIDIA Design System */
+        /* NVIDIA Design System - Daily Tech Briefing */
         :root {
             --nvidia-green: #76b900;
-            --nvidia-green-hover: #8ed100;
-            --bg-black: #000000;
-            --bg-white: #ffffff;
-            --bg-dark: #1a1a1a;
-            --bg-card: #0d0d0d;
-            --text-white: #ffffff;
-            --text-gray: #a0a0a0;
-            --text-dark: #171717;
-            --radius: 2px;
-            --shadow: rgba(0,0,0,0.3) 0px 0px 5px 0px;
+            --nvidia-green-light: #bff230;
+            --nvidia-black: #000000;
+            --nvidia-dark: #1a1a1a;
+            --nvidia-white: #ffffff;
+            --nvidia-gray: #a7a7a7;
+            --nvidia-border: #5e5e5e;
+            --shadow: rgba(0, 0, 0, 0.3) 0px 0px 5px 0px;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--bg-black);
-            color: var(--text-white);
-            line-height: 1.67;
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--nvidia-black);
+            color: var(--nvidia-white);
+            line-height: 1.5;
         }
-
-        /* NAV */
+        
+        /* Navigation */
         .nav {
-            background: var(--bg-black);
-            border-bottom: 1px solid rgba(118,185,0,0.3);
-            padding: 0.75rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 60px;
+            background: var(--nvidia-black);
+            border-bottom: 2px solid var(--nvidia-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-content {
+            max-width: 1200px;
+            width: 100%;
+            padding: 0 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
-        .nav-brand {
-            font-size: 14px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--nvidia-green);
-        }
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-        .nav-links a {
-            color: var(--text-white);
-            font-size: 14px;
+        
+        .nav-logo {
+            font-size: 1.5rem;
             font-weight: 700;
-            text-transform: uppercase;
-            text-decoration: none;
-            letter-spacing: 0.5px;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover { color: var(--nvidia-green); }
-
-        /* HERO */
-        .hero {
-            background: var(--bg-black);
-            padding: 4rem 2rem 3rem;
-            text-align: center;
-            border-bottom: 1px solid #222;
-        }
-        .hero h1 {
-            font-size: 2.5rem;
-            font-weight: 900;
+            color: var(--nvidia-white);
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 0.5rem;
         }
-        .hero h1 .accent { color: var(--nvidia-green); }
-        .hero .subtitle {
-            font-size: 1rem;
-            color: var(--text-gray);
-            font-weight: 500;
-        }
-
-        /* STATS BAR (white section) */
-        .stats-section {
-            background: var(--bg-white);
-            color: var(--text-dark);
-            padding: 2rem;
-        }
-        .stats-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.5rem;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 900;
+        
+        .nav-logo span {
             color: var(--nvidia-green);
-            line-height: 1.25;
         }
-        .stat-label {
-            font-size: 0.75rem;
+        
+        .nav-date {
+            font-size: 0.875rem;
+            color: var(--nvidia-gray);
+            font-weight: 600;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--nvidia-black) 0%, var(--nvidia-dark) 100%);
+            padding: 80px 24px 60px;
+            text-align: center;
+            border-bottom: 1px solid var(--nvidia-border);
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 16px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #666;
-            margin-top: 0.25rem;
         }
-
-        /* NEWS SECTION (black section) */
-        .news-section {
-            background: var(--bg-black);
-            padding: 3rem 2rem;
-        }
-        .section-header {
-            max-width: 1200px;
-            margin: 0 auto 2rem;
+        
+        .hero-stats {
             display: flex;
-            align-items: center;
-            gap: 1rem;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 32px;
+            flex-wrap: wrap;
         }
-        .section-header h2 {
-            font-size: 1.25rem;
-            font-weight: 800;
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--nvidia-green);
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--nvidia-gray);
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            margin-top: 8px;
         }
-        .section-header .line {
-            flex: 1;
-            height: 1px;
-            background: var(--nvidia-green);
-        }
-
-        .news-grid {
+        
+        /* News Grid */
+        .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 48px 24px;
+        }
+        
+        .news-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-            gap: 1.25rem;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
         }
-
+        
         .news-card {
-            background: var(--bg-card);
-            border: 1px solid #222;
-            border-left: 2px solid var(--nvidia-green);
-            border-radius: var(--radius);
-            padding: 1.25rem;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            background: var(--nvidia-dark);
+            border: 1px solid var(--nvidia-border);
+            border-radius: 2px;
+            padding: 24px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--nvidia-green);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        
         .news-card:hover {
             border-color: var(--nvidia-green);
-            box-shadow: 0 0 12px rgba(118,185,0,0.15);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
         }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.75rem;
+        
+        .news-card:hover::before {
+            opacity: 1;
         }
-        .card-number {
-            font-size: 0.75rem;
-            font-weight: 800;
-            color: var(--nvidia-green);
-        }
-        .card-badge {
-            font-size: 0.65rem;
-            font-weight: 700;
-            padding: 0.15rem 0.5rem;
-            border-radius: var(--radius);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .card-score {
-            margin-left: auto;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--text-gray);
-            border: 1px solid #333;
-            padding: 0.1rem 0.4rem;
-            border-radius: var(--radius);
-        }
-
-        .card-title {
-            font-size: 1rem;
-            font-weight: 700;
-            line-height: 1.4;
-            margin-bottom: 0.5rem;
-            color: var(--text-white);
-        }
-        .card-summary {
-            font-size: 0.85rem;
-            color: var(--text-gray);
-            line-height: 1.5;
-            margin-bottom: 0.75rem;
-        }
-        .card-meta {
-            display: flex;
-            gap: 1rem;
-            font-size: 0.7rem;
-            color: #666;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-        .card-link {
+        
+        .news-tag {
             display: inline-block;
             font-size: 0.75rem;
             font-weight: 700;
             color: var(--nvidia-green);
-            text-decoration: none;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border: 2px solid var(--nvidia-green);
-            padding: 0.4rem 0.8rem;
-            border-radius: var(--radius);
-            transition: all 0.2s;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            padding: 4px 8px;
+            border: 1px solid var(--nvidia-green);
+            border-radius: 2px;
         }
-        .card-link:hover {
-            background: var(--nvidia-green);
-            color: var(--bg-black);
+        
+        .news-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            color: var(--nvidia-white);
         }
-
-        /* FILTERED SECTION (white) */
-        .filtered-section {
-            background: var(--bg-white);
-            color: var(--text-dark);
-            padding: 2rem;
+        
+        .news-summary {
+            font-size: 0.9375rem;
+            color: var(--nvidia-gray);
+            line-height: 1.67;
+            margin-bottom: 16px;
         }
-        .filtered-grid {
-            max-width: 1200px;
-            margin: 0 auto;
+        
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--nvidia-border);
+            font-size: 0.8125rem;
         }
-        .filtered-item {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #eee;
-            font-size: 0.85rem;
-            color: #888;
-        }
-        .filtered-item .reason {
-            color: #dc2626;
+        
+        .news-source {
+            color: var(--nvidia-gray);
             font-weight: 600;
-            font-size: 0.75rem;
         }
-
-        /* FOOTER (black) */
+        
+        .news-link {
+            color: var(--nvidia-white);
+            text-decoration: none;
+            font-weight: 700;
+            padding: 8px 16px;
+            border: 2px solid var(--nvidia-green);
+            border-radius: 2px;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .news-link:hover {
+            background: var(--nvidia-green);
+            color: var(--nvidia-black);
+        }
+        
+        /* Verification Warning */
+        .verification-warning {
+            margin-top: 12px;
+            padding: 8px 12px;
+            background: linear-gradient(135deg, #2a2a1a, #3a3a2a);
+            border: 1px solid var(--nvidia-green);
+            border-radius: 2px;
+            font-size: 0.75rem;
+            color: var(--nvidia-green-light);
+            font-weight: 600;
+        }
+        
+        /* Footer */
         .footer {
-            background: var(--bg-black);
-            border-top: 1px solid #222;
-            padding: 2rem;
+            background: var(--nvidia-dark);
+            border-top: 1px solid var(--nvidia-border);
+            padding: 32px 24px;
             text-align: center;
         }
-        .footer p {
-            font-size: 0.75rem;
-            color: var(--text-gray);
-            font-weight: 500;
+        
+        .footer-text {
+            font-size: 0.875rem;
+            color: var(--nvidia-gray);
         }
-        .footer .accent { color: var(--nvidia-green); }
-
+        
+        .footer-text strong {
+            color: var(--nvidia-green);
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
-            .news-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 1.75rem; }
-            .nav { padding: 0.75rem 1rem; }
-            .stats-grid { grid-template-columns: repeat(3, 1fr); }
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-stats {
+                gap: 24px;
+            }
+            
+            .stat-value {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-
-    <!-- NAV -->
     <nav class="nav">
-        <div class="nav-brand">NVIDIA AI BRIEFING</div>
-        <div class="nav-links">
-            <a href="#">热点</a>
-            <a href="#">趋势</a>
-            <a href="#">归档</a>
+        <div class="nav-content">
+            <div class="nav-logo">NVIDIA<span>STYLE</span></div>
+            <div class="nav-date">2026-04-27 10:11</div>
         </div>
     </nav>
-
-    <!-- HERO -->
+    
     <section class="hero">
-        <h1>AI 科技情报 <span class="accent">简报</span></h1>
-        <p class="subtitle">2026-04-27 09:16 · NVIDIA 风格 · 12 条精选资讯</p>
-    </section>
-
-    <!-- STATS -->
-    <section class="stats-section">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-value">12</div>
-                <div class="stat-label">通过验证</div>
+        <h1>AI 科技情报简报</h1>
+        <p style="color: var(--nvidia-gray); font-size: 1.125rem; max-width: 600px; margin: 0 auto;">
+            多源抓取 · 智能过滤 · 实时验证
+        </p>
+        <div class="hero-stats">
+            <div class="stat">
+                <div class="stat-value">15</div>
+                <div class="stat-label">今日新闻</div>
             </div>
-            <div class="stat-item">
+            <div class="stat">
                 <div class="stat-value">7</div>
                 <div class="stat-label">数据源</div>
             </div>
-            <div class="stat-item">
+            <div class="stat">
                 <div class="stat-value">5</div>
-                <div class="stat-label">已过滤</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">4</div>
                 <div class="stat-label">已翻译</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value">26</div>
-                <div class="stat-label">平均时效(天)</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">100%</div>
-                <div class="stat-label">来源验证</div>
+            <div class="stat">
+                <div class="stat-value">26.0</div>
+                <div class="stat-label">平均时效 (天)</div>
             </div>
         </div>
     </section>
-
-    <!-- NEWS -->
-    <section class="news-section">
-        <div class="section-header">
-            <h2>🔥 热点 TOP 12</h2>
-            <div class="line"></div>
-        </div>
+    
+    <div class="container">
         <div class="news-grid">
             
-    <div class="news-card">
-        <div class="card-header">
-            <span class="card-number">#1</span>
-            <span class="card-badge" style="background:linear-gradient(135deg,#374151,#4b5563);color:#fff">📰 综合资讯</span>
-            <span class="card-score">100</span>
+            <div class="news-card">
+                <span class="news-tag">📰 综合资讯</span>
+                <h3 class="news-title">全栈自研加华为合作 岚图亮出智能时代技术双引擎</h3>
+                <p class="news-summary">量子位: 全栈自研加华为合作 岚图亮出智能时代技术双引擎...</p>
+                
+                <div class="news-meta">
+                    <span class="news-source">量子位 · 26天前</span>
+                    <a href="https://www.qbitai.com/2026/04/407613.html" target="_blank" rel="noopener noreferrer" class="news-link">了解更多</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <span class="news-tag">📰 综合资讯</span>
+                <h3 class="news-title">Momenta曹旭东：规模L4要百亿美元投入，现金流业务是物理AI门票</h3>
+                <p class="news-summary">量子位: Momenta曹旭东：规模L4要百亿美元投入，现金流业务是物理AI门票...</p>
+                
+                <div class="news-meta">
+                    <span class="news-source">量子位 · 26天前</span>
+                    <a href="https://www.qbitai.com/2026/04/407485.html" target="_blank" rel="noopener noreferrer" class="news-link">了解更多</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <span class="news-tag">📰 综合资讯</span>
+                <h3 class="news-title">Claude终于认了！降智坐实，越聊越傻，3个bug全曝光</h3>
+                <p class="news-summary">量子位: Claude终于认了！降智坐实，越聊越傻，3个bug全曝光...</p>
+                
+                <div class="news-meta">
+                    <span class="news-source">量子位 · 26天前</span>
+                    <a href="https://www.qbitai.com/2026/04/407502.html" target="_blank" rel="noopener noreferrer" class="news-link">了解更多</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <span class="news-tag">🔄 版本更新</span>
+                <h3 class="news-title">OpenAI o1</h3>
+                <p class="news-summary">OpenAI 版本更新：o1 | 置信度：已验证 | 2026 年实时监控（官网直连）...</p>
+                
+                <div class="news-meta">
+                    <span class="news-source">AI 产品官网 · None天前</span>
+                    <a href="https://openai.com" target="_blank" rel="noopener noreferrer" class="news-link">了解更多</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <span class="news-tag">🔄 版本更新</span>
+                <h3 class="news-title">Kimi K2.6</h3>
+                <p class="news-summary">Kimi 版本更新：K2.6 | 置信度：已验证 | 2026 年实时监控（官网直连）...</p>
+                
+                <div class="news-meta">
+                    <span class="news-source">AI 产品官网 · None天前</span>
+                    <a href="https://kimi.moonshot.cn" target="_blank" rel="noopener noreferrer" class="news-link">了解更多</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <span class="news-tag">🔄 版本更新</span>
+                <h3 class="news-title">帆板 帆板</h3>
+                <p class="news-summary">Windsurf 版本更新：Windsurf | 置信度：verified | 2026 年 年 年实时监控 (官网直连)...</p>
+                
+                <div class="news-meta">
+                    <span class="news-source">AI 产品官网 · None天前</span>
+                    <a href="https://codeium.com" target="_blank" rel="noopener noreferrer" class="news-link">了解更多</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <span class="news-tag">🔄 版本更新</span>
+                <h3 class="news-title">Grok Grok 4</h3>
+                <p class="news-summary">Grok 版本更新：Grok 4 | 置信度：search_verified | 2026 年 年 年实时监控 (SearXNG 降级搜索)...</p>
+                
+                <div class="news-meta">
+                    <span class="news-source">AI 产品官网 · None天前</span>
+                    <a href="https://grok4.me/" target="_blank" rel="noopener noreferrer" class="news-link">了解更多</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <span class="news-tag">📰 综合资讯</span>
+                <h3 class="news-title">斯坦福权威报告：阿里AI贡献全球第三、中国第一-36氪</h3>
+                <p class="news-summary">火山引擎 星球日报 富途牛牛 企服点评 人人都是产品经理...</p>
+                
+                <div class="news-meta">
+                    <span class="news-source">Tavily · None天前</span>
+                    <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer" class="news-link">了解更多</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <span class="news-tag">📰 综合资讯</span>
+                <h3 class="news-title">2026 AI真正元年：从一人公司到AI自治社交-36氪</h3>
+                <p class="news-summary">36 氪 AI: 2026 AI真正元年：从一人公司到AI自治社交-36氪...</p>
+                
+                <div class="news-meta">
+                    <span class="news-source">Tavily · None天前</span>
+                    <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer" class="news-link">了解更多</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <span class="news-tag">📰 综合资讯</span>
+                <h3 class="news-title">2026年第一季度，AI Agent完成了它的成人礼-36氪</h3>
+                <p class="news-summary">火山引擎 星球日报 富途牛牛 企服点评 人人都是产品经理...</p>
+                
+                <div class="news-meta">
+                    <span class="news-source">Tavily · None天前</span>
+                    <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer" class="news-link">了解更多</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <span class="news-tag">📰 综合资讯</span>
+                <h3 class="news-title">DeepSeek-V4明确支持华为昇腾950芯片-36氪</h3>
+                <p class="news-summary">火山引擎 星球日报 富途牛牛 企服点评 人人都是产品经理...</p>
+                
+                <div class="news-meta">
+                    <span class="news-source">Tavily · None天前</span>
+                    <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer" class="news-link">了解更多</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <span class="news-tag">📰 综合资讯</span>
+                <h3 class="news-title">万亿Token，喂出了千亿新贵-36氪</h3>
+                <p class="news-summary">火山引擎 星球日报 富途牛牛 企服点评 人人都是产品经理...</p>
+                
+                <div class="news-meta">
+                    <span class="news-source">Tavily · None天前</span>
+                    <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer" class="news-link">了解更多</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <span class="news-tag">🆕 新品发布</span>
+                <h3 class="news-title">智源发布2026十大AI技术趋势：世界模型成AGI共识方向 - InfoQ</h3>
+                <p class="news-summary">InfoQ 人工智能: 智源发布2026十大AI技术趋势：世界模型成AGI共识方向 - InfoQ...</p>
+                
+                <div class="news-meta">
+                    <span class="news-source">Tavily · None天前</span>
+                    <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer" class="news-link">了解更多</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <span class="news-tag">🔄 版本更新</span>
+                <h3 class="news-title">2026最新AI模型横评：谁才是你的最强“工作搭子”？_王磊</h3>
+                <p class="news-summary">AI 模型更新速度极快（按周计算）。如果是工作重度使用，建议**“DeepSeek (逻辑) + Kimi (阅读)”**组合使用，完全免费且效率翻倍；如果有条件，ChatGPT/Gemini...</p>
+                
+                <div class="news-meta">
+                    <span class="news-source">Tavily · None天前</span>
+                    <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer" class="news-link">了解更多</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <span class="news-tag">📰 综合资讯</span>
+                <h3 class="news-title">2026人工智能趋势——AI大模型与智能体时代的企业数智化新范式</h3>
+                <p class="news-summary">InfoQ AI: 2026人工智能趋势——AI大模型与智能体时代的企业数智化新范式...</p>
+                
+                <div class="news-meta">
+                    <span class="news-source">Tavily · None天前</span>
+                    <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer" class="news-link">了解更多</a>
+                </div>
+            </div>
+
         </div>
-        <h3 class="card-title">Momenta曹旭东：规模L4要百亿美元投入，现金流业务是物理AI门票</h3>
-        <p class="card-summary">Momenta CEO 曹旭东表示，实现规模 L4 自动驾驶需要百亿美元级别的投入，现金流业务是进入物理 AI 领域的门票。</p>
-        <div class="card-meta">
-            <span>📍 量子位</span>
-            <span>📅 26天前</span>
-        </div>
-        <a href="https://www.qbitai.com/2026/04/407485.html" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
     </div>
-
-    <div class="news-card">
-        <div class="card-header">
-            <span class="card-number">#2</span>
-            <span class="card-badge" style="background:linear-gradient(135deg,#374151,#4b5563);color:#fff">📰 综合资讯</span>
-            <span class="card-score">100</span>
-        </div>
-        <h3 class="card-title">Claude终于认了！降智坐实，越聊越傻，3个bug全曝光</h3>
-        <p class="card-summary">Anthropic 承认 Claude 存在降智问题，对话越长表现越差，已暴露 3 个关键 bug。</p>
-        <div class="card-meta">
-            <span>📍 量子位</span>
-            <span>📅 26天前</span>
-        </div>
-        <a href="https://www.qbitai.com/2026/04/407502.html" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
-    </div>
-
-    <div class="news-card">
-        <div class="card-header">
-            <span class="card-number">#3</span>
-            <span class="card-badge" style="background:linear-gradient(135deg,#374151,#4b5563);color:#fff">📰 综合资讯</span>
-            <span class="card-score">100</span>
-        </div>
-        <h3 class="card-title">自动驾驶赛道DeepSeek，轻舟智航率先进军物理AI</h3>
-        <p class="card-summary">轻舟智航率先将 DeepSeek 技术应用到自动驾驶领域，进军物理 AI 赛道。</p>
-        <div class="card-meta">
-            <span>📍 量子位</span>
-            <span>📅 26天前</span>
-        </div>
-        <a href="https://www.qbitai.com/2026/04/407026.html" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
-    </div>
-
-    <div class="news-card">
-        <div class="card-header">
-            <span class="card-number">#4</span>
-            <span class="card-badge" style="background:linear-gradient(135deg,#5b21b6,#6d28d9);color:#fff">🔄 版本更新</span>
-            <span class="card-score">100</span>
-        </div>
-        <h3 class="card-title">Kimi K2.6 版本更新</h3>
-        <p class="card-summary">Kimi 更新至 K2.6 版本（官网直连确认）。</p>
-        <div class="card-meta">
-            <span>📍 AI 产品官网</span>
-            <span>📅 今日</span>
-        </div>
-        <a href="https://kimi.moonshot.cn" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
-    </div>
-
-    <div class="news-card">
-        <div class="card-header">
-            <span class="card-number">#5</span>
-            <span class="card-badge" style="background:linear-gradient(135deg,#5b21b6,#6d28d9);color:#fff">🔄 版本更新</span>
-            <span class="card-score">100</span>
-        </div>
-        <h3 class="card-title">OpenAI o1 版本更新</h3>
-        <p class="card-summary">OpenAI o1 模型持续更新中（官网直连确认）。</p>
-        <div class="card-meta">
-            <span>📍 AI 产品官网</span>
-            <span>📅 今日</span>
-        </div>
-        <a href="https://openai.com" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
-    </div>
-
-    <div class="news-card">
-        <div class="card-header">
-            <span class="card-number">#6</span>
-            <span class="card-badge" style="background:linear-gradient(135deg,#5b21b6,#6d28d9);color:#fff">🔄 版本更新</span>
-            <span class="card-score">100</span>
-        </div>
-        <h3 class="card-title">Windsurf 版本更新</h3>
-        <p class="card-summary">Windsurf (Codeium) 编辑器持续迭代（官网直连确认）。</p>
-        <div class="card-meta">
-            <span>📍 AI 产品官网</span>
-            <span>📅 今日</span>
-        </div>
-        <a href="https://codeium.com" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
-    </div>
-
-    <div class="news-card">
-        <div class="card-header">
-            <span class="card-number">#7</span>
-            <span class="card-badge" style="background:linear-gradient(135deg,#5b21b6,#6d28d9);color:#fff">🔄 版本更新</span>
-            <span class="card-score">100</span>
-        </div>
-        <h3 class="card-title">Grok 4 版本更新</h3>
-        <p class="card-summary">Grok 4 版本信息（SearXNG 降级搜索确认）。</p>
-        <div class="card-meta">
-            <span>📍 AI 产品官网</span>
-            <span>📅 今日</span>
-        </div>
-        <a href="https://grok4.me/" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
-    </div>
-
-    <div class="news-card">
-        <div class="card-header">
-            <span class="card-number">#8</span>
-            <span class="card-badge" style="background:linear-gradient(135deg,#065f46,#047857);color:#fff">🆕 新品发布</span>
-            <span class="card-score">100</span>
-        </div>
-        <h3 class="card-title">智源发布2026十大AI技术趋势：世界模型成AGI共识方向</h3>
-        <p class="card-summary">智源研究院发布 2026 十大 AI 技术趋势，世界模型被认定为 AGI 共识方向。</p>
-        <div class="card-meta">
-            <span>📍 InfoQ / Tavily</span>
-            <span>📅 今日</span>
-        </div>
-        <a href="https://www.infoq.cn" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
-    </div>
-
-    <div class="news-card">
-        <div class="card-header">
-            <span class="card-number">#9</span>
-            <span class="card-badge" style="background:linear-gradient(135deg,#5b21b6,#6d28d9);color:#fff">🔄 版本更新</span>
-            <span class="card-score">100</span>
-        </div>
-        <h3 class="card-title">2026最新AI模型横评：谁才是你的最强工作搭子？</h3>
-        <p class="card-summary">2026 年 AI 模型全面横评，推荐 DeepSeek(逻辑)+Kimi(阅读) 组合使用。</p>
-        <div class="card-meta">
-            <span>📍 Tavily</span>
-            <span>📅 今日</span>
-        </div>
-        <a href="https://api.tavily.com/search" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
-    </div>
-
-    <div class="news-card">
-        <div class="card-header">
-            <span class="card-number">#10</span>
-            <span class="card-badge" style="background:linear-gradient(135deg,#374151,#4b5563);color:#fff">📰 综合资讯</span>
-            <span class="card-score">100</span>
-        </div>
-        <h3 class="card-title">2026人工智能趋势——AI大模型与智能体时代的企业数智化新范式</h3>
-        <p class="card-summary">InfoQ 分析 2026 AI 大模型与智能体时代的企业数智化新范式。</p>
-        <div class="card-meta">
-            <span>📍 InfoQ / Tavily</span>
-            <span>📅 今日</span>
-        </div>
-        <a href="https://www.infoq.cn" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
-    </div>
-
-    <div class="news-card">
-        <div class="card-header">
-            <span class="card-number">#11</span>
-            <span class="card-badge" style="background:linear-gradient(135deg,#374151,#4b5563);color:#fff">📰 综合资讯</span>
-            <span class="card-score">100</span>
-        </div>
-        <h3 class="card-title">开源的赚了钱，闭源的没服气——DeepSeek走出了全球AI第三条路</h3>
-        <p class="card-summary">DeepSeek 开源商业化成功，走出全球 AI 第三条发展路径。</p>
-        <div class="card-meta">
-            <span>📍 Tavily</span>
-            <span>📅 今日</span>
-        </div>
-        <a href="https://api.tavily.com/search" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
-    </div>
-
-    <div class="news-card">
-        <div class="card-header">
-            <span class="card-number">#12</span>
-            <span class="card-badge" style="background:linear-gradient(135deg,#374151,#4b5563);color:#fff">📰 综合资讯</span>
-            <span class="card-score">100</span>
-        </div>
-        <h3 class="card-title">国产大模型：这次剧本不一样</h3>
-        <p class="card-summary">36氪分析国产大模型发展新路径，与以往模式有本质不同。</p>
-        <div class="card-meta">
-            <span>📍 36氪 / Tavily</span>
-            <span>📅 今日</span>
-        </div>
-        <a href="https://36kr.com" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
-    </div>
-
-        </div>
-    </section>
-
-    <!-- FILTERED -->
-    <section class="filtered-section">
-        <div class="section-header" style="color:#171717;">
-            <h2 style="color:#171717;">🚫 已过滤内容</h2>
-            <div class="line" style="background:#ddd;"></div>
-        </div>
-        <div class="filtered-grid">
-            <div class="filtered-item">DeepSeek V4即将发布：万亿参数的代码"终结者"还需要什么？ <span class="reason">❌ 无法确认年份</span></div>
-            <div class="filtered-item">梁文锋启动首次外部融资；宇树H1半马被担架抬离赛道 <span class="reason">❌ 无法确认年份</span></div>
-            <div class="filtered-item">DeepSeek V4背后，梁文锋的转身 <span class="reason">❌ 无法确认年份</span></div>
-            <div class="filtered-item">谷歌跪了？400亿砸向死敌，AI御三家终结 <span class="reason">❌ 无法确认年份</span></div>
-            <div class="filtered-item">翻完DeepSeek报告，我们发现了中国AI的默契 <span class="reason">❌ 无法确认年份</span></div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
+    
     <footer class="footer">
-        <p>数据来源：量子位 · 机器之心 · InfoQ · Tavily · IMA 前沿洞察 · AI 产品官网</p>
-        <p style="margin-top:0.5rem;">Generated by <span class="accent">Hermes Agent</span> · 2026-04-27 09:16</p>
+        <p class="footer-text">
+            Generated by <strong>Hermes Agent</strong> · Data from multiple sources · Real-time verification
+        </p>
     </footer>
-
 </body>
 </html>
