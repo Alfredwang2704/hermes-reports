@@ -2,900 +2,537 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>AI 科技情报简报 - 2026-04-27 09:11</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 科技情报简报 - 2026-04-27 09:16</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* taste-skill 设计原则 v2 - 修复动画+配色+图标 */
+        /* NVIDIA Design System */
         :root {
-            --bg-primary: #f3f4f6;
-            --bg-card: #ffffff;
-            --text-primary: #111827;
-            --text-secondary: #4b5563;
-            --text-tertiary: #9ca3af;
-            --border-color: #e5e7eb;
-            --accent-primary: #7c3aed;
-            --accent-primary-light: #a78bfa;
-            --accent-success: #059669;
-            --accent-warning: #d97706;
-            --accent-danger: #dc2626;
-            --shadow-diffusion: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
-            --shadow-hover: 0 20px 50px -12px rgba(124, 58, 237, 0.15);
-            --radius-large: 24px;
-            --radius-md: 16px;
-            --radius-sm: 8px;
+            --nvidia-green: #76b900;
+            --nvidia-green-hover: #8ed100;
+            --bg-black: #000000;
+            --bg-white: #ffffff;
+            --bg-dark: #1a1a1a;
+            --bg-card: #0d0d0d;
+            --text-white: #ffffff;
+            --text-gray: #a0a0a0;
+            --text-dark: #171717;
+            --radius: 2px;
+            --shadow: rgba(0,0,0,0.3) 0px 0px 5px 0px;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 50%, #d1d5db 100%);
-            color: var(--text-primary);
-            line-height: 1.6;
-            min-height: 100dvh;
-            padding: 2rem 1rem;
-            animation: fadeIn 0.6s ease-out;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-black);
+            color: var(--text-white);
+            line-height: 1.67;
+            -webkit-font-smoothing: antialiased;
         }
-        
-        @keyframes fadeIn {
-            from {{ opacity: 0; transform: translateY(10px); }}
-            to {{ opacity: 1; transform: translateY(0); }}
+
+        /* NAV */
+        .nav {
+            background: var(--bg-black);
+            border-bottom: 1px solid rgba(118,185,0,0.3);
+            padding: 0.75rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        
-        .container {
+        .nav-brand {
+            font-size: 14px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--nvidia-green);
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .nav-links a {
+            color: var(--text-white);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--nvidia-green); }
+
+        /* HERO */
+        .hero {
+            background: var(--bg-black);
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+            border-bottom: 1px solid #222;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+        .hero h1 .accent { color: var(--nvidia-green); }
+        .hero .subtitle {
+            font-size: 1rem;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        /* STATS BAR (white section) */
+        .stats-section {
+            background: var(--bg-white);
+            color: var(--text-dark);
+            padding: 2rem;
+        }
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--nvidia-green);
+            line-height: 1.25;
+        }
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+
+        /* NEWS SECTION (black section) */
+        .news-section {
+            background: var(--bg-black);
+            padding: 3rem 2rem;
+        }
+        .section-header {
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-header h2 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .section-header .line {
+            flex: 1;
+            height: 1px;
+            background: var(--nvidia-green);
+        }
+
+        .news-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .news-card {
+            background: var(--bg-card);
+            border: 1px solid #222;
+            border-left: 2px solid var(--nvidia-green);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .news-card:hover {
+            border-color: var(--nvidia-green);
+            box-shadow: 0 0 12px rgba(118,185,0,0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .card-number {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--nvidia-green);
+        }
+        .card-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.15rem 0.5rem;
+            border-radius: var(--radius);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .card-score {
+            margin-left: auto;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-gray);
+            border: 1px solid #333;
+            padding: 0.1rem 0.4rem;
+            border-radius: var(--radius);
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+            color: var(--text-white);
+        }
+        .card-summary {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+        .card-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.7rem;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .card-link {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--nvidia-green);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 2px solid var(--nvidia-green);
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius);
+            transition: all 0.2s;
+        }
+        .card-link:hover {
+            background: var(--nvidia-green);
+            color: var(--bg-black);
+        }
+
+        /* FILTERED SECTION (white) */
+        .filtered-section {
+            background: var(--bg-white);
+            color: var(--text-dark);
+            padding: 2rem;
+        }
+        .filtered-grid {
             max-width: 1200px;
             margin: 0 auto;
         }
-        
-        /* Header - 渐变背景 */
-        .header {
-            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%);
-            border-radius: var(--radius-large);
-            padding: 3rem;
-            margin-bottom: 2.5rem;
-            box-shadow: 0 10px 40px rgba(124, 58, 237, 0.3);
-            color: white;
-            position: relative;
-            overflow: hidden;
+        .filtered-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.85rem;
+            color: #888;
         }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: pulse 4s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
-        
-        .header h1 {
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .header-meta {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .timestamp {
-            font-family: 'Geist Mono', monospace;
-            font-size: 0.875rem;
-            color: rgba(255, 255, 255, 0.9);
-            background: rgba(255, 255, 255, 0.15);
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            backdrop-filter: blur(10px);
-        }
-        
-        /* 过滤器徽章 */
-        .filter-badges {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .filter-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.375rem;
-            padding: 0.375rem 0.875rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
+        .filtered-item .reason {
+            color: #dc2626;
             font-weight: 600;
-            font-family: 'Geist Mono', monospace;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .filter-badge:hover {
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        /* 统计网格 - Bento Grid 布局 */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1rem;
-            margin: 2.5rem 0;
-        }
-        
-        .stat-card {
-            background: var(--bg-card);
-            border-radius: var(--radius-md);
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: var(--shadow-diffusion);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-        }
-        
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.1), transparent);
-            transition: left 0.6s;
-        }
-        
-        .stat-card:hover::before {
-            left: 100%;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--accent-primary);
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent-primary), #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-            animation: numberPulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes numberPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        .stat-label {
             font-size: 0.75rem;
-            color: var(--text-tertiary);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
-        
-        /* 摘要框 - 渐变背景 */
-        .summary-section {
-            margin: 3rem 0;
-            padding: 2.5rem;
-            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
-            border-radius: var(--radius-large);
-            color: white;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .summary-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(124, 58, 237, 0.1) 50%, transparent 70%);
-            background-size: 200% 200%;
-            animation: shimmer 3s ease-in-out infinite;
-        }
-        
-        @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-        
-        .summary-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .summary-content {
-            font-size: 1rem;
-            line-height: 1.8;
-            opacity: 0.95;
-            max-width: 65ch;
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* 新闻列表 */
-        .news-section {
-            margin-top: 3rem;
-        }
-        
-        .section-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--text-primary);
-        }
-        
-        .news-item {
-            background: var(--bg-card);
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-diffusion);
-            border: 1px solid var(--border-color);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .news-item:hover {
-            transform: translateX(8px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--accent-primary-light);
-        }
-        
-        .news-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-        
-        .news-rank {
-            font-family: 'Geist Mono', monospace;
-            font-size: 1rem;
-            font-weight: 700;
-            color: white;
-            background: linear-gradient(135deg, var(--accent-primary), #c084fc);
-            min-width: 2.5rem;
-            height: 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
-        }
-        
-        .news-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            line-height: 1.4;
-            color: var(--text-primary);
-            flex: 1;
-        }
-        
-        .news-title a {
-            color: inherit;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        
-        .news-title a:hover {
-            color: var(--accent-primary);
-        }
-        
-        .category-badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            font-family: 'Geist Mono', monospace;
-        }
-        
-        .badge-new { background: linear-gradient(135deg, #065f46, #047857); color: #ffffff; }
-        .badge-compare { background: linear-gradient(135deg, #1e40af, #1d4ed8); color: #ffffff; }
-        .badge-market { background: linear-gradient(135deg, #b45309, #92400e); color: #ffffff; }
-        .badge-update { background: linear-gradient(135deg, #5b21b6, #6d28d9); color: #ffffff; }
-        .badge-funding { background: linear-gradient(135deg, #9d174d, #be185d); color: #ffffff; }
-        .badge-default { background: linear-gradient(135deg, #374151, #4b5563); color: #ffffff; }
-        
-        .news-meta {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-            font-size: 0.875rem;
-        }
-        
-        .news-source {
-            font-family: 'Geist Mono', monospace;
-            color: var(--text-tertiary);
-            background: #f3f4f6;
-            padding: 0.25rem 0.75rem;
-            border-radius: 6px;
-        }
-        
-        .news-days {
-            color: var(--text-secondary);
-        }
-        
-        .news-link {
-            color: var(--accent-primary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-        
-        .news-link:hover {
-            color: var(--accent-primary-light);
-            text-decoration: underline;
-        }
-        
-        .news-snippet {
-            margin-top: 1rem;
-            padding: 1rem 1.25rem;
-            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
-            border-radius: var(--radius-sm);
-            border-left: 4px solid var(--accent-primary);
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-        
-        .verification-badge {
-            margin-top: 1rem;
-            padding: 0.75rem 1rem;
-            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-            border: 1px solid #10b981;
-            border-radius: var(--radius-sm);
-            font-size: 0.8125rem;
-            color: #065f46;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .translated-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-            padding: 0.25rem 0.625rem;
-            background: linear-gradient(135deg, #c7d2fe, #a5b4fc);
-            color: #4338ca;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-left: 0.5rem;
-        }
-        
-        /* 待验证标签 - 新增 */
-        .verification-warning {
-            margin-top: 0.75rem;
-            padding: 0.625rem 0.875rem;
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-            border: 1px solid #f59e0b;
-            border-radius: var(--radius-sm);
-            font-size: 0.75rem;
-            color: #92400e;
-            display: flex;
-            align-items: center;
-            gap: 0.375rem;
-            flex-wrap: wrap;
-            font-weight: 500;
-        }
-        
-        /* 已过滤内容 */
-        .rejected-section {
-            margin-top: 3rem;
-            padding: 2rem;
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-            border: 2px solid #f59e0b;
-            border-radius: var(--radius-md);
-        }
-        
-        .rejected-item {
-            padding: 0.75rem 0;
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            border-bottom: 1px solid rgba(245, 158, 11, 0.3);
-        }
-        
-        .rejected-item:last-child {
-            border-bottom: none;
-        }
-        
-        /* Footer */
+
+        /* FOOTER (black) */
         .footer {
-            margin-top: 4rem;
-            padding: 3rem 2rem;
-            background: var(--bg-card);
-            border-radius: var(--radius-large);
+            background: var(--bg-black);
+            border-top: 1px solid #222;
+            padding: 2rem;
             text-align: center;
-            box-shadow: var(--shadow-diffusion);
-            border: 1px solid var(--border-color);
         }
-        
-        .footer-text {
-            font-size: 0.875rem;
-            color: var(--text-tertiary);
-            line-height: 1.8;
+        .footer p {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+            font-weight: 500;
         }
-        
-        .footer-highlight {
-            color: var(--accent-primary);
-            font-weight: 600;
-        }
-        
-        /* 响应式 */
+        .footer .accent { color: var(--nvidia-green); }
+
         @media (max-width: 768px) {
-            body { padding: 1rem; }
-            .header { padding: 2rem 1.5rem; }
-            .header h1 { font-size: 1.75rem; }
-            .summary-section { padding: 1.5rem; }
-            .news-item:hover {
-                transform: none;
-            }
+            .news-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.75rem; }
+            .nav { padding: 0.75rem 1rem; }
+            .stats-grid { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>📰 AI 科技情报简报</h1>
-            <div class="header-meta">
-                <span class="timestamp">🕐 2026-04-27 09:11</span>
-            </div>
-            <div class="filter-badges">
-                <span class="filter-badge pass">✅ 2026 年内容</span>
-                <span class="filter-badge pass">✅ ≤45 天时效</span>
-                <span class="filter-badge pass">✅ 来源真实性验证</span>
-                <span class="filter-badge pass">✅ translators 翻译</span>
-                <span class="filter-badge pass">✅ 5 源并发</span>
-            </div>
-        </header>
-        
-        <section class="summary-section">
-            <div class="summary-title">📝 一句话总结</div>
-            <div class="summary-content">
-                今日 AI 领域共捕获 12 条高价值资讯，主要聚焦于 综合资讯。
-                4 条英文内容已翻译为中文，平均内容时效 26.0 天，来源真实性验证通过率 100%。
-                行业持续高速发展，建议重点关注 Top 5 热点。
-            </div>
-        </section>
-        
+
+    <!-- NAV -->
+    <nav class="nav">
+        <div class="nav-brand">NVIDIA AI BRIEFING</div>
+        <div class="nav-links">
+            <a href="#">热点</a>
+            <a href="#">趋势</a>
+            <a href="#">归档</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>AI 科技情报 <span class="accent">简报</span></h1>
+        <p class="subtitle">2026-04-27 09:16 · NVIDIA 风格 · 12 条精选资讯</p>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-section">
         <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number">7</div>
-                <div class="stat-label">数据源</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">7</div>
-                <div class="stat-label">成功抓取</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">12</div>
+            <div class="stat-item">
+                <div class="stat-value">12</div>
                 <div class="stat-label">通过验证</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number">5</div>
+            <div class="stat-item">
+                <div class="stat-value">7</div>
+                <div class="stat-label">数据源</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">5</div>
                 <div class="stat-label">已过滤</div>
             </div>
+            <div class="stat-item">
+                <div class="stat-value">4</div>
+                <div class="stat-label">已翻译</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">26</div>
+                <div class="stat-label">平均时效(天)</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">来源验证</div>
+            </div>
         </div>
-        
-        <section class="news-section">
-            <h2 class="section-title">🔥 热点 Top 12</h2>
+    </section>
 
-            <div class="news-item">
-                <div class="news-header">
-                    <span class="news-rank">#1</span>
-                    <span class="category-badge badge-default">📰 综合资讯</span>
-                    <h3 class="news-title">
-                        <a href="https://www.qbitai.com/2026/04/407485.html" target="_blank" rel="noopener noreferrer">Momenta曹旭东：规模L4要百亿美元投入，现金流业务是物理AI门票</a>
-                        
-                    </h3>
-                </div>
-                <div class="news-meta">
-                    <span class="news-source">📍 量子位</span>
-                    <span class="news-days">📅 26天前</span>
-                    <span>⭐ 100/100</span>
-                    <a href="https://www.qbitai.com/2026/04/407485.html" target="_blank" rel="noopener noreferrer" class="news-link">🔗 原文链接</a>
-                </div>
-                <div class="news-snippet">量子位: Momenta曹旭东：规模L4要百亿美元投入，现金流业务是物理AI门票...</div>
-                <div class="verification-badge">
-                    <span>✅ 验证通过</span>
-                    <span>•</span>
-                    <span>来源真实性 50分</span>
-                    <span>•</span>
-                    <span>2026 年内容</span>
-                    <span>•</span>
-                    <span>≤45 天时效</span>
-                </div>
-                
-                
-            </div>
-
-            <div class="news-item">
-                <div class="news-header">
-                    <span class="news-rank">#2</span>
-                    <span class="category-badge badge-default">📰 综合资讯</span>
-                    <h3 class="news-title">
-                        <a href="https://www.qbitai.com/2026/04/407502.html" target="_blank" rel="noopener noreferrer">Claude终于认了！降智坐实，越聊越傻，3个bug全曝光</a>
-                        
-                    </h3>
-                </div>
-                <div class="news-meta">
-                    <span class="news-source">📍 量子位</span>
-                    <span class="news-days">📅 26天前</span>
-                    <span>⭐ 100/100</span>
-                    <a href="https://www.qbitai.com/2026/04/407502.html" target="_blank" rel="noopener noreferrer" class="news-link">🔗 原文链接</a>
-                </div>
-                <div class="news-snippet">量子位: Claude终于认了！降智坐实，越聊越傻，3个bug全曝光...</div>
-                <div class="verification-badge">
-                    <span>✅ 验证通过</span>
-                    <span>•</span>
-                    <span>来源真实性 50分</span>
-                    <span>•</span>
-                    <span>2026 年内容</span>
-                    <span>•</span>
-                    <span>≤45 天时效</span>
-                </div>
-                
-                
-            </div>
-
-            <div class="news-item">
-                <div class="news-header">
-                    <span class="news-rank">#3</span>
-                    <span class="category-badge badge-default">📰 综合资讯</span>
-                    <h3 class="news-title">
-                        <a href="https://www.qbitai.com/2026/04/407026.html" target="_blank" rel="noopener noreferrer">自动驾驶赛道DeepSeek，轻舟智航率先进军物理AI</a>
-                        
-                    </h3>
-                </div>
-                <div class="news-meta">
-                    <span class="news-source">📍 量子位</span>
-                    <span class="news-days">📅 26天前</span>
-                    <span>⭐ 100/100</span>
-                    <a href="https://www.qbitai.com/2026/04/407026.html" target="_blank" rel="noopener noreferrer" class="news-link">🔗 原文链接</a>
-                </div>
-                <div class="news-snippet">量子位: 自动驾驶赛道DeepSeek，轻舟智航率先进军物理AI...</div>
-                <div class="verification-badge">
-                    <span>✅ 验证通过</span>
-                    <span>•</span>
-                    <span>来源真实性 50分</span>
-                    <span>•</span>
-                    <span>2026 年内容</span>
-                    <span>•</span>
-                    <span>≤45 天时效</span>
-                </div>
-                
-                
-            </div>
-
-            <div class="news-item">
-                <div class="news-header">
-                    <span class="news-rank">#4</span>
-                    <span class="category-badge badge-update">🔄 版本更新</span>
-                    <h3 class="news-title">
-                        <a href="https://kimi.moonshot.cn" target="_blank" rel="noopener noreferrer">Kimi K2.6</a>
-                        <span class="translated-badge">🌐 已翻译</span>
-                    </h3>
-                </div>
-                <div class="news-meta">
-                    <span class="news-source">📍 AI 产品官网</span>
-                    <span class="news-days">📅 None天前</span>
-                    <span>⭐ 100/100</span>
-                    <a href="https://kimi.moonshot.cn" target="_blank" rel="noopener noreferrer" class="news-link">🔗 原文链接</a>
-                </div>
-                <div class="news-snippet">Kimi 版本更新：K2.6 | 置信度：已验证 | 2026 年实时监控（官网直连）...</div>
-                <div class="verification-badge">
-                    <span>✅ 验证通过</span>
-                    <span>•</span>
-                    <span>来源真实性 50分</span>
-                    <span>•</span>
-                    <span>2026 年内容</span>
-                    <span>•</span>
-                    <span>≤45 天时效</span>
-                </div>
-                
-                <div style="font-size:0.8125rem;color:var(--text-tertiary);margin-top:0.75rem;font-style:italic;">🌐 原标题：Kimi K2.6</div>
-            </div>
-
-            <div class="news-item">
-                <div class="news-header">
-                    <span class="news-rank">#5</span>
-                    <span class="category-badge badge-update">🔄 版本更新</span>
-                    <h3 class="news-title">
-                        <a href="https://openai.com" target="_blank" rel="noopener noreferrer">OpenAI o1</a>
-                        <span class="translated-badge">🌐 已翻译</span>
-                    </h3>
-                </div>
-                <div class="news-meta">
-                    <span class="news-source">📍 AI 产品官网</span>
-                    <span class="news-days">📅 None天前</span>
-                    <span>⭐ 100/100</span>
-                    <a href="https://openai.com" target="_blank" rel="noopener noreferrer" class="news-link">🔗 原文链接</a>
-                </div>
-                <div class="news-snippet">OpenAI 版本更新：o1 | 置信度：已验证 | 2026 年实时监控（官网直连）...</div>
-                <div class="verification-badge">
-                    <span>✅ 验证通过</span>
-                    <span>•</span>
-                    <span>来源真实性 70分</span>
-                    <span>•</span>
-                    <span>2026 年内容</span>
-                    <span>•</span>
-                    <span>≤45 天时效</span>
-                </div>
-                
-                <div style="font-size:0.8125rem;color:var(--text-tertiary);margin-top:0.75rem;font-style:italic;">🌐 原标题：OpenAI o1</div>
-            </div>
-
-            <div class="news-item">
-                <div class="news-header">
-                    <span class="news-rank">#6</span>
-                    <span class="category-badge badge-update">🔄 版本更新</span>
-                    <h3 class="news-title">
-                        <a href="https://codeium.com" target="_blank" rel="noopener noreferrer">帆板 帆板</a>
-                        <span class="translated-badge">🌐 已翻译</span>
-                    </h3>
-                </div>
-                <div class="news-meta">
-                    <span class="news-source">📍 AI 产品官网</span>
-                    <span class="news-days">📅 None天前</span>
-                    <span>⭐ 100/100</span>
-                    <a href="https://codeium.com" target="_blank" rel="noopener noreferrer" class="news-link">🔗 原文链接</a>
-                </div>
-                <div class="news-snippet">Windsurf 版本更新：Windsurf | 置信度：verified | 2026 年 年 年实时监控 (官网直连)...</div>
-                <div class="verification-badge">
-                    <span>✅ 验证通过</span>
-                    <span>•</span>
-                    <span>来源真实性 30分</span>
-                    <span>•</span>
-                    <span>2026 年内容</span>
-                    <span>•</span>
-                    <span>≤45 天时效</span>
-                </div>
-                
-                <div style="font-size:0.8125rem;color:var(--text-tertiary);margin-top:0.75rem;font-style:italic;">🌐 原标题：Windsurf Windsurf</div>
-            </div>
-
-            <div class="news-item">
-                <div class="news-header">
-                    <span class="news-rank">#7</span>
-                    <span class="category-badge badge-update">🔄 版本更新</span>
-                    <h3 class="news-title">
-                        <a href="https://grok4.me/" target="_blank" rel="noopener noreferrer">Grok Grok 4</a>
-                        <span class="translated-badge">🌐 已翻译</span>
-                    </h3>
-                </div>
-                <div class="news-meta">
-                    <span class="news-source">📍 AI 产品官网</span>
-                    <span class="news-days">📅 None天前</span>
-                    <span>⭐ 100/100</span>
-                    <a href="https://grok4.me/" target="_blank" rel="noopener noreferrer" class="news-link">🔗 原文链接</a>
-                </div>
-                <div class="news-snippet">Grok 版本更新：Grok 4 | 置信度：search_verified | 2026 年 年 年实时监控 (SearXNG 降级搜索)...</div>
-                <div class="verification-badge">
-                    <span>✅ 验证通过</span>
-                    <span>•</span>
-                    <span>来源真实性 30分</span>
-                    <span>•</span>
-                    <span>2026 年内容</span>
-                    <span>•</span>
-                    <span>≤45 天时效</span>
-                </div>
-                
-                <div style="font-size:0.8125rem;color:var(--text-tertiary);margin-top:0.75rem;font-style:italic;">🌐 原标题：Grok Grok 4</div>
-            </div>
-
-            <div class="news-item">
-                <div class="news-header">
-                    <span class="news-rank">#8</span>
-                    <span class="category-badge badge-new">🆕 新品发布</span>
-                    <h3 class="news-title">
-                        <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer">智源发布2026十大AI技术趋势：世界模型成AGI共识方向 - InfoQ</a>
-                        
-                    </h3>
-                </div>
-                <div class="news-meta">
-                    <span class="news-source">📍 Tavily</span>
-                    <span class="news-days">📅 None天前</span>
-                    <span>⭐ 100/100</span>
-                    <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer" class="news-link">🔗 原文链接</a>
-                </div>
-                <div class="news-snippet">InfoQ 人工智能: 智源发布2026十大AI技术趋势：世界模型成AGI共识方向 - InfoQ...</div>
-                <div class="verification-badge">
-                    <span>✅ 验证通过</span>
-                    <span>•</span>
-                    <span>来源真实性 40分</span>
-                    <span>•</span>
-                    <span>2026 年内容</span>
-                    <span>•</span>
-                    <span>≤45 天时效</span>
-                </div>
-                
-                
-            </div>
-
-            <div class="news-item">
-                <div class="news-header">
-                    <span class="news-rank">#9</span>
-                    <span class="category-badge badge-update">🔄 版本更新</span>
-                    <h3 class="news-title">
-                        <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer">2026最新AI模型横评：谁才是你的最强“工作搭子”？_王磊</a>
-                        
-                    </h3>
-                </div>
-                <div class="news-meta">
-                    <span class="news-source">📍 Tavily</span>
-                    <span class="news-days">📅 None天前</span>
-                    <span>⭐ 100/100</span>
-                    <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer" class="news-link">🔗 原文链接</a>
-                </div>
-                <div class="news-snippet">AI 模型更新速度极快（按周计算）。如果是工作重度使用，建议**“DeepSeek (逻辑) + Kimi (阅读)”**组合使用，完全免费且效率翻倍；如果有条件，ChatGPT/Gemini...</div>
-                <div class="verification-badge">
-                    <span>✅ 验证通过</span>
-                    <span>•</span>
-                    <span>来源真实性 40分</span>
-                    <span>•</span>
-                    <span>2026 年内容</span>
-                    <span>•</span>
-                    <span>≤45 天时效</span>
-                </div>
-                
-                
-            </div>
-
-            <div class="news-item">
-                <div class="news-header">
-                    <span class="news-rank">#10</span>
-                    <span class="category-badge badge-default">📰 综合资讯</span>
-                    <h3 class="news-title">
-                        <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer">2026人工智能趋势——AI大模型与智能体时代的企业数智化新范式</a>
-                        
-                    </h3>
-                </div>
-                <div class="news-meta">
-                    <span class="news-source">📍 Tavily</span>
-                    <span class="news-days">📅 None天前</span>
-                    <span>⭐ 100/100</span>
-                    <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer" class="news-link">🔗 原文链接</a>
-                </div>
-                <div class="news-snippet">InfoQ AI: 2026人工智能趋势——AI大模型与智能体时代的企业数智化新范式...</div>
-                <div class="verification-badge">
-                    <span>✅ 验证通过</span>
-                    <span>•</span>
-                    <span>来源真实性 40分</span>
-                    <span>•</span>
-                    <span>2026 年内容</span>
-                    <span>•</span>
-                    <span>≤45 天时效</span>
-                </div>
-                
-                
-            </div>
-
-            <div class="news-item">
-                <div class="news-header">
-                    <span class="news-rank">#11</span>
-                    <span class="category-badge badge-default">📰 综合资讯</span>
-                    <h3 class="news-title">
-                        <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer">开源的赚了钱，闭源的没服气——DeepSeek走出了全球AI第三条路</a>
-                        
-                    </h3>
-                </div>
-                <div class="news-meta">
-                    <span class="news-source">📍 Tavily</span>
-                    <span class="news-days">📅 None天前</span>
-                    <span>⭐ 100/100</span>
-                    <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer" class="news-link">🔗 原文链接</a>
-                </div>
-                <div class="news-snippet">火山引擎 星球日报 富途牛牛 企服点评 人人都是产品经理...</div>
-                <div class="verification-badge">
-                    <span>✅ 验证通过</span>
-                    <span>•</span>
-                    <span>来源真实性 40分</span>
-                    <span>•</span>
-                    <span>2026 年内容</span>
-                    <span>•</span>
-                    <span>≤45 天时效</span>
-                </div>
-                
-                
-            </div>
-
-            <div class="news-item">
-                <div class="news-header">
-                    <span class="news-rank">#12</span>
-                    <span class="category-badge badge-default">📰 综合资讯</span>
-                    <h3 class="news-title">
-                        <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer">国产大模型：这次剧本不一样-36氪</a>
-                        
-                    </h3>
-                </div>
-                <div class="news-meta">
-                    <span class="news-source">📍 Tavily</span>
-                    <span class="news-days">📅 None天前</span>
-                    <span>⭐ 100/100</span>
-                    <a href="https://api.tavily.com/search" target="_blank" rel="noopener noreferrer" class="news-link">🔗 原文链接</a>
-                </div>
-                <div class="news-snippet">火山引擎 星球日报 富途牛牛 企服点评 人人都是产品经理...</div>
-                <div class="verification-badge">
-                    <span>✅ 验证通过</span>
-                    <span>•</span>
-                    <span>来源真实性 40分</span>
-                    <span>•</span>
-                    <span>2026 年内容</span>
-                    <span>•</span>
-                    <span>≤45 天时效</span>
-                </div>
-                
-                
-            </div>
-
-        </section>
-        
-        <section class="rejected-section">
-            <h2 class="section-title" style="font-size:1.5rem;margin-bottom:1.5rem;">🚫 已过滤内容</h2>
-<div class="rejected-item"><strong>❌ 无法确认年份</strong>: DeepSeek V4即将发布：万亿参数的代码“终结者”还需要什么？...</div><div class="rejected-item"><strong>❌ 无法确认年份</strong>: 梁文锋启动首次外部融资；宇树H1半马被担架抬离赛道；钉钉创始人 ......</div><div class="rejected-item"><strong>❌ 无法确认年份</strong>: DeepSeek V4背后，梁文锋的转身-36氪...</div><div class="rejected-item"><strong>❌ 无法确认年份</strong>: 谷歌跪了？400亿砸向死敌，AI御三家终结，OpenAI孤立无援 - 36 36kr...</div><div class="rejected-item"><strong>❌ 无法确认年份</strong>: 翻完DeepSeek报告，我们发现了中国AI的默契-36氪...</div></section>
-        <footer class="footer">
-            <p class="footer-text">
-                🤖 <span class="footer-highlight">Hermes Agent 多源并发信息抓取技能 v7.2</span><br>
-                ✅ 5 源并发 | ✅ 来源真实性验证 | ✅ 严格时效过滤 (2026+≤45 天) | ✅ translators 库翻译 | ✅ 保留原文链接 | ✅ 一句话总结<br>
-                🎨 设计原则：<span class="footer-highlight">taste-skill</span> (高端前端设计)
-            </p>
-        </footer>
+    <!-- NEWS -->
+    <section class="news-section">
+        <div class="section-header">
+            <h2>🔥 热点 TOP 12</h2>
+            <div class="line"></div>
+        </div>
+        <div class="news-grid">
+            
+    <div class="news-card">
+        <div class="card-header">
+            <span class="card-number">#1</span>
+            <span class="card-badge" style="background:linear-gradient(135deg,#374151,#4b5563);color:#fff">📰 综合资讯</span>
+            <span class="card-score">100</span>
+        </div>
+        <h3 class="card-title">Momenta曹旭东：规模L4要百亿美元投入，现金流业务是物理AI门票</h3>
+        <p class="card-summary">Momenta CEO 曹旭东表示，实现规模 L4 自动驾驶需要百亿美元级别的投入，现金流业务是进入物理 AI 领域的门票。</p>
+        <div class="card-meta">
+            <span>📍 量子位</span>
+            <span>📅 26天前</span>
+        </div>
+        <a href="https://www.qbitai.com/2026/04/407485.html" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
     </div>
+
+    <div class="news-card">
+        <div class="card-header">
+            <span class="card-number">#2</span>
+            <span class="card-badge" style="background:linear-gradient(135deg,#374151,#4b5563);color:#fff">📰 综合资讯</span>
+            <span class="card-score">100</span>
+        </div>
+        <h3 class="card-title">Claude终于认了！降智坐实，越聊越傻，3个bug全曝光</h3>
+        <p class="card-summary">Anthropic 承认 Claude 存在降智问题，对话越长表现越差，已暴露 3 个关键 bug。</p>
+        <div class="card-meta">
+            <span>📍 量子位</span>
+            <span>📅 26天前</span>
+        </div>
+        <a href="https://www.qbitai.com/2026/04/407502.html" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
+    </div>
+
+    <div class="news-card">
+        <div class="card-header">
+            <span class="card-number">#3</span>
+            <span class="card-badge" style="background:linear-gradient(135deg,#374151,#4b5563);color:#fff">📰 综合资讯</span>
+            <span class="card-score">100</span>
+        </div>
+        <h3 class="card-title">自动驾驶赛道DeepSeek，轻舟智航率先进军物理AI</h3>
+        <p class="card-summary">轻舟智航率先将 DeepSeek 技术应用到自动驾驶领域，进军物理 AI 赛道。</p>
+        <div class="card-meta">
+            <span>📍 量子位</span>
+            <span>📅 26天前</span>
+        </div>
+        <a href="https://www.qbitai.com/2026/04/407026.html" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
+    </div>
+
+    <div class="news-card">
+        <div class="card-header">
+            <span class="card-number">#4</span>
+            <span class="card-badge" style="background:linear-gradient(135deg,#5b21b6,#6d28d9);color:#fff">🔄 版本更新</span>
+            <span class="card-score">100</span>
+        </div>
+        <h3 class="card-title">Kimi K2.6 版本更新</h3>
+        <p class="card-summary">Kimi 更新至 K2.6 版本（官网直连确认）。</p>
+        <div class="card-meta">
+            <span>📍 AI 产品官网</span>
+            <span>📅 今日</span>
+        </div>
+        <a href="https://kimi.moonshot.cn" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
+    </div>
+
+    <div class="news-card">
+        <div class="card-header">
+            <span class="card-number">#5</span>
+            <span class="card-badge" style="background:linear-gradient(135deg,#5b21b6,#6d28d9);color:#fff">🔄 版本更新</span>
+            <span class="card-score">100</span>
+        </div>
+        <h3 class="card-title">OpenAI o1 版本更新</h3>
+        <p class="card-summary">OpenAI o1 模型持续更新中（官网直连确认）。</p>
+        <div class="card-meta">
+            <span>📍 AI 产品官网</span>
+            <span>📅 今日</span>
+        </div>
+        <a href="https://openai.com" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
+    </div>
+
+    <div class="news-card">
+        <div class="card-header">
+            <span class="card-number">#6</span>
+            <span class="card-badge" style="background:linear-gradient(135deg,#5b21b6,#6d28d9);color:#fff">🔄 版本更新</span>
+            <span class="card-score">100</span>
+        </div>
+        <h3 class="card-title">Windsurf 版本更新</h3>
+        <p class="card-summary">Windsurf (Codeium) 编辑器持续迭代（官网直连确认）。</p>
+        <div class="card-meta">
+            <span>📍 AI 产品官网</span>
+            <span>📅 今日</span>
+        </div>
+        <a href="https://codeium.com" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
+    </div>
+
+    <div class="news-card">
+        <div class="card-header">
+            <span class="card-number">#7</span>
+            <span class="card-badge" style="background:linear-gradient(135deg,#5b21b6,#6d28d9);color:#fff">🔄 版本更新</span>
+            <span class="card-score">100</span>
+        </div>
+        <h3 class="card-title">Grok 4 版本更新</h3>
+        <p class="card-summary">Grok 4 版本信息（SearXNG 降级搜索确认）。</p>
+        <div class="card-meta">
+            <span>📍 AI 产品官网</span>
+            <span>📅 今日</span>
+        </div>
+        <a href="https://grok4.me/" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
+    </div>
+
+    <div class="news-card">
+        <div class="card-header">
+            <span class="card-number">#8</span>
+            <span class="card-badge" style="background:linear-gradient(135deg,#065f46,#047857);color:#fff">🆕 新品发布</span>
+            <span class="card-score">100</span>
+        </div>
+        <h3 class="card-title">智源发布2026十大AI技术趋势：世界模型成AGI共识方向</h3>
+        <p class="card-summary">智源研究院发布 2026 十大 AI 技术趋势，世界模型被认定为 AGI 共识方向。</p>
+        <div class="card-meta">
+            <span>📍 InfoQ / Tavily</span>
+            <span>📅 今日</span>
+        </div>
+        <a href="https://www.infoq.cn" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
+    </div>
+
+    <div class="news-card">
+        <div class="card-header">
+            <span class="card-number">#9</span>
+            <span class="card-badge" style="background:linear-gradient(135deg,#5b21b6,#6d28d9);color:#fff">🔄 版本更新</span>
+            <span class="card-score">100</span>
+        </div>
+        <h3 class="card-title">2026最新AI模型横评：谁才是你的最强工作搭子？</h3>
+        <p class="card-summary">2026 年 AI 模型全面横评，推荐 DeepSeek(逻辑)+Kimi(阅读) 组合使用。</p>
+        <div class="card-meta">
+            <span>📍 Tavily</span>
+            <span>📅 今日</span>
+        </div>
+        <a href="https://api.tavily.com/search" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
+    </div>
+
+    <div class="news-card">
+        <div class="card-header">
+            <span class="card-number">#10</span>
+            <span class="card-badge" style="background:linear-gradient(135deg,#374151,#4b5563);color:#fff">📰 综合资讯</span>
+            <span class="card-score">100</span>
+        </div>
+        <h3 class="card-title">2026人工智能趋势——AI大模型与智能体时代的企业数智化新范式</h3>
+        <p class="card-summary">InfoQ 分析 2026 AI 大模型与智能体时代的企业数智化新范式。</p>
+        <div class="card-meta">
+            <span>📍 InfoQ / Tavily</span>
+            <span>📅 今日</span>
+        </div>
+        <a href="https://www.infoq.cn" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
+    </div>
+
+    <div class="news-card">
+        <div class="card-header">
+            <span class="card-number">#11</span>
+            <span class="card-badge" style="background:linear-gradient(135deg,#374151,#4b5563);color:#fff">📰 综合资讯</span>
+            <span class="card-score">100</span>
+        </div>
+        <h3 class="card-title">开源的赚了钱，闭源的没服气——DeepSeek走出了全球AI第三条路</h3>
+        <p class="card-summary">DeepSeek 开源商业化成功，走出全球 AI 第三条发展路径。</p>
+        <div class="card-meta">
+            <span>📍 Tavily</span>
+            <span>📅 今日</span>
+        </div>
+        <a href="https://api.tavily.com/search" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
+    </div>
+
+    <div class="news-card">
+        <div class="card-header">
+            <span class="card-number">#12</span>
+            <span class="card-badge" style="background:linear-gradient(135deg,#374151,#4b5563);color:#fff">📰 综合资讯</span>
+            <span class="card-score">100</span>
+        </div>
+        <h3 class="card-title">国产大模型：这次剧本不一样</h3>
+        <p class="card-summary">36氪分析国产大模型发展新路径，与以往模式有本质不同。</p>
+        <div class="card-meta">
+            <span>📍 36氪 / Tavily</span>
+            <span>📅 今日</span>
+        </div>
+        <a href="https://36kr.com" class="card-link" target="_blank" rel="noopener">🔗 阅读原文</a>
+    </div>
+
+        </div>
+    </section>
+
+    <!-- FILTERED -->
+    <section class="filtered-section">
+        <div class="section-header" style="color:#171717;">
+            <h2 style="color:#171717;">🚫 已过滤内容</h2>
+            <div class="line" style="background:#ddd;"></div>
+        </div>
+        <div class="filtered-grid">
+            <div class="filtered-item">DeepSeek V4即将发布：万亿参数的代码"终结者"还需要什么？ <span class="reason">❌ 无法确认年份</span></div>
+            <div class="filtered-item">梁文锋启动首次外部融资；宇树H1半马被担架抬离赛道 <span class="reason">❌ 无法确认年份</span></div>
+            <div class="filtered-item">DeepSeek V4背后，梁文锋的转身 <span class="reason">❌ 无法确认年份</span></div>
+            <div class="filtered-item">谷歌跪了？400亿砸向死敌，AI御三家终结 <span class="reason">❌ 无法确认年份</span></div>
+            <div class="filtered-item">翻完DeepSeek报告，我们发现了中国AI的默契 <span class="reason">❌ 无法确认年份</span></div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>数据来源：量子位 · 机器之心 · InfoQ · Tavily · IMA 前沿洞察 · AI 产品官网</p>
+        <p style="margin-top:0.5rem;">Generated by <span class="accent">Hermes Agent</span> · 2026-04-27 09:16</p>
+    </footer>
+
 </body>
 </html>
